@@ -1,0 +1,4682 @@
+{
+ "_about": "data/round-data.json: what the difficulty code needs to know about each round.",
+ "rounds": {
+  "Adv_00_010": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 2,
+   "level": 16
+  },
+  "Adv_00_020": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Adv_00_030": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Beg_00_010": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Beg_00_020": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Beg_00_030": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "CORLA_01_010": {
+   "specs": [
+    "EN2218_00_Beachplug_StandardEnd2",
+    "EN2220_00_NeedleKiss_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 31
+  },
+  "CORLA_01_020": {
+   "specs": [
+    "EN1001_00_Sweeper_Standard"
+   ],
+   "enemies": 2,
+   "level": 31
+  },
+  "CORLA_01_030": {
+   "specs": [
+    "EN2218_01_Beachplug_RareEnd2",
+    "EN2220_01_NeedleKiss_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 31
+  },
+  "CORLA_02_010": {
+   "specs": [
+    "EN2227_00_LandWorm_StandardEnd2",
+    "EN2228_00_Spencer_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 32
+  },
+  "CORLA_02_020": {
+   "specs": [
+    "EN1100_00_Bullmotor_Standard"
+   ],
+   "enemies": 2,
+   "level": 32
+  },
+  "CORLA_02_030": {
+   "specs": [
+    "EN2227_01_LandWorm_RareEnd2",
+    "EN2228_01_Spencer_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 32
+  },
+  "CORLA_03_010": {
+   "specs": [
+    "EN2004_01_ChuseTank_SeaEnd2",
+    "EN2229_00_Chimaera_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 32
+  },
+  "CORLA_03_020": {
+   "specs": [
+    "EN2015_00_Bomb_Standard"
+   ],
+   "enemies": 2,
+   "level": 32
+  },
+  "CORLA_03_030": {
+   "specs": [
+    "EN2004_02_ChuseTank_SeaRareEnd2",
+    "EN2229_01_Chimaera_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 32
+  },
+  "CORLA_05_010": {
+   "specs": [
+    "EN0000_14_SecuritySoldier_JunonVer1End2",
+    "EN0000_15_SecuritySoldier_JunonVer2End2",
+    "EN2003_02_PuzoCute_TropicalEnd2"
+   ],
+   "enemies": 4,
+   "level": 30
+  },
+  "CORLA_05_020": {
+   "specs": [
+    "EN0001_02_GrenadeSoldier_JunonEnd2",
+    "EN0002_08_ShieldSoldier_JunonVer1End2",
+    "EN0002_09_ShieldSoldier_JunonVer2End2"
+   ],
+   "enemies": 4,
+   "level": 30
+  },
+  "CORLA_05_030": {
+   "specs": [
+    "EN0001_03_GrenadeSoldier_SeniorJunonEnd2",
+    "EN3200_01_Screamer_FusionEnd2"
+   ],
+   "enemies": 3,
+   "level": 30
+  },
+  "CORLA_05_040": {
+   "specs": [
+    "EN0002_05_ShieldSoldier_FlameJunonEnd2"
+   ],
+   "enemies": 3,
+   "level": 30
+  },
+  "CORLA_05_050": {
+   "specs": [
+    "EN0000_21_SecuritySoldier_SeniorJunonVer1End2",
+    "EN0000_22_SecuritySoldier_SeniorJunonVer2End2",
+    "EN2219_00_CrownLance_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 30
+  },
+  "CORLA_06_010": {
+   "specs": [
+    "EN0009_20_CorneoLackey_GreedAEnd2",
+    "EN0009_21_CorneoLackey_GreedBEnd2",
+    "EN0009_22_CorneoLackey_GreedCEnd2",
+    "EN3000_02_MonoDrive_ScrutinEyeEnd2"
+   ],
+   "enemies": 4,
+   "level": 46
+  },
+  "CORLA_06_020": {
+   "specs": [
+    "EN2222_00_SearchCrown_StandardEnd2",
+    "EN2223_00_Bagnadrana_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 46
+  },
+  "CORLA_06_030": {
+   "specs": [
+    "EN2224_00_Cokatolis_StandardEnd2",
+    "EN3007_01_DeepGroundMonster_FusionEnd2"
+   ],
+   "enemies": 4,
+   "level": 46
+  },
+  "CORLA_06_040": {
+   "specs": [
+    "EN2005_02_HedgehogPie_CoaltarEnd2",
+    "EN2010_03_Deenglow_FlapbeatEnd2"
+   ],
+   "enemies": 3,
+   "level": 46
+  },
+  "CORLA_06_050": {
+   "specs": [
+    "EN0201_00_Goblin_StandardEnd2",
+    "EN2225_01_DeathClaw_SubspeciesEnd2"
+   ],
+   "enemies": 3,
+   "level": 46
+  },
+  "CORLA_07_050": {
+   "specs": [
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 0
+  },
+  "COSMA_01_010": {
+   "specs": [
+    "EN2238_00_Skeeskee_StandardEnd2",
+    "EN2241_00_Bagrisk_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 39
+  },
+  "COSMA_01_020": {
+   "specs": [
+    "EN2015_05_Bomb_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 39
+  },
+  "COSMA_01_030": {
+   "specs": [
+    "EN2238_01_Skeeskee_RareEnd2",
+    "EN2241_01_Bagrisk_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 39
+  },
+  "COSMA_02_010": {
+   "specs": [
+    "EN2214_00_Capparwire_StandardEnd2",
+    "EN2240_00_Golem_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 40
+  },
+  "COSMA_02_020": {
+   "specs": [
+    "EN2259_00_Cactuar_Standard"
+   ],
+   "enemies": 3,
+   "level": 40
+  },
+  "COSMA_02_030": {
+   "specs": [
+    "EN2214_01_Capparwire_RareEnd2",
+    "EN2240_01_Golem_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 40
+  },
+  "COSMA_03_010": {
+   "specs": [
+    "EN2009_02_Sahagin_DesertEnd2",
+    "EN2239_00_Griffin_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 40
+  },
+  "COSMA_03_020": {
+   "specs": [
+    "EN2008_01_Ceasar_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 40
+  },
+  "COSMA_03_030": {
+   "specs": [
+    "EN2009_03_Sahagin_DesertRareEnd2",
+    "EN2239_01_Griffin_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 40
+  },
+  "COSMA_05_010": {
+   "specs": [
+    "EN0000_10_SecuritySoldier_StandardVer1End2",
+    "EN0000_11_SecuritySoldier_StandardVer2End2",
+    "EN0002_06_ShieldSoldier_StandardVer1End2",
+    "EN0002_07_ShieldSoldier_StandardVer2End2"
+   ],
+   "enemies": 4,
+   "level": 39
+  },
+  "COSMA_05_020": {
+   "specs": [
+    "EN0001_00_GrenadeSoldier_Standard",
+    "EN0001_06_GrenadeSoldier_StandardVer1End2",
+    "EN1008_00_StunRay_Standard"
+   ],
+   "enemies": 4,
+   "level": 39
+  },
+  "COSMA_05_030": {
+   "specs": [
+    "EN2003_04_PuzoCute_BloatfloatEnd2",
+    "EN2259_01_Cactuar_SapoEnd2"
+   ],
+   "enemies": 3,
+   "level": 39
+  },
+  "COSMA_05_040": {
+   "specs": [
+    "EN0000_01_SecuritySoldier_Senior",
+    "EN0000_13_SecuritySoldier_SeniorVer2End2",
+    "EN0001_01_GrenadeSoldier_Senior",
+    "EN0001_05_GrenadeSoldier_SeniorVer2End2"
+   ],
+   "enemies": 4,
+   "level": 39
+  },
+  "COSMA_05_050": {
+   "specs": [
+    "EN2003_03_PuzoCute_TropicalRareEnd2",
+    "EN2003_03_PuzoCute_TropicalRareEnd2_G2",
+    "EN2003_03_PuzoCute_TropicalRareEnd2_G3",
+    "EN2009_02_Sahagin_DesertEnd2"
+   ],
+   "enemies": 5,
+   "level": 39
+  },
+  "COSMA_06_010": {
+   "specs": [
+    "EN2237_01_HeavyTank_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 45
+  },
+  "COSMA_06_020": {
+   "specs": [
+    "EN2259_03_Cactuar_JaboEnd2"
+   ],
+   "enemies": 1,
+   "level": 45
+  },
+  "COSMA_06_030": {
+   "specs": [
+    "EN2209_01_ArkDragon_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 45
+  },
+  "COSMA_06_040": {
+   "specs": [
+    "EN2210_01_Flan_SubspeciesEnd2",
+    "EN3202_00_Bioweapon_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "COSMA_06_050": {
+   "specs": [
+    "EN2242_00_Reapertail_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 45
+  },
+  "COSMA_07_050": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2"
+   ],
+   "enemies": 1,
+   "level": 0
+  },
+  "Cha_00_010": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2"
+   ],
+   "enemies": 2,
+   "level": 16
+  },
+  "Cha_00_020": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard"
+   ],
+   "enemies": 1,
+   "level": 16
+  },
+  "Cha_00_030": {
+   "specs": [
+    "EN1001_03_Sweeper_CustomEnd2"
+   ],
+   "enemies": 1,
+   "level": 16
+  },
+  "EXTRA_01_010": {
+   "specs": [
+    "EN2203_00_Kyuvilduns_StandardEnd2",
+    "EN2203_01_Kyuvilduns_RareEnd2",
+    "EN2208_00_Crawler_StandardEnd2",
+    "EN2208_01_Crawler_NidhoggEnd2",
+    "EN2236_00_KimaraBug_StandardEnd2",
+    "EN2251_00_Slaps_StandardEnd2"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_01_020": {
+   "specs": [
+    "EN2210_00_Flan_StandardEnd2",
+    "EN2217_00_Grangalan_StandardEnd2",
+    "EN2236_02_KimaraBug_GongagaEnd2",
+    "EN2245_00_Stinger_StandardEnd2",
+    "EN2249_00_BahbaVelamyu_StandardEnd2",
+    "EN3202_00_Bioweapon_StandardEnd2"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_01_030": {
+   "specs": [
+    "EN2204_00_Mu_StandardEnd2",
+    "EN2204_01_Mu_RareEnd2",
+    "EN2211_01_Ogre_OrcEnd2",
+    "EN2213_00_Nerosuferoth_StandardEnd2",
+    "EN2213_01_Nerosuferoth_RareEnd2",
+    "EN3000_02_MonoDrive_ScrutinEyeEnd2",
+    "EN3007_01_DeepGroundMonster_FusionEnd2"
+   ],
+   "enemies": 7,
+   "level": 70
+  },
+  "EXTRA_01_040": {
+   "specs": [
+    "EN0000_01_SecuritySoldier_Senior",
+    "EN0002_00_ShieldSoldier_Standard",
+    "EN0002_14_ShieldSoldier_FlameVer2End2",
+    "EN0008_00_Vice_Standard_Scimitar",
+    "EN2005_02_HedgehogPie_CoaltarEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_01_050": {
+   "specs": [
+    "EN0000_00_SecuritySoldier_Standard",
+    "EN0001_04_GrenadeSoldier_SeniorVer1End2",
+    "EN0001_07_GrenadeSoldier_StandardVer2End2",
+    "EN0008_01_Vice_VariationA_Axe",
+    "EN0008_02_Vice_VariationB_SpikedBat",
+    "EN0009_20_CorneoLackey_GreedAEnd2",
+    "EN0009_21_CorneoLackey_GreedBEnd2",
+    "EN0009_22_CorneoLackey_GreedCEnd2"
+   ],
+   "enemies": 8,
+   "level": 70
+  },
+  "EXTRA_01_060": {
+   "specs": [
+    "EN2201_00_Formula_StandardEnd2",
+    "EN2201_03_Formula_SonicSpeedEnd2",
+    "EN2220_00_NeedleKiss_StandardEnd2",
+    "EN2220_01_NeedleKiss_RareEnd2",
+    "EN2250_00_BlackBat_StandardEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_01_070": {
+   "specs": [
+    "EN2201_02_Formula_SubspeciesEnd2",
+    "EN2205_00_Mandragora_StandardEnd2",
+    "EN2205_01_Mandragora_RareEnd2",
+    "EN2214_00_Capparwire_StandardEnd2",
+    "EN2214_01_Capparwire_RareEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_01_080": {
+   "specs": [
+    "EN0000_05_SecuritySoldier_SpecialForcesEnd2",
+    "EN1008_00_StunRay_Standard",
+    "EN1008_06_StunRay_GroundtypeEnd2",
+    "EN2201_01_Formula_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_01_090": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2",
+    "EN2000_08_GuardHound_NibelWolfEnd2",
+    "EN2238_00_Skeeskee_StandardEnd2",
+    "EN3200_00_Screamer_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_01_100": {
+   "specs": [
+    "EN2209_00_ArkDragon_StandardEnd2",
+    "EN2238_01_Skeeskee_RareEnd2",
+    "EN3200_01_Screamer_FusionEnd2",
+    "EN3201_00_Fusant_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_02_010": {
+   "specs": [
+    "EN2000_06_GuardHound_KalmFangRareEnd2",
+    "EN2222_00_SearchCrown_StandardEnd2",
+    "EN2222_01_SearchCrown_BatteryCapEnd2",
+    "EN2222_02_SearchCrown_BatteryCapRareEnd2",
+    "EN2234_00_FlowerProng_StandardEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_02_020": {
+   "specs": [
+    "EN2008_02_Ceasar_CastanetsEnd2",
+    "EN2218_00_Beachplug_StandardEnd2",
+    "EN2218_01_Beachplug_RareEnd2",
+    "EN2233_00_TouchMe_StandardEnd2",
+    "EN2233_01_TouchMe_RareEnd2",
+    "EN2233_02_TouchMe_ToxicFrogEnd2"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_02_030": {
+   "specs": [
+    "EN2010_03_Deenglow_FlapbeatEnd2",
+    "EN2010_04_Deenglow_FlapbeatRareEnd2",
+    "EN3001_03_VagidPolice_TwinBrainEnd2",
+    "EN3001_04_VagidPolice_SephirothEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_02_040": {
+   "specs": [
+    "EN2001_02_WereRat_Poison",
+    "EN2001_03_WereRat_PoisonRareEnd2",
+    "EN2232_00_Gagighandi_StandardEnd2",
+    "EN2232_01_Gagighandi_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_02_050": {
+   "specs": [
+    "EN2003_02_PuzoCute_TropicalEnd2",
+    "EN2003_03_PuzoCute_TropicalRareEnd2",
+    "EN2003_04_PuzoCute_BloatfloatEnd2",
+    "EN2223_01_Bagnadrana_SubspeciesEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_02_060": {
+   "specs": [
+    "EN2219_00_CrownLance_StandardEnd2",
+    "EN2219_01_CrownLance_RareEnd2",
+    "EN2223_00_Bagnadrana_StandardEnd2",
+    "EN2234_03_FlowerProng_RareEnd2",
+    "EN3203_00_DorkyFace_StandardEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_02_070": {
+   "specs": [
+    "EN2004_01_ChuseTank_SeaEnd2",
+    "EN2004_02_ChuseTank_SeaRareEnd2",
+    "EN2241_00_Bagrisk_StandardEnd2",
+    "EN2241_01_Bagrisk_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_02_080": {
+   "specs": [
+    "EN2100_01_Levrikon_RareEnd2",
+    "EN2226_00_2Faced_StandardEnd2",
+    "EN2232_02_Gagighandi_UnderLizardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_02_090": {
+   "specs": [
+    "EN2231_00_GrandHorn_StandardEnd2",
+    "EN2231_01_GrandHorn_RareEnd2",
+    "EN2231_02_GrandHorn_SavageEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_02_100": {
+   "specs": [
+    "EN2017_00_Tonberry_Standard_VR",
+    "EN2228_00_Spencer_StandardEnd2",
+    "EN2228_01_Spencer_RareEnd2",
+    "EN2259_00_Cactuar_Standard",
+    "EN2259_01_Cactuar_SapoEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_03_010": {
+   "specs": [
+    "EN2206_00_Elfadunk_StandardEnd2",
+    "EN2248_00_KillerBee_StandardEnd2",
+    "EN2248_01_KillerBee_ChildEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_03_020": {
+   "specs": [
+    "EN2244_00_GiSpector_BowEnd2",
+    "EN2244_00_GiSpector_SpearEnd2",
+    "EN2244_00_GiSpector_WandEnd2",
+    "EN2252_00_Kelzmelzer_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_03_030": {
+   "specs": [
+    "EN2212_00_Zemzelett_StandardEnd2",
+    "EN2239_00_Griffin_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_03_040": {
+   "specs": [
+    "EN2000_09_GuardHound_NibelWolfRareEnd2",
+    "EN2236_01_KimaraBug_SubspeciesEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_03_050": {
+   "specs": [
+    "EN0007_03_Soldier3rd_2ndEnd2",
+    "EN0008_02_Vice_VariationB",
+    "EN0200_00_DevilRide_StandardEnd2"
+   ],
+   "enemies": 5,
+   "level": 70
+  },
+  "EXTRA_03_060": {
+   "specs": [
+    "EN2212_01_Zemzelett_RareEnd2",
+    "EN2239_01_Griffin_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_03_070": {
+   "specs": [
+    "EN2009_02_Sahagin_DesertEnd2",
+    "EN2229_00_Chimaera_StandardEnd2",
+    "EN2246_00_Valron_StandardEnd2",
+    "EN3004_01_Zenene_SneakyStepEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_03_080": {
+   "specs": [
+    "EN2206_01_Elfadunk_RareEnd2",
+    "EN2224_00_Cokatolis_StandardEnd2",
+    "EN2225_00_DeathClaw_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_03_090": {
+   "specs": [
+    "EN2015_00_Bomb_Standard",
+    "EN2209_02_ArkDragon_AncientEnd2",
+    "EN2254_00_Doorbull_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_03_100": {
+   "specs": [
+    "EN2009_03_Sahagin_DesertRareEnd2",
+    "EN2229_01_Chimaera_RareEnd2",
+    "EN2246_01_Valron_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_04_010": {
+   "specs": [
+    "EN2200_03_Zuu_TonaduRareEnd2",
+    "EN2237_00_HeavyTank_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_04_020": {
+   "specs": [
+    "EN1001_00_Sweeper_Standard",
+    "EN1001_03_Sweeper_CustomEnd2",
+    "EN1100_00_Bullmotor_Standard"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_04_030": {
+   "specs": [
+    "EN2000_10_GuardHound_TestZeroEnd2",
+    "EN3204_00_YingYang_StandardEnd2",
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_04_040": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard",
+    "EN2200_00_Zuu_StandardEnd2",
+    "EN2211_00_Ogre_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_04_050": {
+   "specs": [
+    "EN2000_07_GuardHound_KalmFangSubspeciesEnd2",
+    "EN2210_01_Flan_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_04_060": {
+   "specs": [
+    "EN2100_02_Levrikon_SubspeciesEnd2",
+    "EN2206_02_Elfadunk_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_04_070": {
+   "specs": [
+    "EN2227_00_LandWorm_StandardEnd2",
+    "EN2227_01_LandWorm_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_04_080": {
+   "specs": [
+    "EN2247_00_VelcherTask_StandardEnd2",
+    "EN2255_00_8eye_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_04_090": {
+   "specs": [
+    "EN2256_00_Adamantaimai_Moss",
+    "EN2256_00_Adamantaimai_StandardEnd2",
+    "EN2258_00_Allemagne_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_04_100": {
+   "specs": [
+    "EN2017_02_Tonberry_KingEnd2",
+    "EN2230_00_Joker_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_010": {
+   "specs": [
+    "EN2008_01_Ceasar_SubspeciesEnd2",
+    "EN2240_01_Golem_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_020": {
+   "specs": [
+    "EN0010_00_ViceWrestler_Standard",
+    "EN0201_00_Goblin_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_030": {
+   "specs": [
+    "EN2202_00_Dragon_StandardEnd2",
+    "EN2221_00_Seadevil_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_040": {
+   "specs": [
+    "EN2200_02_Zuu_TonaduEnd2",
+    "EN2240_00_Golem_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_050": {
+   "specs": [
+    "EN2247_01_VelcherTask_RareEnd2",
+    "EN2258_01_Allemagne_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_060": {
+   "specs": [
+    "EN2209_01_ArkDragon_SubspeciesEnd2",
+    "EN2237_01_HeavyTank_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_070": {
+   "specs": [
+    "EN2015_05_Bomb_SubspeciesEnd2",
+    "EN2242_00_Reapertail_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_080": {
+   "specs": [
+    "EN2225_01_DeathClaw_SubspeciesEnd2",
+    "EN2227_02_LandWorm_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_090": {
+   "specs": [
+    "EN2259_03_Cactuar_JaboEnd2",
+    "EN2259_05_Cactuar_JapoEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_05_100": {
+   "specs": [
+    "EN2101_05_HereticRayleigh_SubspeciesEnd2",
+    "EN2200_01_Zuu_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_07_010": {
+   "specs": [
+    "EN0008_01_Vice_VariationA_Axe",
+    "EN0008_02_Vice_VariationB_SpikedBat"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_07_020": {
+   "specs": [
+    "EN2000_07_GuardHound_KalmFangSubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_07_030": {
+   "specs": [
+    "EN2237_01_HeavyTank_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_07_040": {
+   "specs": [
+    "EN2258_01_Allemagne_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_07_050": {
+   "specs": [
+    "EN2257_00_IronMan_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_08_010": {
+   "specs": [
+    "EN0009_20_CorneoLackey_GreedAEnd2",
+    "EN0009_21_CorneoLackey_GreedBEnd2",
+    "EN0009_22_CorneoLackey_GreedCEnd2"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_08_020": {
+   "specs": [
+    "EN1001_03_Sweeper_CustomEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_08_030": {
+   "specs": [
+    "EN2015_05_Bomb_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_08_040": {
+   "specs": [
+    "EN2256_00_Adamantaimai_Moss",
+    "EN2256_00_Adamantaimai_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_08_050": {
+   "specs": [
+    "EN2215_00_HellRiderGE_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_09_010": {
+   "specs": [
+    "EN1008_06_StunRay_GroundtypeEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_09_020": {
+   "specs": [
+    "EN2225_01_DeathClaw_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_09_030": {
+   "specs": [
+    "EN0201_00_Goblin_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_09_040": {
+   "specs": [
+    "EN2240_01_Golem_RareEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_09_050": {
+   "specs": [
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_10_010": {
+   "specs": [
+    "EN0000_10_SecuritySoldier_StandardVer1End2",
+    "EN0000_11_SecuritySoldier_StandardVer2End2",
+    "EN1008_00_StunRay_Standard"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_10_020": {
+   "specs": [
+    "EN3204_00_YingYang_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_10_030": {
+   "specs": [
+    "EN2210_01_Flan_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_10_040": {
+   "specs": [
+    "EN2255_00_8eye_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_10_050": {
+   "specs": [
+    "EN2207_00_Quetzalcoatl_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_11_010": {
+   "specs": [
+    "EN2233_00_TouchMe_StandardEnd2"
+   ],
+   "enemies": 6,
+   "level": 70
+  },
+  "EXTRA_11_020": {
+   "specs": [
+    "EN2206_02_Elfadunk_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_11_030": {
+   "specs": [
+    "EN2235_00_Gigantoad_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_11_040": {
+   "specs": [
+    "EN2100_02_Levrikon_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_11_050": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_12_010": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2"
+   ],
+   "enemies": 4,
+   "level": 70
+  },
+  "EXTRA_12_020": {
+   "specs": [
+    "EN2230_00_Joker_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_12_030": {
+   "specs": [
+    "EN2101_05_HereticRayleigh_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_12_040": {
+   "specs": [
+    "EN2202_00_Dragon_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_12_050": {
+   "specs": [
+    "EN2200_04_Zuu_KingEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_13_010": {
+   "specs": [
+    "EN2217_00_Grangalan_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 70
+  },
+  "EXTRA_13_020": {
+   "specs": [
+    "EN2244_00_GiSpector_BowEnd2",
+    "EN2244_00_GiSpector_SpearEnd2"
+   ],
+   "enemies": 2,
+   "level": 70
+  },
+  "EXTRA_13_030": {
+   "specs": [
+    "EN2242_00_Reapertail_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_13_040": {
+   "specs": [
+    "EN2247_01_VelcherTask_RareEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_13_050": {
+   "specs": [
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_14_020": {
+   "specs": [
+    "EN2211_02_Ogre_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_14_040": {
+   "specs": [
+    "EN2202_01_Dragon_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_14_060": {
+   "specs": [
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_14_080": {
+   "specs": [
+    "EN2200_04_Zuu_KingEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_15_020": {
+   "specs": [
+    "EN2207_03_Quetzalcoatl_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_15_040": {
+   "specs": [
+    "EN2246_02_Valron_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_15_060": {
+   "specs": [
+    "EN2257_00_IronMan_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "EXTRA_15_080": {
+   "specs": [
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 70
+  },
+  "GOLDA_01_010": {
+   "specs": [
+    "EN2203_00_Kyuvilduns_StandardEnd2"
+   ],
+   "enemies": 10,
+   "level": 33
+  },
+  "GOLDA_01_020": {
+   "specs": [
+    "EN0008_02_Vice_VariationB_SpikedBat"
+   ],
+   "enemies": 10,
+   "level": 33
+  },
+  "GOLDA_02_010": {
+   "specs": [
+    "EN2005_02_HedgehogPie_CoaltarEnd2"
+   ],
+   "enemies": 7,
+   "level": 33
+  },
+  "GOLDA_02_020": {
+   "specs": [
+    "EN2210_00_Flan_StandardEnd2"
+   ],
+   "enemies": 7,
+   "level": 33
+  },
+  "GOLDA_03_010": {
+   "specs": [
+    "EN2201_00_Formula_StandardEnd2",
+    "EN2220_01_NeedleKiss_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 37
+  },
+  "GOLDA_03_020": {
+   "specs": [
+    "EN0000_01_SecuritySoldier_Senior",
+    "EN0000_12_SecuritySoldier_SeniorVer1End2",
+    "EN3200_01_Screamer_FusionEnd2"
+   ],
+   "enemies": 4,
+   "level": 37
+  },
+  "GOLDA_04_010": {
+   "specs": [
+    "EN3001_04_VagidPolice_SephirothEnd2"
+   ],
+   "enemies": 4,
+   "level": 37
+  },
+  "GOLDA_04_020": {
+   "specs": [
+    "EN2218_00_Beachplug_StandardEnd2",
+    "EN2219_00_CrownLance_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 37
+  },
+  "GOLDA_05_010": {
+   "specs": [
+    "EN2200_00_Zuu_StandardEnd2",
+    "EN2224_00_Cokatolis_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 39
+  },
+  "GOLDA_05_020": {
+   "specs": [
+    "EN2223_00_Bagnadrana_StandardEnd2",
+    "EN2225_00_DeathClaw_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 39
+  },
+  "GOLDA_06_010": {
+   "specs": [
+    "EN0010_00_ViceWrestler_Standard",
+    "EN1100_00_Bullmotor_Standard"
+   ],
+   "enemies": 2,
+   "level": 39
+  },
+  "GOLDA_06_020": {
+   "specs": [
+    "EN2008_01_Ceasar_SubspeciesEnd2",
+    "EN2200_02_Zuu_TonaduEnd2"
+   ],
+   "enemies": 2,
+   "level": 39
+  },
+  "GOLDA_07_010": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard"
+   ],
+   "enemies": 3,
+   "level": 40
+  },
+  "GOLDA_07_020": {
+   "specs": [
+    "EN2200_02_Zuu_TonaduEnd2"
+   ],
+   "enemies": 2,
+   "level": 40
+  },
+  "GOLDA_08_010": {
+   "specs": [
+    "EN2209_01_ArkDragon_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 40
+  },
+  "GOLDA_08_020": {
+   "specs": [
+    "EN1001_03_Sweeper_CustomEnd2"
+   ],
+   "enemies": 2,
+   "level": 40
+  },
+  "GOLDA_09_010": {
+   "specs": [
+    "EN2003_02_PuzoCute_TropicalEnd2",
+    "EN2259_05_Cactuar_JapoEnd2"
+   ],
+   "enemies": 3,
+   "level": 53
+  },
+  "GOLDA_09_020": {
+   "specs": [
+    "EN2001_02_WereRat_Poison",
+    "EN2259_03_Cactuar_JaboEnd2"
+   ],
+   "enemies": 3,
+   "level": 53
+  },
+  "GOLDA_10_010": {
+   "specs": [
+    "EN3204_00_YingYang_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 43
+  },
+  "GOLDA_10_020": {
+   "specs": [
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 43
+  },
+  "GOLDA_11_010": {
+   "specs": [
+    "EN2100_01_Levrikon_RareEnd2",
+    "EN2227_02_LandWorm_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 44
+  },
+  "GOLDA_11_020": {
+   "specs": [
+    "EN2000_07_GuardHound_KalmFangSubspeciesEnd2",
+    "EN2210_01_Flan_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 44
+  },
+  "GOLDA_12_010": {
+   "specs": [
+    "EN2207_00_Quetzalcoatl_StandardEnd2",
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 54
+  },
+  "GOLDA_12_020": {
+   "specs": [
+    "EN2200_04_Zuu_KingEnd2",
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 54
+  },
+  "GOLDA_13_010": {
+   "specs": [
+    "EN2009_03_Sahagin_DesertRareEnd2",
+    "EN2211_00_Ogre_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "GOLDA_13_020": {
+   "specs": [
+    "EN2015_05_Bomb_SubspeciesEnd2",
+    "EN2240_01_Golem_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GOLDA_14_010": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2",
+    "EN2207_00_Quetzalcoatl_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 55
+  },
+  "GOLDA_14_020": {
+   "specs": [
+    "EN2200_04_Zuu_KingEnd2",
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 55
+  },
+  "GOLDA_15_010": {
+   "specs": [
+    "EN2225_01_DeathClaw_SubspeciesEnd2",
+    "EN2246_01_Valron_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 46
+  },
+  "GOLDA_15_020": {
+   "specs": [
+    "EN2000_06_GuardHound_KalmFangRareEnd2",
+    "EN2237_01_HeavyTank_SubspeciesEnd2"
+   ],
+   "enemies": 3,
+   "level": 46
+  },
+  "GOLDA_16_010": {
+   "specs": [
+    "EN2207_00_Quetzalcoatl_StandardEnd2",
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 56
+  },
+  "GOLDA_16_020": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2",
+    "EN2216_00_Mindflayer_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 56
+  },
+  "GOLDA_17_010": {
+   "specs": [
+    "EN2000_10_GuardHound_TestZeroAnotherVoiceEnd2",
+    "EN2000_10_GuardHound_TestZeroEnd2"
+   ],
+   "enemies": 3,
+   "level": 57
+  },
+  "GOLDA_17_020": {
+   "specs": [
+    "EN2017_02_Tonberry_KingEnd2"
+   ],
+   "enemies": 1,
+   "level": 57
+  },
+  "GOLDA_18_010": {
+   "specs": [
+    "EN2200_04_Zuu_KingEnd2",
+    "EN2207_00_Quetzalcoatl_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 58
+  },
+  "GOLDA_18_020": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2",
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 58
+  },
+  "GOLDA_19_010": {
+   "specs": [
+    "EN2247_00_VelcherTask_StandardEnd2",
+    "EN2247_01_VelcherTask_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 59
+  },
+  "GOLDA_19_020": {
+   "specs": [
+    "EN2202_00_Dragon_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 59
+  },
+  "GOLDA_20_010": {
+   "specs": [
+    "EN2216_00_Mindflayer_StandardEnd2",
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 60
+  },
+  "GOLDA_20_020": {
+   "specs": [
+    "EN2016_01_Morbol_GreatEnd2",
+    "EN2200_04_Zuu_KingEnd2"
+   ],
+   "enemies": 2,
+   "level": 60
+  },
+  "GOLDA_21_010": {
+   "specs": [
+    "EN2259_03_Cactuar_JaboEnd2",
+    "EN2259_05_Cactuar_JapoEnd2"
+   ],
+   "enemies": 2,
+   "level": 46
+  },
+  "GOLDA_21_020": {
+   "specs": [
+    "EN2017_00_Tonberry_Standard_VR"
+   ],
+   "enemies": 10,
+   "level": 46
+  },
+  "GOLDA_21_030": {
+   "specs": [
+    "EN2200_01_Zuu_RareEnd2"
+   ],
+   "enemies": 1,
+   "level": 46
+  },
+  "GOLDA_21_040": {
+   "specs": [
+    "EN2230_00_Joker_StandardEnd2",
+    "EN2235_00_Gigantoad_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 46
+  },
+  "GOLDA_21_050": {
+   "specs": [
+    "EN2257_00_IronMan_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 46
+  },
+  "GONGA_01_010": {
+   "specs": [
+    "EN2232_00_Gagighandi_StandardEnd2",
+    "EN2233_00_TouchMe_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 35
+  },
+  "GONGA_01_020": {
+   "specs": [
+    "EN2233_00_TouchMe_StandardEnd2",
+    "EN2233_01_TouchMe_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 35
+  },
+  "GONGA_01_030": {
+   "specs": [
+    "EN2232_01_Gagighandi_RareEnd2",
+    "EN2233_01_TouchMe_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 35
+  },
+  "GONGA_02_010": {
+   "specs": [
+    "EN2231_00_GrandHorn_StandardEnd2",
+    "EN2234_00_FlowerProng_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 36
+  },
+  "GONGA_02_020": {
+   "specs": [
+    "EN2211_01_Ogre_OrcEnd2",
+    "EN2222_02_SearchCrown_BatteryCapRareEnd2"
+   ],
+   "enemies": 4,
+   "level": 36
+  },
+  "GONGA_02_030": {
+   "specs": [
+    "EN2231_01_GrandHorn_RareEnd2",
+    "EN2234_03_FlowerProng_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 36
+  },
+  "GONGA_03_010": {
+   "specs": [
+    "EN2231_02_GrandHorn_SavageEnd2"
+   ],
+   "enemies": 2,
+   "level": 36
+  },
+  "GONGA_03_020": {
+   "specs": [
+    "EN2010_04_Deenglow_FlapbeatRareEnd2"
+   ],
+   "enemies": 2,
+   "level": 36
+  },
+  "GONGA_03_030": {
+   "specs": [
+    "EN2237_00_HeavyTank_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 36
+  },
+  "GONGA_05_010": {
+   "specs": [
+    "EN0008_02_Vice_VariationB_SpikedBat",
+    "EN3007_01_DeepGroundMonster_FusionEnd2"
+   ],
+   "enemies": 3,
+   "level": 35
+  },
+  "GONGA_05_020": {
+   "specs": [
+    "EN2219_00_CrownLance_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 35
+  },
+  "GONGA_05_030": {
+   "specs": [
+    "EN2217_00_Grangalan_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 35
+  },
+  "GONGA_05_040": {
+   "specs": [
+    "EN0001_03_GrenadeSoldier_SeniorJunonEnd2",
+    "EN0002_04_ShieldSoldier_JunonEnd2",
+    "EN0002_08_ShieldSoldier_JunonVer1End2",
+    "EN0002_09_ShieldSoldier_JunonVer2End2"
+   ],
+   "enemies": 4,
+   "level": 35
+  },
+  "GONGA_05_050": {
+   "specs": [
+    "EN1001_00_Sweeper_Standard"
+   ],
+   "enemies": 3,
+   "level": 35
+  },
+  "GONGA_06_010": {
+   "specs": [
+    "EN2236_02_KimaraBug_GongagaEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GONGA_06_020": {
+   "specs": [
+    "EN2225_00_DeathClaw_StandardEnd2",
+    "EN3201_00_Fusant_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 45
+  },
+  "GONGA_06_030": {
+   "specs": [
+    "EN2227_00_LandWorm_StandardEnd2",
+    "EN2227_01_LandWorm_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GONGA_06_040": {
+   "specs": [
+    "EN2229_01_Chimaera_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GONGA_06_050": {
+   "specs": [
+    "EN1001_03_Sweeper_CustomEnd2",
+    "EN2000_07_GuardHound_KalmFangSubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GONGA_07_050": {
+   "specs": [
+    "EN2216_00_Mindflayer_StandardEnd2",
+    "EN3001_04_VagidPolice_SephirothEnd2"
+   ],
+   "enemies": 3,
+   "level": 0
+  },
+  "GRASA_00_010": {
+   "specs": [
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 3,
+   "level": 0
+  },
+  "GRASA_01_010": {
+   "specs": [
+    "EN2001_02_WereRat_Poison",
+    "EN2206_00_Elfadunk_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 19
+  },
+  "GRASA_01_020": {
+   "specs": [
+    "EN2211_01_Ogre_OrcEnd2"
+   ],
+   "enemies": 3,
+   "level": 19
+  },
+  "GRASA_01_030": {
+   "specs": [
+    "EN2001_03_WereRat_PoisonRareEnd2",
+    "EN2206_01_Elfadunk_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 19
+  },
+  "GRASA_02_010": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2",
+    "EN2205_00_Mandragora_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_02_020": {
+   "specs": [
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_02_030": {
+   "specs": [
+    "EN2000_06_GuardHound_KalmFangRareEnd2",
+    "EN2205_01_Mandragora_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_03_010": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard",
+    "EN2204_00_Mu_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_03_020": {
+   "specs": [
+    "EN3001_03_VagidPolice_TwinBrainEnd2",
+    "EN3200_00_Screamer_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_03_030": {
+   "specs": [
+    "EN2100_01_Levrikon_RareEnd2",
+    "EN2204_01_Mu_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 20
+  },
+  "GRASA_05_010": {
+   "specs": [
+    "EN2236_00_KimaraBug_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 17
+  },
+  "GRASA_05_020": {
+   "specs": [
+    "EN2203_00_Kyuvilduns_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 17
+  },
+  "GRASA_05_030": {
+   "specs": [
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 3,
+   "level": 17
+  },
+  "GRASA_05_040": {
+   "specs": [
+    "EN2211_01_Ogre_OrcEnd2"
+   ],
+   "enemies": 4,
+   "level": 17
+  },
+  "GRASA_05_050": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2"
+   ],
+   "enemies": 4,
+   "level": 17
+  },
+  "GRASA_06_010": {
+   "specs": [
+    "EN2211_01_Ogre_OrcEnd2",
+    "EN3001_03_VagidPolice_TwinBrainEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "GRASA_06_020": {
+   "specs": [
+    "EN2001_02_WereRat_Poison",
+    "EN2204_00_Mu_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "GRASA_06_030": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard",
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "GRASA_06_040": {
+   "specs": [
+    "EN2206_00_Elfadunk_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "GRASA_06_050": {
+   "specs": [
+    "EN0010_00_ViceWrestler_Standard"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "GRASA_07_050": {
+   "specs": [
+    "EN2207_00_Quetzalcoatl_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 0
+  },
+  "Gen_00_010": {
+   "specs": [
+    "EN2211_01_Ogre_OrcEnd2"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Gen_00_020": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Gen_00_030": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Int_00_010": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2"
+   ],
+   "enemies": 2,
+   "level": 16
+  },
+  "Int_00_020": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "Int_00_030": {
+   "specs": [
+    "EN2001_02_WereRat_Poison"
+   ],
+   "enemies": 3,
+   "level": 16
+  },
+  "JUNOA_02_010": {
+   "specs": [
+    "EN2200_02_Zuu_TonaduEnd2",
+    "EN2201_00_Formula_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 24
+  },
+  "JUNOA_02_020": {
+   "specs": [
+    "EN2200_00_Zuu_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 24
+  },
+  "JUNOA_02_030": {
+   "specs": [
+    "EN2200_03_Zuu_TonaduRareEnd2",
+    "EN2201_01_Formula_RareEnd2"
+   ],
+   "enemies": 3,
+   "level": 24
+  },
+  "JUNOA_03_010": {
+   "specs": [
+    "EN2212_00_Zemzelett_StandardEnd2",
+    "EN2213_00_Nerosuferoth_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 23
+  },
+  "JUNOA_03_020": {
+   "specs": [
+    "EN2211_00_Ogre_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 23
+  },
+  "JUNOA_03_030": {
+   "specs": [
+    "EN2212_01_Zemzelett_RareEnd2",
+    "EN2213_01_Nerosuferoth_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 23
+  },
+  "JUNOA_05_010": {
+   "specs": [
+    "EN0008_02_Vice_VariationB_SpikedBat",
+    "EN2208_00_Crawler_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 22
+  },
+  "JUNOA_05_020": {
+   "specs": [
+    "EN2213_00_Nerosuferoth_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 22
+  },
+  "JUNOA_05_030": {
+   "specs": [
+    "EN0008_00_Vice_Standard_Scimitar",
+    "EN0008_01_Vice_VariationA_Axe"
+   ],
+   "enemies": 3,
+   "level": 22
+  },
+  "JUNOA_05_040": {
+   "specs": [
+    "EN2210_00_Flan_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 22
+  },
+  "JUNOA_05_050": {
+   "specs": [
+    "EN2201_00_Formula_StandardEnd2",
+    "EN2212_00_Zemzelett_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 22
+  },
+  "JUNOA_06_010": {
+   "specs": [
+    "EN2201_00_Formula_StandardEnd2",
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 4,
+   "level": 45
+  },
+  "JUNOA_06_020": {
+   "specs": [
+    "EN2008_02_Ceasar_CastanetsEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "JUNOA_06_030": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2",
+    "EN2211_00_Ogre_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "JUNOA_06_040": {
+   "specs": [
+    "EN2214_00_Capparwire_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "JUNOA_06_050": {
+   "specs": [
+    "EN2100_00_Levrikon_Standard",
+    "EN2200_00_Zuu_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "JUNOA_07_050": {
+   "specs": [
+    "EN2207_00_Quetzalcoatl_StandardEnd2",
+    "EN2209_00_ArkDragon_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 0
+  },
+  "NIBLA_02_010": {
+   "specs": [
+    "EN2000_08_GuardHound_NibelWolfEnd2",
+    "EN2203_00_Kyuvilduns_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 42
+  },
+  "NIBLA_02_020": {
+   "specs": [
+    "EN2219_01_CrownLance_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 42
+  },
+  "NIBLA_02_030": {
+   "specs": [
+    "EN2000_09_GuardHound_NibelWolfRareEnd2",
+    "EN2203_01_Kyuvilduns_RareEnd2"
+   ],
+   "enemies": 4,
+   "level": 42
+  },
+  "NIBLA_03_010": {
+   "specs": [
+    "EN2246_00_Valron_StandardEnd2",
+    "EN2247_00_VelcherTask_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 43
+  },
+  "NIBLA_03_020": {
+   "specs": [
+    "EN2201_02_Formula_SubspeciesEnd2"
+   ],
+   "enemies": 3,
+   "level": 43
+  },
+  "NIBLA_03_030": {
+   "specs": [
+    "EN2246_01_Valron_RareEnd2",
+    "EN2247_01_VelcherTask_RareEnd2"
+   ],
+   "enemies": 2,
+   "level": 43
+  },
+  "NIBLA_05_010": {
+   "specs": [
+    "EN2208_01_Crawler_NidhoggEnd2"
+   ],
+   "enemies": 3,
+   "level": 42
+  },
+  "NIBLA_05_020": {
+   "specs": [
+    "EN2222_01_SearchCrown_BatteryCapEnd2",
+    "EN2245_00_Stinger_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 42
+  },
+  "NIBLA_05_030": {
+   "specs": [
+    "EN0002_03_ShieldSoldier_Flame",
+    "EN0002_13_ShieldSoldier_FlameVer1End2",
+    "EN0002_14_ShieldSoldier_FlameVer2End2"
+   ],
+   "enemies": 4,
+   "level": 42
+  },
+  "NIBLA_05_040": {
+   "specs": [
+    "EN2226_00_2Faced_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 42
+  },
+  "NIBLA_05_050": {
+   "specs": [
+    "EN2000_08_GuardHound_NibelWolfEnd2",
+    "EN2015_00_Bomb_Standard"
+   ],
+   "enemies": 3,
+   "level": 42
+  },
+  "NIBLA_06_010": {
+   "specs": [
+    "EN2236_01_KimaraBug_SubspeciesEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "NIBLA_06_020": {
+   "specs": [
+    "EN2244_00_GiSpector_BowEnd2",
+    "EN2244_00_GiSpector_SpearEnd2",
+    "EN2244_00_GiSpector_WandEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "NIBLA_06_030": {
+   "specs": [
+    "EN2246_00_Valron_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 45
+  },
+  "NIBLA_06_040": {
+   "specs": [
+    "EN2206_02_Elfadunk_SubspeciesEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "NIBLA_06_050": {
+   "specs": [
+    "EN2100_02_Levrikon_SubspeciesEnd2",
+    "EN2240_00_Golem_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 45
+  },
+  "NIBLA_07_050": {
+   "specs": [
+    "EN2243_00_Jabberwock_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 0
+  },
+  "NIBLS_01_010": {
+   "specs": [
+    "EN3000_02_MonoDrive_ScrutinEyeEnd2"
+   ],
+   "enemies": 4,
+   "level": 43
+  },
+  "NIBLS_02_010": {
+   "specs": [
+    "EN3202_00_Bioweapon_StandardEnd2",
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 43
+  },
+  "NIBLS_03_010": {
+   "specs": [
+    "EN3201_00_Fusant_StandardEnd2",
+    "EN3204_00_YingYang_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 44
+  },
+  "NIBLS_04_010": {
+   "specs": [
+    "EN3204_00_YingYang_StandardEnd2",
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 44
+  },
+  "NIBLS_05_010": {
+   "specs": [
+    "EN3201_00_Fusant_StandardEnd2",
+    "EN3202_00_Bioweapon_StandardEnd2"
+   ],
+   "enemies": 4,
+   "level": 44
+  },
+  "NIBLS_06_010": {
+   "specs": [
+    "EN3204_00_YingYang_StandardEnd2",
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 44
+  },
+  "NIBLS_07_010": {
+   "specs": [
+    "EN3204_00_YingYang_StandardEnd2",
+    "EN3205_00_Jersey_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 44
+  },
+  "NIBLS_08_010": {
+   "specs": [
+    "EN2101_05_HereticRayleigh_SubspeciesEnd2"
+   ],
+   "enemies": 1,
+   "level": 44
+  },
+  "TutorialBtl_01_010": {
+   "specs": [
+    "EN2201_03_Formula_SonicSpeedEnd2"
+   ],
+   "enemies": 3,
+   "level": 15
+  },
+  "UNDRS_01_010": {
+   "specs": [
+    "EN2000_05_GuardHound_KalmFangEnd2",
+    "EN2213_00_Nerosuferoth_StandardEnd2"
+   ],
+   "enemies": 3,
+   "level": 26
+  },
+  "UNDRS_02_010": {
+   "specs": [
+    "EN2223_00_Bagnadrana_StandardEnd2"
+   ],
+   "enemies": 1,
+   "level": 27
+  },
+  "UNDRS_03_010": {
+   "specs": [
+    "EN2000_10_GuardHound_TestZeroEnd2"
+   ],
+   "enemies": 1,
+   "level": 28
+  },
+  "UNDRS_04_010": {
+   "specs": [
+    "EN2211_00_Ogre_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 30
+  },
+  "UNDRS_05_010": {
+   "specs": [
+    "EN2015_00_Bomb_Standard",
+    "EN2224_00_Cokatolis_StandardEnd2"
+   ],
+   "enemies": 2,
+   "level": 32
+  },
+  "UNDRS_06_010": {
+   "specs": [
+    "EN2000_10_GuardHound_TestZeroAnotherVoiceEnd2",
+    "EN2000_10_GuardHound_TestZeroEnd2"
+   ],
+   "enemies": 2,
+   "level": 34
+  }
+ },
+ "specs": {
+  "EN0000_00_SecuritySoldier_Standard": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_01_SecuritySoldier_Senior": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_05_SecuritySoldier_SpecialForcesEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_10_SecuritySoldier_StandardVer1End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_11_SecuritySoldier_StandardVer2End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_12_SecuritySoldier_SeniorVer1End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_13_SecuritySoldier_SeniorVer2End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_14_SecuritySoldier_JunonVer1End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_15_SecuritySoldier_JunonVer2End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_21_SecuritySoldier_SeniorJunonVer1End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0000_22_SecuritySoldier_SeniorJunonVer2End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_00_GrenadeSoldier_Standard": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_01_GrenadeSoldier_Senior": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_02_GrenadeSoldier_JunonEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_03_GrenadeSoldier_SeniorJunonEnd2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_04_GrenadeSoldier_SeniorVer1End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_05_GrenadeSoldier_SeniorVer2End2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_06_GrenadeSoldier_StandardVer1End2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0001_07_GrenadeSoldier_StandardVer2End2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_00_ShieldSoldier_Standard": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_03_ShieldSoldier_Flame": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_04_ShieldSoldier_JunonEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_05_ShieldSoldier_FlameJunonEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_06_ShieldSoldier_StandardVer1End2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_07_ShieldSoldier_StandardVer2End2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_08_ShieldSoldier_JunonVer1End2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_09_ShieldSoldier_JunonVer2End2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_13_ShieldSoldier_FlameVer1End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0002_14_ShieldSoldier_FlameVer2End2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0007_03_Soldier3rd_2ndEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN0008_00_Vice_Standard_Scimitar": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "0",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "model": "EN0008_00_Vice_Standard"
+  },
+  "EN0008_01_Vice_VariationA_Axe": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "0",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "model": "EN0008_01_Vice_VariationA"
+  },
+  "EN0008_02_Vice_VariationB": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "0",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0008_02_Vice_VariationB_SpikedBat": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "0",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "model": "EN0008_02_Vice_VariationB"
+  },
+  "EN0009_20_CorneoLackey_GreedAEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0009_21_CorneoLackey_GreedBEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0009_22_CorneoLackey_GreedCEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN0010_00_ViceWrestler_Standard": {
+   "HP": "450",
+   "PhysicsAttack": "300",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN0200_00_DevilRide_StandardEnd2": {
+   "HP": "850",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN0201_00_Goblin_StandardEnd2": {
+   "HP": "2000",
+   "PhysicsAttack": "300",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN1001_00_Sweeper_Standard": {
+   "HP": "650",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "EN1001_04_Sweeper_JunonEnd2",
+   "model": "EN1001_04_Sweeper_JunonEnd2"
+  },
+  "EN1001_03_Sweeper_CustomEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN1008_00_StunRay_Standard": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN1008_06_StunRay_GroundtypeEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN1100_00_Bullmotor_Standard": {
+   "HP": "700",
+   "PhysicsAttack": "270",
+   "MagicAttack": "270",
+   "AttributeResist_Array": [
+    "1",
+    "1",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_05_GuardHound_KalmFangEnd2": {
+   "HP": "230",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_06_GuardHound_KalmFangRareEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "5"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_07_GuardHound_KalmFangSubspeciesEnd2": {
+   "HP": "1700",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_08_GuardHound_NibelWolfEnd2": {
+   "HP": "260",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_09_GuardHound_NibelWolfRareEnd2": {
+   "HP": "550",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2000_10_GuardHound_TestZeroAnotherVoiceEnd2": {
+   "HP": "900",
+   "PhysicsAttack": "250",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "model": "EN2000_10_GuardHound_TestZeroEnd2"
+  },
+  "EN2000_10_GuardHound_TestZeroEnd2": {
+   "HP": "900",
+   "PhysicsAttack": "250",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2001_02_WereRat_Poison": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2001_03_WereRat_PoisonRareEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2003_02_PuzoCute_TropicalEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2003_03_PuzoCute_TropicalRareEnd2": {
+   "HP": "800",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2003_03_PuzoCute_TropicalRareEnd2_G2": {
+   "HP": "800",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "chara": "EN2003_03_PuzoCute_TropicalRareEnd2",
+   "model": "EN2003_03_PuzoCute_TropicalRareEnd2"
+  },
+  "EN2003_03_PuzoCute_TropicalRareEnd2_G3": {
+   "HP": "800",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "chara": "EN2003_03_PuzoCute_TropicalRareEnd2",
+   "model": "EN2003_03_PuzoCute_TropicalRareEnd2"
+  },
+  "EN2003_04_PuzoCute_BloatfloatEnd2": {
+   "HP": "230",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2004_01_ChuseTank_SeaEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2004_02_ChuseTank_SeaRareEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "120",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2005_02_HedgehogPie_CoaltarEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2008_01_Ceasar_SubspeciesEnd2": {
+   "HP": "650",
+   "PhysicsAttack": "250",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2008_02_Ceasar_CastanetsEnd2": {
+   "HP": "80",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2009_02_Sahagin_DesertEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2009_03_Sahagin_DesertRareEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "200",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2010_03_Deenglow_FlapbeatEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2010_04_Deenglow_FlapbeatRareEnd2": {
+   "HP": "480",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2015_00_Bomb_Standard": {
+   "HP": "550",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "4"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2015_05_Bomb_SubspeciesEnd2": {
+   "HP": "1500",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "5",
+    "1",
+    "0",
+    "4"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2016_01_Morbol_GreatEnd2": {
+   "HP": "2800",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2017_00_Tonberry_Standard_VR": {
+   "HP": "600",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60",
+   "model": "EN2017_00_Tonberry_Standard"
+  },
+  "EN2017_02_Tonberry_KingEnd2": {
+   "HP": "1200",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2100_00_Levrikon_Standard": {
+   "HP": "400",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2100_01_Levrikon_RareEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "220",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2100_02_Levrikon_SubspeciesEnd2": {
+   "HP": "1500",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "1",
+    "4"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2101_05_HereticRayleigh_SubspeciesEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2200_00_Zuu_StandardEnd2": {
+   "HP": "650",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2200_01_Zuu_RareEnd2": {
+   "HP": "2000",
+   "PhysicsAttack": "250",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2200_02_Zuu_TonaduEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "170",
+   "MagicAttack": "170",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2200_03_Zuu_TonaduRareEnd2": {
+   "HP": "1000",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2200_04_Zuu_KingEnd2": {
+   "HP": "2300",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "2",
+    "0",
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2201_00_Formula_StandardEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "1",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2201_01_Formula_RareEnd2": {
+   "HP": "550",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2201_02_Formula_SubspeciesEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2201_03_Formula_SonicSpeedEnd2": {
+   "HP": "105",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2202_00_Dragon_StandardEnd2": {
+   "HP": "1500",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "5",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2202_01_Dragon_SubspeciesEnd2": {
+   "HP": "1700",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "5",
+    "4",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2203_00_Kyuvilduns_StandardEnd2": {
+   "HP": "90",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2203_01_Kyuvilduns_RareEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "250",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2204_00_Mu_StandardEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2204_01_Mu_RareEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2205_00_Mandragora_StandardEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2205_01_Mandragora_RareEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2206_00_Elfadunk_StandardEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2206_01_Elfadunk_RareEnd2": {
+   "HP": "1200",
+   "PhysicsAttack": "270",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2206_02_Elfadunk_SubspeciesEnd2": {
+   "HP": "850",
+   "PhysicsAttack": "300",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2207_00_Quetzalcoatl_StandardEnd2": {
+   "HP": "2700",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "400",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2207_03_Quetzalcoatl_SubspeciesEnd2": {
+   "HP": "2700",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2208_00_Crawler_StandardEnd2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2208_01_Crawler_NidhoggEnd2": {
+   "HP": "170",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2209_00_ArkDragon_StandardEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2209_01_ArkDragon_SubspeciesEnd2": {
+   "HP": "2000",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2209_02_ArkDragon_AncientEnd2": {
+   "HP": "550",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2210_00_Flan_StandardEnd2": {
+   "HP": "90",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "4"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2210_01_Flan_SubspeciesEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2211_00_Ogre_StandardEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2211_01_Ogre_OrcEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2211_02_Ogre_SubspeciesEnd2": {
+   "HP": "2400",
+   "PhysicsAttack": "280",
+   "MagicAttack": "280",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2212_00_Zemzelett_StandardEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2212_01_Zemzelett_RareEnd2": {
+   "HP": "1000",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2213_00_Nerosuferoth_StandardEnd2": {
+   "HP": "140",
+   "PhysicsAttack": "130",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2213_01_Nerosuferoth_RareEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2214_00_Capparwire_StandardEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2214_01_Capparwire_RareEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2215_00_HellRiderGE_StandardEnd2": {
+   "HP": "2100",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "700",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2216_00_Mindflayer_StandardEnd2": {
+   "HP": "2200",
+   "PhysicsAttack": "200",
+   "MagicAttack": "400",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2217_00_Grangalan_StandardEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "120",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2218_00_Beachplug_StandardEnd2": {
+   "HP": "150",
+   "PhysicsAttack": "120",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2218_01_Beachplug_RareEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2219_00_CrownLance_StandardEnd2": {
+   "HP": "80",
+   "PhysicsAttack": "100",
+   "MagicAttack": "120",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2219_01_CrownLance_RareEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "100",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2220_00_NeedleKiss_StandardEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "120",
+   "MagicAttack": "120",
+   "AttributeResist_Array": [
+    "1",
+    "0",
+    "5",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2220_01_NeedleKiss_RareEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1",
+    "0",
+    "5"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2221_00_Seadevil_StandardEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2222_00_SearchCrown_StandardEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2222_01_SearchCrown_BatteryCapEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2222_02_SearchCrown_BatteryCapRareEnd2": {
+   "HP": "500",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2223_00_Bagnadrana_StandardEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "300",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "2",
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2223_01_Bagnadrana_SubspeciesEnd2": {
+   "HP": "1400",
+   "PhysicsAttack": "350",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "2",
+    "1",
+    "2"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2224_00_Cokatolis_StandardEnd2": {
+   "HP": "750",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2225_00_DeathClaw_StandardEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "250",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2225_01_DeathClaw_SubspeciesEnd2": {
+   "HP": "1500",
+   "PhysicsAttack": "220",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2226_00_2Faced_StandardEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2227_00_LandWorm_StandardEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2227_01_LandWorm_RareEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "250",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2227_02_LandWorm_SubspeciesEnd2": {
+   "HP": "1500",
+   "PhysicsAttack": "300",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2228_00_Spencer_StandardEnd2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2228_01_Spencer_RareEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2229_00_Chimaera_StandardEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2229_01_Chimaera_RareEnd2": {
+   "HP": "800",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2230_00_Joker_StandardEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "400",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2231_00_GrandHorn_StandardEnd2": {
+   "HP": "180",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2231_01_GrandHorn_RareEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2231_02_GrandHorn_SavageEnd2": {
+   "HP": "1200",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2232_00_Gagighandi_StandardEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2232_01_Gagighandi_RareEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "250",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2232_02_Gagighandi_UnderLizardEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "200",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2233_00_TouchMe_StandardEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2233_01_TouchMe_RareEnd2": {
+   "HP": "400",
+   "PhysicsAttack": "200",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2233_02_TouchMe_ToxicFrogEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2234_00_FlowerProng_StandardEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2234_03_FlowerProng_RareEnd2": {
+   "HP": "500",
+   "PhysicsAttack": "120",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "5",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2235_00_Gigantoad_StandardEnd2": {
+   "HP": "2300",
+   "PhysicsAttack": "350",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2236_00_KimaraBug_StandardEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2236_01_KimaraBug_SubspeciesEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2236_02_KimaraBug_GongagaEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "130",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2237_00_HeavyTank_StandardEnd2": {
+   "HP": "1200",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "15",
+   "KeepValue": "40"
+  },
+  "EN2237_01_HeavyTank_SubspeciesEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "15",
+   "KeepValue": "40"
+  },
+  "EN2238_00_Skeeskee_StandardEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "2",
+   "KeepValue": "20"
+  },
+  "EN2238_01_Skeeskee_RareEnd2": {
+   "HP": "580",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "3",
+   "KeepValue": "20"
+  },
+  "EN2239_00_Griffin_StandardEnd2": {
+   "HP": "500",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "EN2207_01_Quetzalcoatl_GriffinEnd2",
+   "model": "EN2207_01_Quetzalcoatl_GriffinEnd2"
+  },
+  "EN2239_01_Griffin_RareEnd2": {
+   "HP": "1700",
+   "PhysicsAttack": "250",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "EN2207_02_Quetzalcoatl_GriffinRareEnd2",
+   "model": "EN2207_02_Quetzalcoatl_GriffinRareEnd2"
+  },
+  "EN2240_00_Golem_StandardEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "200",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "3",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2240_01_Golem_RareEnd2": {
+   "HP": "1200",
+   "PhysicsAttack": "270",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "3",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "60"
+  },
+  "EN2241_00_Bagrisk_StandardEnd2": {
+   "HP": "130",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "4",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2241_01_Bagrisk_RareEnd2": {
+   "HP": "350",
+   "PhysicsAttack": "150",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "4",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2242_00_Reapertail_StandardEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "350",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2243_00_Jabberwock_StandardEnd2": {
+   "HP": "1800",
+   "PhysicsAttack": "300",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2244_00_GiSpector_BowEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "model": "EN2244_00_GiSpector_StandardEnd2"
+  },
+  "EN2244_00_GiSpector_SpearEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "model": "EN2244_00_GiSpector_StandardEnd2"
+  },
+  "EN2244_00_GiSpector_WandEnd2": {
+   "HP": "150",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "model": "EN2244_00_GiSpector_StandardEnd2"
+  },
+  "EN2245_00_Stinger_StandardEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2246_00_Valron_StandardEnd2": {
+   "HP": "500",
+   "PhysicsAttack": "150",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2246_01_Valron_RareEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "200",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "300",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2246_02_Valron_SubspeciesEnd2": {
+   "HP": "1800",
+   "PhysicsAttack": "350",
+   "MagicAttack": "350",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2247_00_VelcherTask_StandardEnd2": {
+   "HP": "700",
+   "PhysicsAttack": "250",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2247_01_VelcherTask_RareEnd2": {
+   "HP": "2500",
+   "PhysicsAttack": "350",
+   "MagicAttack": "350",
+   "AttributeResist_Array": [
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2248_00_KillerBee_StandardEnd2": {
+   "HP": "1300",
+   "PhysicsAttack": "300",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "200",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2248_01_KillerBee_ChildEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2249_00_BahbaVelamyu_StandardEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2250_00_BlackBat_StandardEnd2": {
+   "HP": "80",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2251_00_Slaps_StandardEnd2": {
+   "HP": "80",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN2252_00_Kelzmelzer_StandardEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2254_00_Doorbull_StandardEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2255_00_8eye_StandardEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "150",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "1",
+    "1",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2256_00_Adamantaimai_Moss": {
+   "HP": "1900",
+   "PhysicsAttack": "250",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "FA0052_12_Dummy_AdamantaimaiMoss",
+   "model": "FA0052_12_Dummy_AdamantaimaiMoss"
+  },
+  "EN2256_00_Adamantaimai_StandardEnd2": {
+   "HP": "1900",
+   "PhysicsAttack": "350",
+   "MagicAttack": "350",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "400",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2257_00_IronMan_StandardEnd2": {
+   "HP": "2700",
+   "PhysicsAttack": "370",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "2",
+    "2",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "15",
+   "KeepValue": "60"
+  },
+  "EN2258_00_Allemagne_StandardEnd2": {
+   "HP": "800",
+   "PhysicsAttack": "200",
+   "MagicAttack": "250",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2258_01_Allemagne_SubspeciesEnd2": {
+   "HP": "1400",
+   "PhysicsAttack": "200",
+   "MagicAttack": "300",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN2259_00_Cactuar_Standard": {
+   "HP": "70",
+   "PhysicsAttack": "80",
+   "MagicAttack": "80",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "chara": "SU0008_00_Cactuar_Standard",
+   "model": "SU0008_00_Cactuar_Standard"
+  },
+  "EN2259_01_Cactuar_SapoEnd2": {
+   "HP": "70",
+   "PhysicsAttack": "80",
+   "MagicAttack": "80",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20",
+   "chara": "SU0008_01_Cactuar_SapoEnd2",
+   "model": "SU0008_01_Cactuar_SapoEnd2"
+  },
+  "EN2259_03_Cactuar_JaboEnd2": {
+   "HP": "1100",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "SU0008_03_Cactuar_JaboEnd2",
+   "model": "SU0008_03_Cactuar_JaboEnd2"
+  },
+  "EN2259_05_Cactuar_JapoEnd2": {
+   "HP": "1100",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40",
+   "chara": "SU0008_05_Cactuar_JapoEnd2",
+   "model": "SU0008_05_Cactuar_JapoEnd2"
+  },
+  "EN3000_02_MonoDrive_ScrutinEyeEnd2": {
+   "HP": "120",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3001_03_VagidPolice_TwinBrainEnd2": {
+   "HP": "100",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3001_04_VagidPolice_SephirothEnd2": {
+   "HP": "300",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3004_01_Zenene_SneakyStepEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "200",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN3007_01_DeepGroundMonster_FusionEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "100",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3200_00_Screamer_StandardEnd2": {
+   "HP": "200",
+   "PhysicsAttack": "100",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3200_01_Screamer_FusionEnd2": {
+   "HP": "230",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN3201_00_Fusant_StandardEnd2": {
+   "HP": "500",
+   "PhysicsAttack": "250",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN3202_00_Bioweapon_StandardEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "150",
+   "MagicAttack": "100",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN3203_00_DorkyFace_StandardEnd2": {
+   "HP": "250",
+   "PhysicsAttack": "100",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "20"
+  },
+  "EN3204_00_YingYang_StandardEnd2": {
+   "HP": "600",
+   "PhysicsAttack": "220",
+   "MagicAttack": "200",
+   "AttributeResist_Array": [
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  },
+  "EN3205_00_Jersey_StandardEnd2": {
+   "HP": "450",
+   "PhysicsAttack": "150",
+   "MagicAttack": "150",
+   "AttributeResist_Array": [
+    "0",
+    "0",
+    "1"
+   ],
+   "BreakValueEndurance": "0",
+   "BurstTime": "10",
+   "KeepValue": "40"
+  }
+ }
+}

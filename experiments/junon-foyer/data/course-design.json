@@ -1,0 +1,2190 @@
+{
+  "_about": "Junon Colosseum courses. tools/apply_course_design.py writes these into junon-arena.json; edit here, then run it. Rounds are native Combat Simulator rounds (terVR_COL30_<id> with POS_COL30_<id>): new EnemyTerritory rows hang every simulator battle, so every round reuses a native territory and its spawn positions unchanged. Rewards: the first clear grants first_clear once; every clear after that draws one entry of pool by weight (per mille), the game's own RewardRandom mechanism. Every reward is a materia from approved_materia at its maximum level.",
+  "battle": {
+    "mode": "arena",
+    "user_level": "1300-JUNOA_BattlePlan_ModJunonColosseum",
+    "territory_actor": "UCBattle_TerritoryCmnActor",
+    "warp_point": "obl2360_point_colosseum",
+    "position": "POS_Mod_JunonColosseum",
+    "battle_in": "CSA_VrCoBattleIn_Common_US",
+    "winner": "CSA_VrCoBattleClear_Common_US",
+    "party_offsets": [
+      [
+        0,
+        150
+      ],
+      [
+        0,
+        -150
+      ],
+      [
+        -150,
+        0
+      ]
+    ]
+  },
+  "_battle": "Owner design: fights happen in the Junon arena beside the foyer, as Musclehead's do in the Gold Saucer. mode arena uses the colosseum menu (4,0,5) and the arena level/territory named here; mode simulator uses the game's own VR arena and the simulator menu (4,1,5), proven live 2026-11-09 (AQ/AR) but not the owner's design. Simulator-type rows crash the colosseum menu (AM/AN/AO).",
+  "party_max": 3,
+  "max_rounds": 10,
+  "reward_index_start": 65348,
+  "approved_items": {
+    "it_potion": "Potion",
+    "IT_hpotion": "Hi-Potion",
+    "IT_mpotion": "Mega-Potion",
+    "IT_xpotion": "X-Potion",
+    "it_atel": "Ether",
+    "IT_hatel": "Turbo Ether",
+    "IT_phenxtal": "Phoenix Down",
+    "it_elixir": "Elixir"
+  },
+  "courses": [
+    {
+      "title": "Shin'iri",
+      "flavor": "新入り: Newcomer. Shinra's toughest fights, drawn fresh for every attempt. Bosses wait in rounds 3, 6 and 9, and two squads of three take turns.",
+      "recommended": "rlvCOL30_GRASA_01",
+      "timer": 165,
+      "first_clear": "M_COM_004",
+      "pool": [
+        [
+          "M_COM_005",
+          250
+        ],
+        [
+          "M_MAG_003",
+          250
+        ],
+        [
+          "M_MAG_111",
+          250
+        ],
+        [
+          "M_MAG_002",
+          250
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_11_010",
+          "GOLDA_02_020",
+          "EXTRA_10_010",
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020"
+        ],
+        [
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060"
+        ],
+        [
+          "EXTRA_07_030",
+          "EXTRA_08_020",
+          "EXTRA_12_020",
+          "EXTRA_07_040",
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040"
+        ],
+        [
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080"
+        ],
+        [
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020"
+        ],
+        [
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080"
+        ],
+        [
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060"
+        ],
+        [
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040"
+        ],
+        [
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "GRASA_07_050",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050"
+        ]
+      ],
+      "hp_factor": 1.0
+    },
+    {
+      "title": "Security Officer",
+      "flavor": "Rank rule: Rivals: every enemy starts each round with a random Mako infusion. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_JUNOA_03",
+      "timer": 167,
+      "first_clear": "M_IND_009",
+      "pool": [
+        [
+          "M_IND_106",
+          334
+        ],
+        [
+          "M_IND_105",
+          333
+        ],
+        [
+          "M_IND_003",
+          333
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_11_010",
+          "GOLDA_02_020",
+          "EXTRA_10_010",
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020"
+        ],
+        [
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060"
+        ],
+        [
+          "EXTRA_07_030",
+          "EXTRA_08_020",
+          "EXTRA_12_020",
+          "EXTRA_07_040",
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040"
+        ],
+        [
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080"
+        ],
+        [
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020"
+        ],
+        [
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080"
+        ],
+        [
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060"
+        ],
+        [
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040"
+        ],
+        [
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050"
+        ]
+      ],
+      "hp_factor": 1.25
+    },
+    {
+      "title": "Riot Trooper",
+      "flavor": "Rank rule: Rally: whenever an enemy falls, every surviving enemy gains a random Mako infusion. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_CORLA_05",
+      "timer": 168,
+      "first_clear": "M_SUP_003",
+      "pool": [
+        [
+          "M_IND_111",
+          500
+        ],
+        [
+          "M_IND_010",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_02_020",
+          "EXTRA_10_010",
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010"
+        ],
+        [
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090"
+        ],
+        [
+          "EXTRA_07_040",
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060"
+        ],
+        [
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010"
+        ],
+        [
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080"
+        ],
+        [
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020"
+        ],
+        [
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050"
+        ],
+        [
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040"
+        ],
+        [
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050"
+        ]
+      ],
+      "hp_factor": 1.25
+    },
+    {
+      "title": "Grenadier",
+      "flavor": "Rank rule: Riot rush: enemies are hasted all course. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_GONGA_02",
+      "timer": 174,
+      "first_clear": "M_IND_102",
+      "pool": [
+        [
+          "M_MAG_004",
+          250
+        ],
+        [
+          "M_MAG_007",
+          250
+        ],
+        [
+          "M_MAG_006",
+          250
+        ],
+        [
+          "M_MAG_005",
+          250
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_10_010",
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020"
+        ],
+        [
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040"
+        ],
+        [
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010"
+        ],
+        [
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080"
+        ],
+        [
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020"
+        ],
+        [
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050"
+        ],
+        [
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100"
+        ],
+        [
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050"
+        ]
+      ],
+      "hp_factor": 1.25
+    },
+    {
+      "title": "Elite Security Officer",
+      "flavor": "Rank rule: Bloodlust: your fighters are berserk all course, dealing and taking more damage. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_CSMOA_05",
+      "timer": 175,
+      "first_clear": "M_IND_008",
+      "pool": [
+        [
+          "M_COM_101",
+          334
+        ],
+        [
+          "M_COM_107",
+          333
+        ],
+        [
+          "M_COM_105",
+          333
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_10_010",
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020"
+        ],
+        [
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040"
+        ],
+        [
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010"
+        ],
+        [
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080"
+        ],
+        [
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020"
+        ],
+        [
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050"
+        ],
+        [
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100"
+        ],
+        [
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050"
+        ]
+      ],
+      "hp_factor": 1.5
+    },
+    {
+      "title": "Elite Riot Officer",
+      "flavor": "Rank rule: Hall of mirrors: enemies reflect spells for the first 60 seconds of each round. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_NIBLS_05",
+      "timer": 177,
+      "first_clear": "M_IND_103",
+      "pool": [
+        [
+          "M_IND_108",
+          500
+        ],
+        [
+          "M_IND_107",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020"
+        ],
+        [
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_12_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040"
+        ],
+        [
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010"
+        ],
+        [
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010"
+        ],
+        [
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020"
+        ],
+        [
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020"
+        ],
+        [
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 1.5
+    },
+    {
+      "title": "Elite Grenadier",
+      "flavor": "Rank rule: Twisted weaknesses: enemies absorb the elements they were weak to. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_GOLDA_01",
+      "timer": 178,
+      "first_clear": "M_IND_101",
+      "pool": [
+        [
+          "M_MAG_108",
+          250
+        ],
+        [
+          "M_MAG_109",
+          250
+        ],
+        [
+          "M_MAG_110",
+          250
+        ],
+        [
+          "M_MAG_102",
+          250
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020"
+        ],
+        [
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_11_040",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030"
+        ],
+        [
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010"
+        ],
+        [
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010"
+        ],
+        [
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020"
+        ],
+        [
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020"
+        ],
+        [
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 1.75
+    },
+    {
+      "title": "Rookie Turk",
+      "flavor": "Rank rule: Arms race: for every Mako infusion you take, the enemy gains one too for the rest of the course. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_JUNOA_06",
+      "timer": 180,
+      "first_clear": "M_IND_104",
+      "pool": [
+        [
+          "M_MAG_104",
+          500
+        ],
+        [
+          "M_MAG_010",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_03_010",
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020"
+        ],
+        [
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_09_020",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030"
+        ],
+        [
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010"
+        ],
+        [
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010"
+        ],
+        [
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020"
+        ],
+        [
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020"
+        ],
+        [
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 1.75
+    },
+    {
+      "title": "Veteran Turk",
+      "flavor": "Rank rule: Time trap: every 30 seconds, one of your fighters is stopped. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_CORLA_06",
+      "timer": 184,
+      "first_clear": "M_IND_014",
+      "pool": [
+        [
+          "M_COM_104",
+          500
+        ],
+        [
+          "M_IND_112",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_13_010",
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010"
+        ],
+        [
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020"
+        ],
+        [
+          "EXTRA_08_030",
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050"
+        ],
+        [
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100"
+        ],
+        [
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020"
+        ],
+        [
+          "EXTRA_13_050",
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040"
+        ],
+        [
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010"
+        ],
+        [
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 1.75
+    },
+    {
+      "title": "Director of the Turks",
+      "flavor": "Rank rule: Short rest: between rounds your fighters recover only 20% HP and 15% MP. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_NIBLA_06",
+      "timer": 185,
+      "first_clear": "M_COM_003",
+      "pool": [
+        [
+          "M_MAG_012",
+          250
+        ],
+        [
+          "M_IND_016",
+          250
+        ],
+        [
+          "M_MAG_008",
+          250
+        ],
+        [
+          "M_COM_001",
+          250
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010"
+        ],
+        [
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020"
+        ],
+        [
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050"
+        ],
+        [
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020"
+        ],
+        [
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010"
+        ],
+        [
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040",
+          "GOLDA_08_020"
+        ],
+        [
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090"
+        ],
+        [
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090",
+          "EXTRA_03_070"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 2.0
+    },
+    {
+      "title": "SOLDIER Third Class",
+      "flavor": "Rank rule: Slim pickings: only two Mako infusions to choose from. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_GOLDA_21",
+      "timer": 187,
+      "first_clear": "M_COM_006",
+      "pool": [
+        [
+          "M_SUP_004",
+          500
+        ],
+        [
+          "M_SUP_005",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "EXTRA_02_070",
+          "EXTRA_03_030",
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010"
+        ],
+        [
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020"
+        ],
+        [
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050"
+        ],
+        [
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020"
+        ],
+        [
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010"
+        ],
+        [
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040",
+          "GOLDA_08_020"
+        ],
+        [
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090"
+        ],
+        [
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090",
+          "EXTRA_03_070"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 2.25
+    },
+    {
+      "title": "SOLDIER Second Class",
+      "flavor": "Rank rule: Second wind: every enemy recovers to half health once, the first time it drops below 20% HP. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_EXTRA_13",
+      "timer": 188,
+      "first_clear": "M_SUP_103",
+      "pool": [
+        [
+          "M_SUP_101",
+          500
+        ],
+        [
+          "M_SUP_102",
+          500
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010"
+        ],
+        [
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010"
+        ],
+        [
+          "EXTRA_07_020",
+          "EXTRA_14_040",
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050"
+        ],
+        [
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010"
+        ],
+        [
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030"
+        ],
+        [
+          "EXTRA_11_030",
+          "EXTRA_12_050",
+          "EXTRA_14_080",
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040",
+          "GOLDA_08_020"
+        ],
+        [
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010"
+        ],
+        [
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090",
+          "EXTRA_03_070",
+          "EXTRA_03_100",
+          "EXTRA_04_070"
+        ],
+        [
+          "GOLDA_13_020",
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050"
+        ]
+      ],
+      "hp_factor": 2.25
+    },
+    {
+      "title": "SOLDIER First Class",
+      "flavor": "Rank rule: Darkside: every round your fighters start in Darkside: abilities hit 20% harder but cost 5% HP each. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_EXTRA_03",
+      "timer": 189,
+      "first_clear": "M_COM_106",
+      "pool": [
+        [
+          "M_MAG_103",
+          334
+        ],
+        [
+          "M_IND_011",
+          333
+        ],
+        [
+          "M_SUP_001",
+          333
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9
+      ],
+      "slots": [
+        [
+          "GOLDA_03_020",
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010"
+        ],
+        [
+          "EXTRA_01_060",
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010"
+        ],
+        [
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080"
+        ],
+        [
+          "EXTRA_04_080",
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010"
+        ],
+        [
+          "EXTRA_01_020",
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030"
+        ],
+        [
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040",
+          "GOLDA_08_020",
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "GRASA_07_050"
+        ],
+        [
+          "EXTRA_02_060",
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010"
+        ],
+        [
+          "EXTRA_04_040",
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090",
+          "EXTRA_03_070",
+          "EXTRA_03_100",
+          "EXTRA_04_070"
+        ],
+        [
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050",
+          "EXTRA_04_090"
+        ]
+      ],
+      "hp_factor": 2.5
+    },
+    {
+      "title": "Nandemoya-san",
+      "flavor": "なんでも屋さん: Mr. Anything-Shop, the one rank above SOLDIER. Rank rule: Encore: a tenth round with two bosses at once. Every earlier rule still applies.",
+      "recommended": "rlvCOL30_EXTRA_01",
+      "timer": 190,
+      "first_clear": "M_SUP_006",
+      "pool": [
+        [
+          "M_SUP_002",
+          334
+        ],
+        [
+          "M_SUP_103",
+          333
+        ],
+        [
+          "M_SUP_006",
+          333
+        ]
+      ],
+      "bosses": [
+        3,
+        6,
+        9,
+        10
+      ],
+      "slots": [
+        [
+          "GOLDA_01_010",
+          "GOLDA_07_020",
+          "GOLDA_10_020",
+          "EXTRA_01_010",
+          "EXTRA_07_010",
+          "EXTRA_09_010",
+          "EXTRA_12_010",
+          "EXTRA_01_060"
+        ],
+        [
+          "EXTRA_01_090",
+          "EXTRA_03_020",
+          "EXTRA_02_030",
+          "GOLDA_05_020",
+          "GOLDA_06_020",
+          "EXTRA_01_040",
+          "GOLDA_06_010",
+          "EXTRA_04_080"
+        ],
+        [
+          "NIBLA_07_050",
+          "EXTRA_09_050",
+          "EXTRA_14_060",
+          "EXTRA_15_040",
+          "GOLDA_21_030",
+          "EXTRA_09_030",
+          "EXTRA_08_050",
+          "CORLA_07_050",
+          "EXTRA_13_050",
+          "EXTRA_15_080"
+        ],
+        [
+          "GOLDA_04_010",
+          "GOLDA_07_010",
+          "GOLDA_10_010",
+          "EXTRA_02_100",
+          "EXTRA_02_020",
+          "EXTRA_01_070",
+          "GOLDA_09_010",
+          "EXTRA_01_020"
+        ],
+        [
+          "EXTRA_01_080",
+          "EXTRA_02_080",
+          "GOLDA_05_010",
+          "GOLDA_09_020",
+          "GOLDA_13_010",
+          "EXTRA_10_030",
+          "EXTRA_01_030",
+          "EXTRA_02_060"
+        ],
+        [
+          "GOLDA_11_020",
+          "EXTRA_04_050",
+          "EXTRA_14_020",
+          "EXTRA_05_020",
+          "EXTRA_04_100",
+          "EXTRA_13_040",
+          "GOLDA_08_020",
+          "GOLDA_13_020",
+          "GOLDA_21_050",
+          "GRASA_07_050"
+        ],
+        [
+          "EXTRA_01_050",
+          "EXTRA_03_050",
+          "GOLDA_01_020",
+          "EXTRA_08_010",
+          "EXTRA_03_090",
+          "EXTRA_02_040",
+          "EXTRA_02_010",
+          "EXTRA_04_040"
+        ],
+        [
+          "EXTRA_03_040",
+          "EXTRA_01_100",
+          "GOLDA_02_010",
+          "EXTRA_02_090",
+          "EXTRA_03_070",
+          "EXTRA_03_100",
+          "EXTRA_04_070",
+          "EXTRA_04_030"
+        ],
+        [
+          "EXTRA_03_060",
+          "EXTRA_07_050",
+          "EXTRA_10_050",
+          "EXTRA_15_020",
+          "EXTRA_15_060",
+          "COSMA_07_050",
+          "GONGA_07_050",
+          "EXTRA_11_050",
+          "JUNOA_07_050",
+          "EXTRA_04_090"
+        ],
+        [
+          "GOLDA_08_010",
+          "GOLDA_12_020",
+          "GOLDA_14_020",
+          "GOLDA_16_010",
+          "GOLDA_18_020",
+          "GOLDA_12_010",
+          "GOLDA_16_020",
+          "GOLDA_18_010",
+          "GOLDA_20_020",
+          "GOLDA_14_010"
+        ]
+      ],
+      "hp_factor": 2.5
+    }
+  ],
+  "approved_materia": {
+    "M_COM_004": {
+      "name": "Chakra Materia",
+      "max_level": 5
+    },
+    "M_COM_005": {
+      "name": "Prayer Materia",
+      "max_level": 5
+    },
+    "M_COM_006": {
+      "name": "ATB Boost Materia",
+      "max_level": 5
+    },
+    "M_COM_103": {
+      "name": "Item Economizer Materia",
+      "max_level": 3
+    },
+    "M_COM_106": {
+      "name": "Darkside Materia",
+      "max_level": 5
+    },
+    "M_COM_107": {
+      "name": "Gambler Materia",
+      "max_level": 3
+    },
+    "M_IND_001": {
+      "name": "HP Up Materia",
+      "max_level": 5
+    },
+    "M_IND_002": {
+      "name": "MP Up Materia",
+      "max_level": 5
+    },
+    "M_IND_003": {
+      "name": "Magic Up Materia",
+      "max_level": 5
+    },
+    "M_IND_004": {
+      "name": "Luck Up Materia",
+      "max_level": 5
+    },
+    "M_IND_007": {
+      "name": "Item Master Materia",
+      "max_level": 3
+    },
+    "M_IND_008": {
+      "name": "ATB Stagger Materia",
+      "max_level": 3
+    },
+    "M_IND_009": {
+      "name": "First Strike Materia",
+      "max_level": 3
+    },
+    "M_IND_010": {
+      "name": "Steadfast Block Materia",
+      "max_level": 3
+    },
+    "M_IND_011": {
+      "name": "Skill Master Materia",
+      "max_level": 3
+    },
+    "M_IND_014": {
+      "name": "ATB Assist Materia",
+      "max_level": 3
+    },
+    "M_IND_016": {
+      "name": "Provoke Materia",
+      "max_level": 3
+    },
+    "M_IND_105": {
+      "name": "Speed Up Materia",
+      "max_level": 5
+    },
+    "M_IND_106": {
+      "name": "Strength Up Materia",
+      "max_level": 5
+    },
+    "M_IND_107": {
+      "name": "Spirit Up Materia",
+      "max_level": 5
+    },
+    "M_IND_108": {
+      "name": "Vitality Up Materia",
+      "max_level": 5
+    },
+    "M_IND_111": {
+      "name": "Precision Defense Focus Materia",
+      "max_level": 3
+    },
+    "M_MAG_001": {
+      "name": "Healing Materia",
+      "max_level": 4
+    },
+    "M_MAG_002": {
+      "name": "Cleansing Materia",
+      "max_level": 3
+    },
+    "M_MAG_003": {
+      "name": "Revival Materia",
+      "max_level": 2
+    },
+    "M_MAG_004": {
+      "name": "Fire Materia",
+      "max_level": 3
+    },
+    "M_MAG_005": {
+      "name": "Ice Materia",
+      "max_level": 3
+    },
+    "M_MAG_006": {
+      "name": "Lightning Materia",
+      "max_level": 3
+    },
+    "M_MAG_007": {
+      "name": "Wind Materia",
+      "max_level": 3
+    },
+    "M_MAG_008": {
+      "name": "Poison Materia",
+      "max_level": 3
+    },
+    "M_MAG_009": {
+      "name": "Binding Materia",
+      "max_level": 3
+    },
+    "M_MAG_010": {
+      "name": "Time Materia",
+      "max_level": 3
+    },
+    "M_MAG_011": {
+      "name": "Barrier Materia",
+      "max_level": 3
+    },
+    "M_MAG_012": {
+      "name": "Subversion Materia",
+      "max_level": 2
+    },
+    "M_MAG_102": {
+      "name": "Gravity Materia",
+      "max_level": 3
+    },
+    "M_MAG_103": {
+      "name": "Comet Materia",
+      "max_level": 2
+    },
+    "M_MAG_104": {
+      "name": "Empowerment Materia",
+      "max_level": 2
+    },
+    "M_MAG_105": {
+      "name": "Fortification Materia",
+      "max_level": 2
+    },
+    "M_MAG_108": {
+      "name": "Fire and Ice Materia",
+      "max_level": 3
+    },
+    "M_MAG_109": {
+      "name": "Lightning and Wind Materia",
+      "max_level": 3
+    },
+    "M_MAG_110": {
+      "name": "Poison and Petrify Materia",
+      "max_level": 3
+    },
+    "M_MAG_111": {
+      "name": "Reraise Materia",
+      "max_level": 1
+    },
+    "M_SUP_001": {
+      "name": "Magnify Materia",
+      "max_level": 3
+    },
+    "M_SUP_002": {
+      "name": "Elemental Materia",
+      "max_level": 3
+    },
+    "M_SUP_004": {
+      "name": "HP Absorption Materia",
+      "max_level": 3
+    },
+    "M_SUP_005": {
+      "name": "MP Absorption Materia",
+      "max_level": 3
+    },
+    "M_SUP_006": {
+      "name": "Synergy Materia",
+      "max_level": 1
+    },
+    "M_SUP_101": {
+      "name": "Magic Focus Materia",
+      "max_level": 5
+    },
+    "M_SUP_102": {
+      "name": "Magic Efficiency Materia",
+      "max_level": 3
+    },
+    "M_SUP_103": {
+      "name": "Swiftcast Materia",
+      "max_level": 5
+    },
+    "M_SUP_104": {
+      "name": "Auto-Cast Materia",
+      "max_level": 2
+    },
+    "M_SUP_105": {
+      "name": "Level Boost Materia",
+      "max_level": 1
+    },
+    "M_COM_003": {
+      "name": "Enemy Skill Materia",
+      "max_level": 5
+    },
+    "M_COM_105": {
+      "name": "Jump Materia",
+      "max_level": 1
+    },
+    "M_IND_104": {
+      "name": "Limit Support Materia",
+      "max_level": 1
+    },
+    "M_IND_112": {
+      "name": "Synergy Support Materia",
+      "max_level": 1
+    },
+    "M_SUP_003": {
+      "name": "Warding Materia",
+      "max_level": 3
+    },
+    "M_IND_102": {
+      "name": "ATK⇔MATK Materia",
+      "max_level": 1
+    },
+    "M_COM_101": {
+      "name": "Morph Materia",
+      "max_level": 1
+    },
+    "M_IND_103": {
+      "name": "VIT⇔SPR Materia",
+      "max_level": 1
+    },
+    "M_IND_101": {
+      "name": "HP⇔MP Materia",
+      "max_level": 1
+    },
+    "M_COM_104": {
+      "name": "Limit Siphon Materia",
+      "max_level": 1
+    },
+    "M_COM_001": {
+      "name": "Steal Materia",
+      "max_level": 2
+    }
+  },
+  "_rewards": "Owner's final table, 2026-11-10: rewards are themed to their course names. The first clear grants first_clear once; every later clear draws one pool entry by weight (per mille, equal shares). Every reward is a materia at its maximum level (max_level is the game's Materia LvMax; names from its text). Every materia on owner_materia must stay winnable from some course; the board shows one reward, so each course's text lists its repeat-clear materia (added by tools/apply_course_design.py).",
+  "modifiers": [
+    {
+      "from": 2,
+      "kind": "enemy_boons",
+      "count": 1,
+      "text": "Rivals: every enemy starts each round with a random Mako infusion."
+    },
+    {
+      "from": 3,
+      "kind": "rally",
+      "text": "Rally: whenever an enemy falls, every surviving enemy gains a random Mako infusion."
+    },
+    {
+      "from": 4,
+      "kind": "enemy_status",
+      "status": "BSC_Haste",
+      "text": "Riot rush: enemies are hasted all course."
+    },
+    {
+      "from": 5,
+      "kind": "party_status",
+      "status": "BSC_Berserk",
+      "text": "Bloodlust: your fighters are berserk all course, dealing and taking more damage."
+    },
+    {
+      "from": 6,
+      "kind": "enemy_status_start",
+      "status": "BSC_Reflection",
+      "seconds": 60,
+      "text": "Hall of mirrors: enemies reflect spells for the first 60 seconds of each round."
+    },
+    {
+      "from": 7,
+      "kind": "enemy_spec",
+      "weakness": "absorb",
+      "text": "Twisted weaknesses: enemies absorb the elements they were weak to."
+    },
+    {
+      "from": 8,
+      "kind": "arms_race",
+      "text": "Arms race: for every Mako infusion you take, the enemy gains one too for the rest of the course."
+    },
+    {
+      "from": 9,
+      "kind": "party_status_every",
+      "status": "BSC_Stop",
+      "seconds": 30,
+      "text": "Time trap: every 30 seconds, one of your fighters is stopped."
+    },
+    {
+      "from": 10,
+      "kind": "party_recovery",
+      "hp": 20,
+      "mp": 15,
+      "text": "Short rest: between rounds your fighters recover only 20% HP and 15% MP."
+    },
+    {
+      "from": 11,
+      "kind": "offer_size",
+      "size": 2,
+      "text": "Slim pickings: only two Mako infusions to choose from."
+    },
+    {
+      "from": 12,
+      "kind": "second_wind",
+      "below": 20,
+      "to": 50,
+      "text": "Second wind: every enemy recovers to half health once, the first time it drops below 20% HP."
+    },
+    {
+      "from": 13,
+      "kind": "party_status",
+      "status": "BSC_Dark",
+      "materia": "M_COM_106",
+      "accessory": "E_ACC_7106",
+      "text": "Darkside: every round your fighters start in Darkside: abilities hit 20% harder but cost 5% HP each."
+    },
+    {
+      "from": 14,
+      "kind": "encore",
+      "text": "Encore: a tenth round with two bosses at once."
+    }
+  ],
+  "_modifiers": "Owner 2026-11-10: creative rules over HP and damage: Toad drill, Hall of mirrors, Bloodlust (Berserk), Darkside (BSC_Dark, the status the Darkside ability gives: \"あんこく\"), Mirror match (replaced by Arms race on 2026-11-11), Time trap. The second enemy boon, the stagger rule and Heavy hitters were dropped. Owner 2026-11-10 (after playtest): Toad drill was not fun; course 3 is now Riot rush (enemies hasted). Owner 2026-11-10 (reorder): from course 2, Rivals, Tough hides, Riot rush, Bloodlust, Hall of mirrors, Twisted weaknesses, Mirror match, Time trap, Wounded, Slim pickings, Second wind, Darkside, Encore. Owner 2026-11-11: Short rest replaces Wounded (start each round at no more than 75% HP) on course 10: vanilla rounds restore 50% HP and 30% MP between rounds; under Short rest a fighter starts a round with at most what it ended its last round with plus 20% of its max HP and 15% of its max MP (kind party_recovery, buffwheel.lua). Owner 2026-11-11: Arms race replaces Mirror match on course 8, because most infusions (materia, accessories, abilities, actions) mean nothing on an enemy: for every infusion the player takes (refusals do not count), the enemies gain one random enemy boon from enemy_boons (the Rivals pool) for the rest of the course, on every enemy (kind arms_race, buffwheel.lua). 2026-11-11 (live bug, course 12): Second wind gave every enemy BSC_Reraise, and the enemies lay dead without rising while the battle never ended, so courses 12-14 could not be cleared. It now gives no status: kind second_wind, the first time the once-a-second tick sees an enemy standing below 'below' % HP it is restored to 'to' % HP, once per enemy (buffwheel.lua). An enemy taken from above the threshold to 0 between two ticks simply dies. 2026-11-11 (research): Darkside's HP cost and potency belong to the Darkside materia M_COM_106 (EffectType 16 UseAbilityDarkness; Lv 5: 5% HP per ability, +20% potency; magic unaffected), not to the BSC_Dark status (1.2 multipliers only), so the status alone cost no HP live. The modifier now also names the materia and its carrier Equipment row (E_ACC_7106, a clone of HP Up Materia Earrings naming M_COM_106; apply_buff_wheel.carrier_for): buffwheel.lua asks the native helper for that row for the whole party for the course (junon-infusions.req, before the run's infusion accessories), and BSC_Dark is still given at every round's start to turn Darkside on. The materia brings the Darkside command too; owner 2026-11-11: a fighter may use it to switch Darkside off, and it comes back at the next round's start (no mid-round re-apply). Owner 2026-11-11 (after the balance pass): Rally replaces Tough hides on course 3, because the course's hidden HP factor (hp_factor, 1 on course 1 rising to 2.5 on courses 13-14) made 'enemies have 25% more HP' redundant and misleading; the ladder keeps that 25% and no rank rule names it. Rally (kind rally, buffwheel.lua): whenever an enemy falls during a round, every enemy still standing gains one random boon from enemy_boons (the Rivals pool; one it does not have yet where possible), one per fall; the last enemy's fall gives none, an enemy restored by Second wind has not fallen and a wave arriving is not a fall.",
+  "enemy_boons": [
+    "BSC_Haste",
+    "BSC_Protes",
+    "BSC_Shell",
+    "BSC_Brave",
+    "BSC_Faith",
+    "BSC_Regeneration",
+    "BSC_Barrier",
+    "BSC_MBarrier",
+    "BSC_Reflection",
+    "BSC_CriticalUp"
+  ],
+  "_party": "Owner 2026-11-09: post-game content should use the whole party; each round should field three at random. Inside a course the game's party is only the fighters picked (live: ChangePartyMember had nobody else to bring in), so courses use the Gold Saucer's two-team mode: the player picks six (teams 2, three each). Random three of those six per round is in testing.",
+  "teams": 2,
+  "_bosses": "Owner 2026-11-09: rounds 3, 6 and 9 are boss rounds; course 14 adds a tenth with two bosses. Courses 1-6 end on Chadley's regional legendary fiends (*_07_050 rounds): those have no fixed level and fight at the party's level (RecommendedLevel -2, shown as 'Lv Sync'), so they are a deliberate spike.",
+  "_slots": "Curated random rounds (owner design 2026-11-09): every round slot of every\ncourse has its own pool of about ten candidate rounds, and each run draws one\nfrom each pool. \"Not utter chaos, curated randomisation\": each slot's pool is\nharder than the one before it, and each course's pools harder than the last\ncourse's.",
+  "combined": {
+    "share": 0.25,
+    "mode": "new"
+  },
+  "_combined": "Owner 2026-11-11: rounds should be new fights, two existing rounds fought as one (tools/make_combined_rounds.py; at most 6 enemies; a pair aims at about 1.5x its slot's median round; boss rounds are the boss plus a small group of adds, never two bosses outside the encore; the encore is unchanged). share: the part of each slot's pool that is combined rounds, so a run meets one in about that share of its rounds; a course may set its own combined_share. mode new (T2, the default since 2026-11-11: live-tested on course 2 and three forced rounds of course 1, no hang) adds rows terVR_COL30_MIX_<a>_<b>; mode repurpose (T1, also live-tested) rewrites the 17 spare simulator territories (Gilgamesh quest rows excluded) and stays available with --combined-mode repurpose.",
+  "owner_materia": [
+    "M_SUP_001",
+    "M_SUP_005",
+    "M_COM_006",
+    "M_MAG_102",
+    "M_SUP_006",
+    "M_IND_009",
+    "M_SUP_004",
+    "M_MAG_103",
+    "M_SUP_103",
+    "M_SUP_102",
+    "M_MAG_108",
+    "M_MAG_109",
+    "M_MAG_110",
+    "M_IND_014"
+  ],
+  "_titles": "Owner 2026-11-10: ranks lowest to highest, so each course reads as a rank up; revised the same day (Rookie first, no Sergeant, Elite Grenadier above Elite Riot Officer, Nandemoyasan last). Owner 2026-11-11: course 1 is Shin'iri (新入り, newcomer), not Rookie; its flavor opens with the Japanese and its meaning, as course 14's does.",
+  "music": {
+    "_note": "Owner 2026-11-10: every course uses the same per-round list. Round 8 is bgm_Foree2_012_05, which the owner liked in the audition. The audition's other candidates were rejected. Rounds 1-7 are now known boss themes (EnemyTerritoryLevel BattleBGMName). Round 9 and the final round are still candidates for Battle on the Big Bridge (Gilgamesh battle sections) and One-Winged Angel (final-battle sections not yet heard).",
+    "rounds": [
+      "bgm_Swamp_001",
+      "bgm_Gonge_015",
+      "bgm_Golde3_025",
+      "bgm_Gonge_013",
+      "bgm_Golde3_026_01",
+      "bgm_Ferry_016_01",
+      "bgm_Foree2_011",
+      "bgm_Foree2_012_05",
+      "bgm_Gilgamesh_012_01",
+      "bgm_Foree2_012_06"
+    ]
+  },
+  "_balance": "Owner 2026-11-11 (balance): the Junon Colosseum must be harder than every vanilla challenge. A round's difficulty is its enemies' HP in our arena (hp(): spec HP x EnemyParameter Enemy_<level>.HPMax / 100 at level max(listed, 67), verified live 2026-11-11; wave enemies are left out). Rules: - slots: normal rounds in 1, 2, 4, 5, 7, 8; boss rounds in 3, 6, 9; course 14's encore (10) fights two bosses at once. Two-boss rounds (two enemies of 1500+ base HP each, and vanilla's own two-boss rounds, ENCORE) are drawn only by the encore (\"never two bosses outside the encore\"); a pair of enemies of 1200+ base HP each is a boss round; a pair below that is not (GOLDA_11_010, two Elfadunk subspecies). Normal rounds too big for every normal slot (HEAVY) may be drawn by slot 9. - each slot aims at SHAPE[slot] x the course's step (STEP_FIRST on course 1 to 1 on course 14) and takes the POOL (boss) or NORMAL_POOL rounds of its kind closest to that; - no outliers: a normal slot never holds a round above the next boss slot's median; a boss slot's weakest round beats every earlier normal slot's median; the encore's weakest beats slot 9's median and slot 9 holds nothing above the encore's median; - the medians rise: normal slots in order, boss slots in order, each boss slot above its neighbours, the encore above everything; - the course's median total HP (with its HP factor) follows a smooth ramp from course 1's own total to TARGET_LAST on course 14 (about 1.3x vanilla's hardest course, Legendary \"Bonds of Friendship\", 1.25M at Lv70). Pools alone cannot reach it, so each course gets a hidden HP factor (course-design 'hp_factor', never below 1 and never below the course before's, in steps of FACTOR_STEP, so courses share clone sets). It is the course's whole HP change (apply_difficulty course_rules; the _JCnn spec clones carry it): owner 2026-11-11, no rank rule names it (Rally replaced Tough hides' 25%, which the ladder keeps). Rewrites courses[*].slots, bosses and hp_factor in data/course-design.json. Run tools/apply_course_design.py after (and tools/make_combined_rounds.py)."
+}

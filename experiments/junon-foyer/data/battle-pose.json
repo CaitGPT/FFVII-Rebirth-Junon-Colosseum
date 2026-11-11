@@ -1,0 +1,6 @@
+{
+  "centre": {"x": -124000, "y": 28600, "z": 6170},
+  "source_centre": {"x": 59330, "y": -24290, "z": 298},
+  "evidence": "Recorded native navmesh D45B08C... shows the Roche arena circle here; nearby vertices include floor6170. Placement is a prototype and has no native battle acceptance yet.",
+  "source_package_sha256": "7DF787BCE8DB6A3E1545ACDB714E68AD9A7DC9309B2EA5C6B7DC89A2DFC687E9"
+}

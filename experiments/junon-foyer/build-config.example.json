@@ -1,0 +1,19 @@
+{
+  "_about": "Copy to build-config.local.json (ignored by Git) and fill in your own paths. Build-Foyer.ps1, Build-Release.ps1 and Build-NativeIdentity.ps1 read it; a parameter of the same name overrides a key. See README.md.",
+  "GameRoot": "<game folder, the one that holds End>",
+  "VanillaRoot": "<raw .uasset exports of the game's DataObject tables (FModel), the folder that holds End>",
+  "TrainingDummySpec": "<FFVII-Rebirth-Training-Dummy checkout>/data/training-dummy.json",
+  "NativeLayoutSource": "<raw zen package from retoc>/1300-JUNOA_LevelPlan_MapPoint_Resident.umap",
+  "NativeBattlePlanSource": "<raw zen package from retoc>/2360-UNDRS_BattlePlan_Resident.umap (SHA-256 in data/battle-plan-store.json)",
+  "NativeServerBuildSource": "<raw zen package from retoc>/2360-UNDRS_BattlePlan_Resident_ServerBuild.umap (SHA-256 in data/battle-plan-serverbuild-store.json)",
+  "BackdropSource": "<raw zen package from retoc>/U_Com_GoldSaucerArena_Bg1.uasset (SHA-256 in data/backdrop-store.json)",
+  "BackdropPixels": "<1920x1920 BC7 pixels: texconv -f BC7_UNORM -m 1 output with its 148-byte DDS header removed>",
+  "Retoc": "<retoc built with its FF7R patches>/retoc.exe",
+  "Packer": "<UnrealReZen>/UnrealReZen.exe",
+  "CMake": "<Visual Studio 2022>/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/bin/cmake.exe",
+  "Ue4ssSource": "<UE4SS 3.0.1 C++ template>/RE-UE4SS",
+  "UEPseudoSource": "<UEPseudo checkout matching UE4SS 3.0.1>",
+  "ImguiSource": "<imgui headers>",
+  "ImguiTextEditSource": "<ImGuiColorTextEdit headers>",
+  "Ue4ssImportLib": "<UE4SS.lib for UE4SS 3.0.1>"
+}

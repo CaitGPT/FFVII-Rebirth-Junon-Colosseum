@@ -1,0 +1,10 @@
+{
+  "source": "Development only (owner 2026-11-10): fast travel onto the arena floor for a photo-mode screenshot of the menu backdrop. Never ship it.",
+  "position": {
+    "x": -123780.0,
+    "y": 30400.0,
+    "z": 6258.0
+  },
+  "yaw": -90.0,
+  "development_arena": true
+}

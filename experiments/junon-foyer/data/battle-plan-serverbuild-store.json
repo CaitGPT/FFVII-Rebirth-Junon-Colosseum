@@ -1,0 +1,14 @@
+{
+  "source_package": "/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident_ServerBuild",
+  "target_leaf": "1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild",
+  "source_package_id": "d1f3ed087bf5ced5",
+  "source_container_header_sha256": "2ADC4DE2D6381D1BB674FB6C29AFD10FF06740ED011E63659DE378824164341B",
+  "source_raw_sha256": "84FDF5244118A0ADA2E73F4FFD7B626FA2C5B91F41DE90EEF42758764147C258",
+  "export_count": 6,
+  "export_bundle_count": 1,
+  "load_order": 71801,
+  "imported_packages": [],
+  "native_name_hash_algorithm_hex": "000064c100000000",
+  "evidence": "retoc list --store pakchunk15: StoreEntry { export_bundles_size: 1460517, load_order: 71801, export_count: 6, export_bundle_count: 1, imported_packages: [] }",
+  "native_acceptance": "pending"
+}

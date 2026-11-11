@@ -1,0 +1,9 @@
+{
+  "target": "tgpMod_JunonColosseum_ReturnGate",
+  "position": {"x": -63550.003906, "y": 97098.429688, "z": 3411.04248},
+  "yaw": 50.892258,
+  "basis": "Owner-selected regional gate, live grounded Cloud pose 2026-11-07T19:30:22Z. Owner faced the guards; return yaw reverses his actor yaw by 180 degrees to face away from the gate.",
+  "guards": ["oba1300_Gate_Soldier01", "oba1300_Gate_Soldier02"],
+  "location": "1300-JUNOA",
+  "native_exit_acceptance": "pending"
+}

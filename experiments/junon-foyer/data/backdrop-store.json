@@ -1,0 +1,13 @@
+{
+  "source_package": "/Game/Menu/Billboard/Common/U_Com_GoldSaucerArena_Bg1",
+  "target_leaf": "U_Com_JunonArena_Bg1",
+  "source_package_id": "6005b48ba5b7d1f3",
+  "source_container_header_sha256": "6E793C460AFAC90A388F5E461A819293B97E6BBD5609AF936440A3E702235FE7",
+  "source_raw_sha256": "3F96DE19E9FD5C6260FA97A871B5C3E6E80BE0BAAA89D5C584BAA42493B329A1",
+  "export_count": 1,
+  "export_bundle_count": 1,
+  "load_order": 262481,
+  "imported_packages": [],
+  "native_name_hash_algorithm_hex": "000064c100000000",
+  "native_acceptance": "pending"
+}

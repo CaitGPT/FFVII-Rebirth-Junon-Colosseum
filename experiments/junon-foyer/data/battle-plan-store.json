@@ -1,0 +1,16 @@
+{
+  "source_package": "/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident",
+  "target_leaf": "1300-JUNOA_BattlePlan_ModJunonColosseum",
+  "source_package_id": "24baea373c4fe457",
+  "source_container_header_sha256": "2ADC4DE2D6381D1BB674FB6C29AFD10FF06740ED011E63659DE378824164341B",
+  "source_raw_sha256": "7DF787BCE8DB6A3E1545ACDB714E68AD9A7DC9309B2EA5C6B7DC89A2DFC687E9",
+  "export_count": 32,
+  "export_bundle_count": 1,
+  "load_order": 610000,
+  "imported_packages": [
+    "920063448760ef10",
+    "0f56951f8594eb13"
+  ],
+  "native_name_hash_algorithm_hex": "000064c100000000",
+  "native_acceptance": "pending"
+}
