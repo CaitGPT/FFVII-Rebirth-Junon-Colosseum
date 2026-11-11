@@ -1118,6 +1118,151 @@ local function rally(api, fallen, count)
     log('rally\t'..round..'\t'..fallen..'\t'..(#given > 0 and table.concat(given, ',') or 'none')..
         '\tstanding='..#survivors)
 end
+-- Darkside's HP cost (a rank rule, courses 13-14: data.courses[c].ability_cost).
+-- Live 2026-11-11 abilities cost no HP, neither with the rule's BSC_Dark nor with
+-- the Darkside materia's carrier row (E_ACC_7106; the owner by hand, and Yuffie
+-- with the Darkside command against frozen enemies). So the mod charges it: while
+-- a course round runs and the game is not paused (the infusion window pauses it),
+-- a fast loop (start_poll, every DARK_POLL_MS, on the game thread) reads each
+-- fighter's UEndBattleAPI.GetCurrentAbilityID. Live (harness, 2026-11-11) it names
+-- the action under way (PC0002_AtkBurst07, PC0001_NAtk_1, M_MAG_004_atk002_01_SP),
+-- holds it for the whole action (seconds for a long one) and reads None when idle.
+-- A new ID that differs from the fighter's last one is one action, so an ability
+-- held across polls is one use, and a repeat counts again once the ID went empty
+-- (or another action came) in between; two uses of the same ability back to back
+-- with no other reading between them count once (accepted). An ID in
+-- data.darkside_cost (weapon and folio abilities and the attack command materia;
+-- tools/extract_darkside_abilities.py) costs rule.percent % of max HP, never below
+-- 1 HP, unless it continues the last ID's family (an ability moving through its
+-- rows). Magic, items, limits, synergy, unique and basic attacks never cost.
+-- Darkside is on for every fighter at each round's start (hazards_start gives
+-- BSC_Dark); the Darkside command (data.darkside_toggle) switches that fighter
+-- off and on (owner 2026-11-11: off holds until the next round's start). Only an
+-- ON fighter pays. HP is read exactly (GetCharaHP, GetHPMax) and set with
+-- SetHPPercent, the only HP setter (DebugSetHP does nothing in shipping): the
+-- whole percent nearest the target, below the current HP and at least 1%.
+-- Log lines: darkside_cost <round> <member> <ability> <hp before>><hp after>
+-- (with pct=, read= and status=, the HasStatusChangeID reading of the rule's
+-- status, for the live check), darkside_toggle <round> <member> on|off,
+-- darkside_free (an ability while off), darkside_seen (each new ID once a course,
+-- with its class) and darkside_probe (a fighter's first idle and first busy raw
+-- reading, to see what the call returns).
+local DARK_POLL_MS = 200
+local dark = {armed = false, busy = false, loop = false, failed = false,
+              on = {}, last = {}, seen = {}, probed = {}}
+local function dark_reset()
+    dark.on, dark.last, dark.seen, dark.probed, dark.failed = {}, {}, {}, {}, false
+end
+local function dark_rule()
+    local rules = course and data.courses[course]
+    return rules and rules.ability_cost or nil
+end
+-- The text of an FName (or string) reading, and the ability it names (nil: idle).
+local function ability_text(v)
+    if v == nil then return nil end
+    if type(v) == 'string' then return v end
+    local ok, s = pcall(function() return v:ToString() end)
+    return ok and type(s) == 'string' and s or nil
+end
+local function ability_of(text)
+    if text == nil or text == '' or text == 'None' then return nil end
+    return text
+end
+-- Exact HP and max HP, or the halving percentage as a fallback; and which.
+local function hp_now(api, c)
+    local max = hp_max(api, c)
+    if not max then return nil end
+    local ok, hp = pcall(function() return api:GetCharaHP(c) end)
+    if ok and type(hp) == 'number' then return hp, max, 'exact' end
+    local p = hp_percent(api, c)
+    if p then return math.floor(max * p / 100), max, 'percent' end
+    return nil
+end
+local function dark_status(api, c, id)
+    local ok, has = pcall(function() return api:HasStatusChangeID(c, FName(id)) end)
+    return ok and type(has) == 'boolean' and tostring(has) or '?'
+end
+local function dark_charge(api, c, member, ability, rule)
+    local what = 'darkside_cost\t'..round..'\t'..member..'\t'..ability..'\t'
+    local hp, max, how = hp_now(api, c)
+    if not hp then log(what..'unread'); return end
+    local status = '\tstatus='..dark_status(api, c, rule.status)
+    if hp <= 1 then log(what..hp..'>'..hp..'\tfloor'..status); return end
+    local target = math.max(1, hp - math.max(1, math.floor(max * rule.percent / 100 + 0.5)))
+    local pct = math.max(1, math.floor(target * 100 / max + 0.5))
+    -- SetHPPercent sets whole percents of max HP: below the current HP, never 0.
+    if max * pct / 100 >= hp then pct = math.ceil(hp * 100 / max) - 1 end
+    if pct < 1 then log(what..hp..'>'..hp..'\tfloor'..status); return end
+    if not pcall(function() api:SetHPPercent(c, pct) end) then log(what..hp..'>?\tset_failed'..status); return end
+    local after = hp_now(api, c)
+    log(what..hp..'>'..tostring(after or math.floor(max * pct / 100))..'\tpct='..pct..'\tread='..how..status)
+end
+-- Round start: every fighter's Darkside is on, and no ability is under way.
+local function dark_start(party)
+    dark.last = {}
+    dark.on = {}
+    if not dark_rule() then return end
+    for _, c in ipairs(party) do if valid(c) then dark.on[c:GetFullName()] = true end end
+end
+function M.darkside_poll()
+    if not dark.armed or dark.failed or not active or not in_round or not started or paused or window then return end
+    local rule = dark_rule()
+    if not rule then return end
+    local api = StaticFindObject('/Script/EndGame.Default__EndBattleAPI')
+    if not valid(api) then return end
+    local costs, toggles = data.darkside_cost or {}, data.darkside_toggle or {}
+    for _, c in ipairs(party_now) do
+        if valid(c) then
+            local key, member = c:GetFullName(), c:GetFName():ToString()
+            local ok, raw = pcall(function() return api:GetCurrentAbilityID(c) end)
+            if not ok then
+                dark.failed = true  -- no more reads this course
+                log('darkside_read_failed\t'..round..'\t'..member..'\t'..tostring(raw))
+                return
+            end
+            local text = ability_text(raw)
+            local id = ability_of(text)
+            local probe = key..(id and '|busy' or '|idle')
+            if not dark.probed[probe] then
+                dark.probed[probe] = true
+                log('darkside_probe\t'..round..'\t'..member..'\t'..type(raw)..'\t'..tostring(text))
+            end
+            local last = dark.last[key]
+            dark.last[key] = id
+            if id and id ~= last then
+                local toggle, family = toggles[id], costs[id]
+                if not dark.seen[id] then
+                    dark.seen[id] = true
+                    log('darkside_seen\t'..round..'\t'..member..'\t'..id..'\t'..(toggle and 'toggle' or family and 'cost' or 'free'))
+                end
+                if toggle then
+                    dark.on[key] = not dark.on[key]
+                    log('darkside_toggle\t'..round..'\t'..member..'\t'..(dark.on[key] and 'on' or 'off'))
+                elseif family and family ~= (last and costs[last]) then
+                    if dark.on[key] then dark_charge(api, c, member, id, rule)
+                    else log('darkside_free\t'..round..'\t'..member..'\t'..id..'\toff') end
+                end
+            end
+        end
+    end
+end
+-- The fast loop (main.lua starts it while the mod loads). It queues a game-thread
+-- read only while a Darkside round is armed (the once-a-second tick decides).
+function M.start_poll()
+    if dark.loop or type(LoopAsync) ~= 'function' or type(ExecuteInGameThread) ~= 'function' then return false end
+    dark.loop = true
+    LoopAsync(DARK_POLL_MS, function()
+        if not dark.armed or dark.busy or dark.failed then return false end
+        dark.busy = true
+        ExecuteInGameThread(function()
+            local ok, err = pcall(M.darkside_poll)
+            dark.busy = false
+            if not ok then dark.failed = true; log('darkside_error\t'..round..'\t'..tostring(err)) end
+        end)
+        return false
+    end)
+    return true
+end
 local function accessories(api)
     if paused or not started then return end
     -- (Transference Module is the real accessory row now: UEndBattleAPI's
@@ -1140,6 +1285,7 @@ local function accessories(api)
     end
 end
 function M.tick(db, battle)
+    dark.armed = false  -- armed again below while a Darkside round runs
     if #draws == 0 then
         math.randomseed(os.time()); draw_rounds()
         new_run('idle')  -- no accessory infusions left from an earlier session
@@ -1180,7 +1326,7 @@ function M.tick(db, battle)
                 if f then f:write(os.date('!%H:%M:%S')..'\t'..round..'\n'); f:close() end
             end
             if result or idle > 120 then
-                log('course_end\trounds='..round..'\tpicks='..#picks); reset(); unstall(); unstall_spawn()
+                log('course_end\trounds='..round..'\tpicks='..#picks); reset(); dark_reset(); unstall(); unstall_spawn()
                 new_run('idle')  -- no accessories: the helper removes them all
                 draw_rounds() -- a fresh draw for the next run
             end
@@ -1194,7 +1340,7 @@ function M.tick(db, battle)
     if not in_round then
         if not in_arena(api:GetPartyLeader()) then return end
         if not active then
-            reset(); active = true
+            reset(); dark_reset(); active = true
             log('course_start')
             new_run('battle')
         end
@@ -1287,6 +1433,7 @@ function M.tick(db, battle)
             leash.reset()
             local n = to_party(api, party, picks)
             hazards_start(api, party)
+            dark_start(party)  -- Darkside's HP cost: on for everyone at the round's start
             lean.kinds, lean.caps, lean.live, lean.sample_at = {}, {}, {}, 0
             for _, c in ipairs(party) do lean.kinds[#lean.kinds+1] = player_type(c) end
             local capped = lean_apply(api, party, 'start')
@@ -1372,6 +1519,8 @@ function M.tick(db, battle)
             open_window(menu, api)
         end
     end
+    -- Darkside's HP cost: the fast loop reads abilities only in such a round's fight.
+    dark.armed = started and not paused and dark_rule() ~= nil
 end
 -- This run's draw (for tests and devtools).
 function M.draws() return draws end

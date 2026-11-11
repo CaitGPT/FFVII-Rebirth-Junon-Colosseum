@@ -94,9 +94,12 @@ Every rule applies on its own course and on every course after it.
 Every reward is the materia at its maximum level. The round 9 pools include some of Chadley's regional legendary
 fiends, which fight at your party's level.
 
-Darkside gives every fighter the game's Darkside materia at its highest level, which carries Darkside's HP cost and
-extra potency, and the Darkside status at the start of every round. The materia brings its command too, so a fighter
-can switch Darkside off; the next round starts in Darkside again.
+Darkside gives every fighter the Darkside status at the start of every round, which makes abilities hit harder. The
+game charged no HP for it here, so the mod charges the cost itself: each use of a weapon or folio ability, or of an
+attacking command materia (Enemy Skill, Morph, Spare Change, Jump), takes 5% of the fighter's max HP, never below 1 HP.
+Magic, items, limit breaks, synergy abilities and utility commands such as Steal, Assess, Chakra and Prayer cost
+nothing. Every fighter also gets the game's Darkside materia, which brings its command, so a fighter can switch Darkside
+and its cost off; the next round starts in Darkside again.
 
 ## Mako infusions
 
@@ -140,8 +143,9 @@ Other mods that replace any of the tables listed in [How it works](docs/HOW-IT-W
 - **Balance.** Every course has been cleared in our testing, but only with a development boost (fighters that couldn't
   fall, enemies that started at reduced HP). Unboosted difficulty beyond course 1 has had little testing. Tell us
   where it is unfair.
-- **Darkside (courses 13 and 14).** The HP cost and extra potency come from the Darkside materia, which the game
-  applies to your fighters between rounds, so in round 1 they may not apply yet.
+- **Darkside's command in round 1 (courses 13 and 14).** The command that switches Darkside off comes with the
+  Darkside materia, which the game gives your fighters between rounds, so in round 1 a fighter may not have it yet.
+  The mod charges the HP cost from round 1.
 - **Opposite statuses cancel.** An enemy boon and one of your infusions can cancel each other out (Haste and Slow,
   or Regen and Toxic, for example). This is the game's own rule.
 - **Game updates.** A game update can change the code the native helper relies on. The helper then switches itself

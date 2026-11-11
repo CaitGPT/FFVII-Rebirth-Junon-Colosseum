@@ -37,7 +37,7 @@ def course_rules(design, number):
              'stagger': 1.0, 'party_recovery': None, 'offer_size': None, 'texts': [],
              'party_start': None, 'party_every': None, 'arms_race': False,
              'party_status': [], 'enemy_start': None, 'second_wind': None,
-             'party_accessories': [], 'carriers': [], 'rally': False}
+             'party_accessories': [], 'carriers': [], 'rally': False, 'ability_cost': None}
     for m in design['modifiers']:
         if m['from'] > number:
             continue
@@ -81,6 +81,19 @@ def course_rules(design, number):
                                      f"{apply_buff_wheel.carrier_for(m['materia'])}")
                 rules['party_accessories'].append(m['accessory'])
                 rules['carriers'].append((m['accessory'], m['materia']))
+            # Live 2026-11-11: neither BSC_Dark nor the carrier cost any HP, so
+            # 'hp_cost' makes buffwheel.lua charge it: that % of max HP per use of
+            # an ability in data/darkside-abilities.json while the status's state
+            # is on (tools/extract_darkside_abilities.py).
+            if 'hp_cost' in m:
+                cost = m['hp_cost']
+                if not (isinstance(cost, int) and 1 <= cost <= 50):
+                    raise ValueError('party_status: hp_cost is a whole percentage of max HP, 1 to 50')
+                if 'materia' not in m:
+                    raise ValueError('party_status: hp_cost needs the materia whose command toggles it')
+                if rules['ability_cost']:
+                    raise ValueError('party_status: only one rule may cost HP per ability')
+                rules['ability_cost'] = {'status': m['status'], 'percent': cost}
         elif kind == 'enemy_status_start':
             rules['enemy_start'] = {'status': m['status'], 'seconds': m['seconds']}
         elif kind == 'arms_race':
@@ -236,7 +249,9 @@ def lua_courses(design, round_data, shipped=None):
         lines.append(f"      party_start = {timed(rules['party_start'])}, party_every = {timed(rules['party_every'])}, "
                      f"arms_race = {str(rules['arms_race']).lower()}, rally = {str(rules['rally']).lower()}, enemy_start = {timed(rules['enemy_start'])}, "
                      f"party_status = {{{', '.join(s(x) for x in rules['party_status'])}}}, second_wind = {wind},")
-        lines.append(f"      party_accessories = {{{', '.join(s(x) for x in rules['party_accessories'])}}},")
+        cost = rules['ability_cost']
+        cost = f"{{status = {s(cost['status'])}, percent = {cost['percent']}}}" if cost else 'nil'
+        lines.append(f"      party_accessories = {{{', '.join(s(x) for x in rules['party_accessories'])}}}, ability_cost = {cost},")
         ships = shipped[number - 1] if shipped else [slot[0] for slot in course['slots']]
         lines.append(f"      shipped = {{{', '.join(s(r) for r in ships)}}},")
         lines.append(f"      row = {s(f'COL30_JUNON_{number:02}_Free_Col')}, clone = {s(f'JC{clone:02}') if clone else 'nil'}, slots = {{{slots}}}}},")

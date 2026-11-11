@@ -15,6 +15,7 @@ For what the mod does, see the [README](../../README.md). For how the parts fit 
 | `data/buffs.json` | The Mako infusions |
 | `data/junon-arena.json` | The table spec the archive is built from (generated: edit the design files, then regenerate) |
 | `data/round-data.json`, `data/territory-rows.json`, `data/enemy-pool.json` | Names and numbers taken from the game's tables (IDs, levels, HP): the generators' input |
+| `data/darkside-abilities.json` | The ability IDs that cost HP under Darkside, taken from the game's `BattleAbility` table by `tools/extract_darkside_abilities.py` |
 | `data/combined-rounds.json` | The combined rounds' pairs and their allocation to course slots (generated) |
 | `data/*-pose.json`, `data/*-store.json` | Positions for the arrival point and the copied arena, and the native package facts the archive registers |
 | `tools/` | Generators (`apply_course_design.py`, `make_round_pools.py`, `make_combined_rounds.py`, ...) and the extractors that read the game's tables |

@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import apply_buff_wheel  # noqa: E402
 import apply_difficulty  # noqa: E402
 import make_combined_rounds  # noqa: E402
+import extract_darkside_abilities  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = ROOT / 'data/junon-arena.json'
@@ -21,6 +22,8 @@ DESIGN = ROOT / 'data/course-design.json'
 BUFFS = ROOT / 'data/buffs.json'
 ROUND_DATA = ROOT / 'data/round-data.json'
 BUFF_LUA = ROOT / 'ue4ss/JunonColosseum/Scripts/buffwheel_data.lua'
+# The abilities a Darkside use costs HP for (tools/extract_darkside_abilities.py).
+DARKSIDE = ROOT / 'data/darkside-abilities.json'
 COLOSSEUM = 'DataObject/Resident/Colosseum.uasset'
 REWARD = 'DataObject/Resident/Reward.uasset'
 RANDOM = 'DataObject/Resident/RewardRandom.uasset'
@@ -264,8 +267,10 @@ def generate(spec, design, round_data, buffs, rewards_enabled=True, combined_mod
     # with the rank rules' carriers (Darkside's materia; apply_difficulty.rule_carriers).
     # Boss rounds per course: the offer after one favours epic infusions.
     apply_buff_wheel.add_carriers(result, buffs, apply_difficulty.rule_carriers(design))
+    darkside = json.loads(DARKSIDE.read_text(encoding='utf-8'))
     buff_lua = apply_buff_wheel.lua(buffs,
-                                    apply_difficulty.lua_courses(design, round_data, shipped_rounds(design)) + combined_lua,
+                                    apply_difficulty.lua_courses(design, round_data, shipped_rounds(design)) + combined_lua
+                                    + extract_darkside_abilities.lua_lines(darkside),
                                     [c.get('bosses', []) for c in design['courses']])
     return result, buff_lua
 

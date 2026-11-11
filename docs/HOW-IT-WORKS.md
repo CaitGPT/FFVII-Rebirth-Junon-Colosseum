@@ -133,7 +133,7 @@ Rules are cumulative and implemented in `buffwheel.lua`, from data in `buffwheel
 | Short rest | Records each fighter's HP and MP at the end of its round and caps the next start at that plus 20% HP and 15% MP, with `SetHPPercent` and `BPSetPlayerMP` ✅ (MP from logs; a spell after a cut took MP from the cut value) |
 | Slim pickings | Two-infusion offers ✅ |
 | Second wind | A once-a-second watcher: an enemy first seen below 20% HP is set to 50% once ✅ (courses 12 to 14 cleared with it) |
-| Darkside | `BSC_Dark` at every round start, plus the Darkside materia at level 5 through the carrier accessory `E_ACC_7106`. The game puts Darkside's HP cost (5% per ability) and extra potency on the materia, not on the status. The materia also brings its command, so a fighter can switch Darkside off until the next round 🟡 (the carrier was sent in play; the HP cost and potency not yet measured) |
+| Darkside | `BSC_Dark` at every round start; its 1.2 multipliers are the extra potency. Neither the status nor the Darkside materia charged HP in play, so `buffwheel.lua` does: every 200 ms of a Darkside round's fight, not while paused, it reads each fighter's `UEndBattleAPI.GetCurrentAbilityID`. A new reading in the cost set is one use and takes 5% of max HP with `SetHPPercent`, never below 1 HP. The cost set (`data/darkside-abilities.json`, 170 IDs in 114 families, from the vanilla `BattleAbility` table by `tools/extract_darkside_abilities.py`) holds the Abilities-command rows that spend ATB: weapon and folio abilities and the attacking command materia (Enemy Skill, Morph, Spare Change, Jump). Magic, items, limits, synergy, summons and utility commands are free. The Darkside materia at level 5, through the carrier accessory `E_ACC_7106`, brings the Darkside command; each use flips that fighter's cost off or on until the next round's start ✅ (build 0.9.25, checked in play by the owner) |
 | Encore | Course 14's tenth round, two bosses ✅ |
 
 ## Mako infusions
@@ -198,6 +198,7 @@ switches.
 - Combined rounds as new rows (build 0.9.24, boosted): course 2 played unforced, drawing one combined round, and
   course 1 with three forced combined rounds (6, 3 and 3 enemies); each round ended only when both groups were down,
   with no hang.
+- Darkside's HP cost (build 0.9.25): the mod's charge, checked in play by the owner.
 - Rally and the course HP factor (build 0.9.23, boosted): course 3 cleared, its first round a combined round with 6
   enemies, with one boon per survivor logged at each fall.
 - Every enemy category in the game's 387 simulator rounds spawned in the arena in a survey, including Mu, Titan, Odin
@@ -207,7 +208,7 @@ switches.
   installed and enabled beside this mod.
 
 Not yet checked in the game: Roche's Chapter 11 drop, the arrival grant, a Chapter 4 visit to the checkpoint, the
-Darkside materia's HP cost and potency, Turbulent Spirit's 60 s, most accessory effects, and unboosted balance beyond
+size of Darkside's extra potency, Turbulent Spirit's 60 s, most accessory effects, and unboosted balance beyond
 course 1.
 
 ## Limits

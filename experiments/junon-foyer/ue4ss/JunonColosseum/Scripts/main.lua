@@ -133,6 +133,7 @@ end
 -- time while a save is playing. No hot reload or per-frame object scans.
 pcall(ExecuteInGameThread,function() end)
 pcall(branding.register) -- before any colosseum menu exists
+pcall(buffwheel.start_poll) -- Darkside's HP cost: a 200 ms ability read, armed only in its rounds
 LoopAsync(1000,function()
     if halted then return true end
     if busy then return false end

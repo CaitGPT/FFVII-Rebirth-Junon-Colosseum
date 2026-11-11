@@ -150,7 +150,7 @@ def test_a_rule_carrier_needs_its_materia_and_the_matching_row():
     def rules_with(**extra):
         d = design()
         m = dict(next(m for m in d['modifiers'] if m.get('status') == 'BSC_Dark'))
-        for k in ('materia', 'accessory'):
+        for k in ('materia', 'accessory', 'hp_cost'):  # hp_cost needs the materia (test_darkside_abilities)
             m.pop(k, None)
         m.update(extra)
         d['modifiers'] = [m]

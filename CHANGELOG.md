@@ -15,6 +15,9 @@ The first public release. Everything below is new.
   game's hardest Legendary challenges.
 - 13 cumulative rank rules: Rivals, Rally, Riot rush, Bloodlust, Hall of mirrors, Twisted weaknesses, Arms race,
   Time trap, Short rest, Slim pickings, Second wind, Darkside and Encore.
+- Darkside (courses 13 and 14) costs 5% of max HP, never below 1 HP, for each use of a weapon, folio or attacking
+  command-materia ability; magic, items, limits, synergy and utility commands are free. The mod charges it, and the
+  Darkside command switches it off until the next round.
 - 77 Mako infusions in three tiers, offered early in every round in the game's own options window: party statuses,
   enemy debuffs, round effects, the effects of 26 real accessories, and materia spells, abilities and stat bonuses.
 - Two teams of three, chosen from six, taking turns round by round.
@@ -25,6 +28,8 @@ The first public release. Everything below is new.
 
 ## Private playtest builds (not released)
 
+- **0.9.25 (2026-11-11):** the mod charges Darkside's HP cost itself, since neither the status nor the materia did
+  in play; checked in play by the owner.
 - **0.9.21 to 0.9.24 (2026-11-11):** Darkside gives the Darkside materia, for its HP cost and potency; combined
   two-fight rounds; a balance pass (round pools by enemy health in our arena, two-boss rounds only in the encore, and
   enemy health that rises course by course); Rally replaces Tough hides, which the rising enemy health made redundant.

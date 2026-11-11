@@ -144,9 +144,17 @@ Second wind first gave every enemy Reraise. The enemies died, never rose, and th
 for an enemy with Reraise forever. Now the mod watches enemy health once a second and restores an enemy to half once,
 the first time it drops below 20%.
 
-Darkside gave the party the Darkside status. The status was applied, and it did nothing that cost health. In this
-game the cost and the extra power come from the Darkside materia, not the status. So the rule now gives the party the
-materia too, through a carrier accessory.
+Darkside gave the party the Darkside status. The status was applied, and it did nothing that cost health. The game's
+Darkside materia describes the cost, so the rule gave the party the materia too, through a carrier accessory. That
+brought the Darkside command, but still no cost: the owner checked by hand, and a test with frozen enemies left Yuffie's
+health unchanged after her abilities, both in Darkside and after switching it with the command.
+
+So the mod charges the cost itself. Five times a second during a Darkside round, it reads which action each fighter is
+performing. Each use of a weapon ability, a folio ability or an attacking command materia, such as Jump or Enemy Skill,
+takes 5% of the fighter's maximum health, never below 1. Magic, items, limit breaks, synergy abilities and utility
+commands are free, and the Darkside command switches the cost off for that fighter until the next round. Claude built
+the list of abilities that cost from the game's own ability table: 170 entries in 114 families. The owner then checked
+the cost in play.
 
 That last one taught the most useful lesson of the project: a status being applied is not the same as it working.
 After that, every rule was checked against what it actually does in a fight, not against the call that set it up.
@@ -245,6 +253,7 @@ the balance pass.
 - Combined rounds, in spare rows and in new rows: both groups in the arena at once, each round ending only when both
   were down.
 - Rally and the hidden health factor: course 3 cleared with the boost, with every survivor's boon logged at each fall.
+- Darkside's health cost, charged by the mod, checked in play by the owner.
 - Every first-clear reward arrived; repeat-clear draws were seen on three courses.
 - Every enemy category in the game's simulator spawned in the Junon arena.
 - Eight clean loads into the foyer in a row after the load-crash fix.
@@ -256,7 +265,7 @@ the balance pass.
   We have seen it in the game's own Combat Simulator fights too.
 - Balance on later courses has been tested only with the development boost.
 - Roche's Chapter 11 drop, the arrival grant and a Chapter 4 visit to the checkpoint have not been seen in play.
-- Most accessory infusions haven't been checked one by one, and Darkside's health cost hasn't been measured in play.
+- Most accessory infusions haven't been checked one by one.
 - The helper is tied to UE4SS 3.0.1 and this game build.
 
 ## Dead ends
@@ -272,7 +281,8 @@ the balance pass.
 | Reraise on enemies | Battles never ended |
 | Tough hides, 25% more enemy health | Redundant once every course had its own hidden health factor; replaced by Rally |
 | Finding an enemy's spec from its name | Enemies are named after their model; ten Tonberries and a Cactuar kept their health |
-| The Darkside status alone | No health cost; the cost lives on the materia |
+| The Darkside status alone | No health cost |
+| The Darkside materia through a carrier accessory | It brought the command, but still no health cost; the mod now charges it |
 | Random three of six fighters per round | The game's party during a round holds only the current team; dropped by the owner |
 | A wait loop on the mod's flow object | Crashed the game after a load |
 

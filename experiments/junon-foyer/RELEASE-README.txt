@@ -77,9 +77,12 @@ KNOWN ISSUES
 - Every course has been cleared in our testing, but only with a development
   boost. Balance in later courses has had little unboosted testing; tell us
   where it is unfair.
-- Darkside (courses 13 and 14): the HP cost and extra potency come from the
-  Darkside materia, which the game applies between rounds, so in round 1
-  they may not apply yet.
+- Darkside (courses 13 and 14): each use of a weapon, folio or attacking
+  command-materia ability costs 5% of max HP, never below 1 HP; magic,
+  items, limits, synergy and utility commands are free. The Darkside
+  command switches it off until the next round. The command comes with the
+  Darkside materia, which the game gives your fighters between rounds, so
+  in round 1 a fighter may not have it yet.
 - Opposite statuses cancel, as in the game: an enemy boon and one of your
   infusions can undo each other (Haste and Slow, for example).
 - A game update can change the code the mod's helper relies on. The helper

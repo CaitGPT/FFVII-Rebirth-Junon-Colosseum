@@ -1772,3 +1772,177 @@ def test_a_wave_is_no_fall_and_a_survivor_not_yet_hardened_gets_its_boon_then():
         tick(true, 3)
         assert(#calls == n)                                -- given once
     ''')
+
+
+# Darkside's HP cost (live 2026-11-11: neither BSC_Dark nor the Darkside materia's
+# carrier cost any HP, so buffwheel.lua charges it from the current ability).
+DARKSIDE_FAKES = ARMS_RACE_FAKES + r"""
+    -- The current ability as the game returns it: an FName-like object ('None' when idle).
+    function fname(s) return {ToString = function() return s end} end
+    api.GetCurrentAbilityID = function(_, a) return fname(a.ability or 'None') end
+    api.GetCharaHP = function(_, a) return a.hpv end
+    api.HasStatusChangeID = function(_, a, id) return has(a.name..':'..id..':64') end
+    local set = api.SetHPPercent
+    api.SetHPPercent = function(self, a, pct)
+        set(self, a, pct)
+        if a.hpv and a.max then a.hpv = math.floor(a.max * pct / 100) end
+    end
+    cloud = party[1]
+    cloud.max, cloud.hpv = 6000, 6000
+    party[2].max, party[2].hpv = 4000, 4000
+    function poll(n) for _ = 1, n or 1 do wheel.darkside_poll() end end
+    -- Cloud acts: the ability shows for a few polls, then idle.
+    function use(id, polls) cloud.ability = id; poll(polls or 3); cloud.ability = nil; poll() end
+    -- A round of this course has begun and its offer is refused (the fight runs).
+    function darkside_round(c)
+        tick(false); menu_title = data.courses[c].title
+        tick(true); spawn('EN1'); tick(true, 3); refuse(); tick(true)
+    end
+    function costs() return lines('darkside_cost') end
+    function set_hp()
+        local n = 0
+        for _, c in ipairs(calls) do if c:find('PC0000_Cloud%', 1, true) == 1 then n = n + 1 end end
+        return n
+    end
+"""
+
+
+def test_darkside_costs_five_percent_of_max_hp_per_ability_use():
+    """One charge per use: an ability held over several polls is one use, a
+    repeat after idle (or after another action) is another, idle costs nothing,
+    and rows of one ability in a row (Barret's _ATB_1 then _ATB_2) are one use."""
+    lua = runtime()
+    lua.execute(DARKSIDE_FAKES)
+    lua.execute(r'''
+        darkside_round(13)
+        assert(data.courses[13].ability_cost.percent == 5 and data.courses[13].ability_cost.status == 'BSC_Dark')
+        poll(5)                                                   -- idle: nothing
+        assert(#costs() == 0 and set_hp() == 0)
+        use('PC0000_AtkBurst01', 4)                               -- Braver, held over four polls
+        local c = costs()
+        assert(#c == 1 and c[1][2] == '1' and c[1][3] == 'PC0000_Cloud' and c[1][4] == 'PC0000_AtkBurst01'
+               and c[1][5] == '6000>5700' and c[1][6] == 'pct=95' and c[1][7] == 'read=exact'
+               and c[1][8] == 'status=true', table.concat(c[1] or {}, ' '))
+        use('PC0000_AtkBurst01')                                  -- the same ability again after idle
+        assert(#costs() == 2 and costs()[2][5] == '5700>5400', table.concat(costs()[2], ' '))
+        cloud.ability = 'PC0000_AtkBurst01'; poll(2)
+        cloud.ability = 'PC0000_NAtk_1'; poll(2)                  -- a basic attack in between...
+        cloud.ability = 'PC0000_AtkBurst01'; poll(2)              -- ...so this is another use
+        cloud.ability = nil; poll()
+        assert(#costs() == 4 and cloud.hpv == 4800, tostring(cloud.hpv))
+        cloud.ability = 'PC0001_AtkBurst02_ATB_1'; poll(2)
+        cloud.ability = 'PC0001_AtkBurst02_ATB_2'; poll(2)        -- the same ability's next row: one use
+        cloud.ability = nil; poll(10)
+        assert(#costs() == 5 and cloud.hpv == 4500, tostring(cloud.hpv))
+        local probes = lines('darkside_probe')
+        assert(#probes == 3, #probes)                             -- Cloud's first idle and busy readings, Aerith's idle one
+        assert(probes[1][4] == 'table' and probes[1][5] == 'None', table.concat(probes[1], ' '))
+        local seen = {}
+        for _, f in ipairs(lines('darkside_seen')) do seen[f[4]] = f[5] end
+        assert(seen['PC0000_AtkBurst01'] == 'cost' and seen['PC0000_NAtk_1'] == 'free')
+        assert(party[2].hpv == 4000)                              -- Aerith did nothing
+    ''')
+
+
+def test_darkside_never_charges_magic_items_limits_or_other_actions():
+    lua = runtime()
+    lua.execute(DARKSIDE_FAKES)
+    lua.execute(r'''
+        darkside_round(14)
+        for _, id in ipairs({'M_MAG_001_heal001_01', 'M_MAG_004_atk002_01_SP', 'it_potion', 'IT_hpotion',
+                             'PC0000_Limit001', 'PC0001_PC0002_BurstChain01_B', 'PC0001_SAtk_MAX', 'PC0000_NAtk_101',
+                             'PC0003_ChainGuard1_UC', 'M_SMN_004_atk001_01', 'M_CMD_002_atk001_01', 'M_CMD_001_atk001_01',
+                             'M_CMD_005_heal001_01', 'M_CMD_104_atk001_01', 'M_CMD_107_atk001_01', 'PC0002_AtkBurst10_B'}) do
+            assert(not data.darkside_cost[id], id)
+            use(id)
+        end
+        assert(#costs() == 0 and set_hp() == 0 and cloud.hpv == 6000)
+        for _, id in ipairs({'PC0002_AtkBurst07', 'PC0001_AtkBurst02_ATB_1', 'PC0005_EleBurst01',
+                             'M_CMD_003_atk000_01', 'M_CMD_105_atk001_01', 'M_CMD_102_atk001_01'}) do
+            assert(data.darkside_cost[id], id)
+        end
+        use('M_CMD_105_atk001_01')                                -- Jump: a command materia attack
+        assert(#costs() == 1)
+    ''')
+
+
+def test_the_darkside_command_switches_the_cost_off_and_on_until_the_next_round():
+    """Owner 2026-11-11: a fighter may switch Darkside off with its command; it
+    stays off for the round and is on again at the next round's start."""
+    lua = runtime()
+    lua.execute(DARKSIDE_FAKES)
+    lua.execute(r'''
+        darkside_round(13)
+        use('M_CMD_106_atk001_01')                                -- off
+        local t = lines('darkside_toggle')
+        assert(#t == 1 and t[1][2] == '1' and t[1][3] == 'PC0000_Cloud' and t[1][4] == 'off', table.concat(t[1] or {}, ' '))
+        use('PC0000_AtkBurst01'); use('PC0000_AtkBurst02')
+        assert(#costs() == 0 and cloud.hpv == 6000)
+        local free = lines('darkside_free')
+        assert(#free == 2 and free[1][4] == 'PC0000_AtkBurst01' and free[1][5] == 'off')
+        cloud.ability = 'M_CMD_106_atk001_01'; poll(3)            -- held: one toggle, not three
+        cloud.ability = nil; poll()
+        assert(#lines('darkside_toggle') == 2 and lines('darkside_toggle')[2][4] == 'on')
+        use('PC0000_AtkBurst01')
+        assert(#costs() == 1 and cloud.hpv == 5700)
+        use('M_CMD_106_atk001_01')                                -- off again at the round's end
+        wipe(); tick(true); tick(false, 15)
+        tick(true); spawn('EN2'); tick(true, 3); refuse(); tick(true)   -- round 2: on for everyone
+        use('PC0000_AtkBurst01')
+        assert(#costs() == 2 and costs()[2][2] == '2', table.concat(costs()[2] or {}, ' '))
+    ''')
+
+
+def test_darkside_never_takes_a_fighter_below_one_hp():
+    lua = runtime()
+    lua.execute(DARKSIDE_FAKES)
+    lua.execute(r'''
+        darkside_round(13)
+        cloud.hpv = 200                                           -- 3% of 6000: the cost would kill
+        use('PC0000_AtkBurst01')
+        assert(cloud.hpv == 60 and has('PC0000_Cloud%1'), tostring(cloud.hpv))   -- the lowest whole percent
+        use('PC0000_AtkBurst01')                                  -- 1%: no whole percent below it but 0
+        assert(cloud.hpv == 60 and costs()[2][5] == '60>60' and costs()[2][6] == 'floor', table.concat(costs()[2], ' '))
+        cloud.hpv = 1
+        use('PC0000_AtkBurst01')
+        assert(cloud.hpv == 1 and costs()[3][6] == 'floor')
+        for _, c in ipairs(calls) do assert(c ~= 'PC0000_Cloud%0', c) end
+        cloud.hpv = 5730                                          -- 95.5%: the nearest whole percent of 5430
+        use('PC0000_AtkBurst01')
+        assert(cloud.hpv == 5460, tostring(cloud.hpv))            -- 91%
+    ''')
+
+
+def test_courses_before_thirteen_and_paused_windows_cost_nothing():
+    """Courses 1-12 have no ability cost and the fast loop never reads; while the
+    infusion window pauses the battle, nothing is read either."""
+    lua = runtime()
+    lua.execute(DARKSIDE_FAKES)
+    lua.execute(r'''
+        for c = 1, 12 do assert(data.courses[c].ability_cost == nil, c) end
+        assert(data.courses[14].ability_cost.percent == 5)
+        queued = 0
+        ExecuteInGameThread = function(f) queued = queued + 1; f() end
+        LoopAsync = function(ms, f) loop_ms, loop = ms, f end
+        assert(wheel.start_poll() and loop_ms == 200 and not wheel.start_poll())   -- one loop only
+        darkside_round(12)
+        cloud.ability = 'PC0000_AtkBurst01'
+        loop(); poll(3)
+        assert(queued == 0 and #costs() == 0 and set_hp() == 0)
+        cloud.ability = nil
+        wipe(); tick(true); tick(false, 130)                      -- course 12 ends
+        menu_title = data.courses[13].title
+        tick(true); spawn('EN1'); tick(true, 2)                   -- the window is open: paused
+        assert(window and not window.closed and game_paused)
+        cloud.ability = 'PC0000_AtkBurst01'
+        loop(); poll(3)
+        assert(queued == 0 and #costs() == 0, #costs())
+        refuse(); tick(true)                                      -- the fight runs again
+        loop()                                                    -- Braver is still under way: one use
+        assert(queued == 1 and #costs() == 1, #costs())
+        loop(); poll(2)
+        assert(#costs() == 1 and queued == 2)
+        wipe(); tick(true); tick(false)                           -- the round's battle ends: the loop rests
+        loop()
+        assert(queued == 2)
+    ''')
