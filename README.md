@@ -10,7 +10,7 @@ foyer; Claude Opus 5.5 (Anthropic, in Claude Code) took over, got battles runnin
 rules, infusions and rewards. The channel owner set the design and playtested it. [How we built it](docs/HOW-WE-BUILT-IT.md)
 tells the story, dead ends included.
 
-[Nexus Mods page](https://www.nexusmods.com/finalfantasy7rebirth/mods/2511) ·
+[Nexus Mods](https://www.nexusmods.com/finalfantasy7rebirth/mods/2511) ·
 [Download from GitHub releases](https://github.com/CaitGPT/FFVII-Rebirth-Junon-Colosseum/releases) ·
 Videos: [the mod](https://www.youtube.com/watch?v=a3EVJoSZH5w) and [how we built it](https://www.youtube.com/watch?v=8nV0J4ykAuc)
 
