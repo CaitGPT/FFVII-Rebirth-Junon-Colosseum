@@ -160,30 +160,53 @@ namespace
     // +0x872a58 from exe+0x870e42c) only on the game thread and the loading
     // thread; a load flushed from a worker writes through null. So anything
     // that loads, edits tables or touches party data runs only on a thread
-    // that has that state. The slot is checked once against FlushLoading's own
-    // code (mov ecx,[rip+disp32]); if this exe differs, the guard allows all
-    // (the old behaviour) and says so.
+    // that has that state. The slot is found per known build and checked
+    // against FlushLoading's own code (mov ecx,[rip+disp32] at +0xac reads the
+    // slot). On a build none of them matches, the guard answers "not the game
+    // thread" everywhere, so the helper does no engine work at all rather than
+    // run it from worker threads (2026-11-13; it used to allow all).
+    struct LoaderTlsBuild { const char* name; uintptr_t flushLoading; uintptr_t slot; };
+    constexpr LoaderTlsBuild LoaderTlsBuilds[]={
+        {"steam-2025-01",0x872a58,0x870e42c},   // ff7rebirth_.exe sha256 37D952FA...
+        {"epic-1.005",0x795590,0x8640bbc},      // 1.005_2026_0528_2133, sha256 73D13281... (derived offline 2026-11-13)
+    };
+    // Plain function (no C++ objects) so __try may guard the code read.
+    bool ReadsLoaderSlot(const uint8_t* fn,const uint8_t* want)
+    {
+        __try {
+            if(fn[0xac]!=0x8B || fn[0xad]!=0x0D) return false;
+            int32_t disp; std::memcpy(&disp,fn+0xae,4);
+            return fn+0xac+6+disp==want;
+        } __except(1) { return false; }
+    }
+    // The game build this executable is (index into LoaderTlsBuilds), or -1. Every
+    // per-build address table below is indexed by it; each feature still checks its
+    // own code bytes before use.
+    enum GameBuildId { SteamJan2025=0, Epic1005=1 };
+    int GameBuild()
+    {
+        static const int build=[]{
+            const auto base=reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr));
+            for(int i=0;i<int(std::size(LoaderTlsBuilds));++i)
+                if(ReadsLoaderSlot(base+LoaderTlsBuilds[i].flushLoading,base+LoaderTlsBuilds[i].slot)){
+                    std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_ready "<<LoaderTlsBuilds[i].name<<"\n";
+                    return i;
+                }
+            std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_unverified_unknown_build helper_engine_work_off\n";
+            return -1;
+        }();
+        return build;
+    }
     bool OnGameThread()
     {
         static const DWORD* slot=[]()->const DWORD*{
-            const auto base=reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr));
-            const uint8_t* fn=base+0x872a58;
-            const uint8_t* want=base+0x870e42c;
-            for(int i=0;i<0x100-6;++i){
-                if(fn[i]==0x8B && fn[i+1]==0x0D){
-                    int32_t disp; std::memcpy(&disp,fn+i+2,4);
-                    if(fn+i+6+disp==want){
-                        std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_ready\n";
-                        return reinterpret_cast<const DWORD*>(want);
-                    }
-                }
-            }
-            std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_unverified\n";
-            return nullptr;
+            const int build=GameBuild();
+            if(build<0) return nullptr;
+            return reinterpret_cast<const DWORD*>(reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr))+LoaderTlsBuilds[build].slot);
         }();
-        if(!slot) return true;
+        if(!slot) return false;
         const DWORD index=*slot;
-        if(index>=1088) return true;  // TLS_MINIMUM_AVAILABLE + expansion slots
+        if(index>=1088) return false;  // TLS_MINIMUM_AVAILABLE + expansion slots
         return TlsGetValue(index)!=nullptr;
     }
     // This executable's code, checked byte for byte before any address is used
@@ -209,6 +232,20 @@ namespace
                 p+=2;
             }
         }
+        // The instruction at va starts with opcode (hex) and its RIP-relative
+        // disp32 (right after the opcode) points at target; length is the whole
+        // instruction's size. Pins a global without spelling out its displacement.
+        bool RipTargets(uintptr_t va,const char* opcode,int length,uintptr_t target)
+        {
+            if(!Matches(va,opcode)) return false;
+            int opcodeBytes=0; for(const char* p=opcode;*p;++p) if(*p!=' ') ++opcodeBytes;
+            opcodeBytes/=2;
+            int32_t disp=0; uint8_t b=0;
+            for(int i=0;i<4;i++){ if(!Byte(At(va)+opcodeBytes+i,b)) return false; disp|=int32_t(b)<<(8*i); }
+            return va+length+disp==target;
+        }
+        // The call (E8 rel32) at va goes to target.
+        bool CallsTo(uintptr_t va,uintptr_t target) { return RipTargets(va,"E8",5,target); }
     }
     // Is the engine's package loader busy? Static analysis 2026-11-11: the
     // zen loader FAsyncLoadingThread2 (constructor 0x144671e28, which also
@@ -223,16 +260,26 @@ namespace
     // leaves the check off and work never waits for it.
     namespace Loader
     {
-        constexpr uintptr_t Global=0x149145d30, Vtable=0x145de95e0, IsLoadingPackages=0x140872dec, Creator=0x14467796c;
+        // Per game build (GameBuildId). Epic 1.005 found offline 2026-11-13: same code bytes, Creator's
+        // instructions at the same offsets, slot 17 of the moved vtable pointing at the moved function.
+        struct Addresses { uintptr_t global, vtable, isLoadingPackages, creator; };
+        constexpr Addresses Builds[]={
+            {0x149145d30,0x145de95e0,0x140872dec,0x14467796c},   // steam-2025-01
+            {0x14907beb0,0x145d23438,0x1407956f8,0x1444d3d98},   // epic-1.005
+        };
+        uintptr_t Global=0, Vtable=0, IsLoadingPackages=0, Creator=0;
         constexpr int Slot=17;
         int state=0;   // 0 unchecked, 1 verified, -1 unverified
         bool Verify()
         {
             if(state) return state==1;
             uint64_t slot=0;
-            const bool ok=Code::Matches(IsLoadingPackages,"33 D2 33 C0 F0 0F B1 91 08 02 00 00 75 0C 33 C0 F0 0F B1 91 0C 02 00 00 74 02 B2 01 8A C2 C3")
-                && Code::Matches(Creator+0x55,"48 8B 0D 68 E3 AC 04")    // mov rcx,[0x149145d30]
-                && Code::Matches(Creator+0x67,"48 89 15 56 E3 AC 04")    // mov [0x149145d30],rdx
+            const int build=GameBuild();
+            if(build>=0){ Global=Builds[build].global; Vtable=Builds[build].vtable; IsLoadingPackages=Builds[build].isLoadingPackages; Creator=Builds[build].creator; }
+            const bool ok=build>=0
+                && Code::Matches(IsLoadingPackages,"33 D2 33 C0 F0 0F B1 91 08 02 00 00 75 0C 33 C0 F0 0F B1 91 0C 02 00 00 74 02 B2 01 8A C2 C3")
+                && Code::RipTargets(Creator+0x55,"48 8B 0D",7,Global)    // mov rcx,[GPackageLoader]
+                && Code::RipTargets(Creator+0x67,"48 89 15",7,Global)    // mov [GPackageLoader],rdx
                 && Code::Qword(Code::At(Vtable+Slot*8),slot) && slot==Code::At(IsLoadingPackages);
             state=ok?1:-1;
             std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<(ok?"loader_check_ready\n":"loader_check_unverified_unknown_build\n");
@@ -969,6 +1016,7 @@ namespace
         }
         void Start()
         {
+            if(GameBuild()!=SteamJan2025) return;   // dev diagnostics: old-build addresses only (not ported to 1.005)
             std::thread([]{
                 ULONGLONG nextSearch=0;
                 for(;;){
@@ -997,7 +1045,17 @@ namespace
     namespace RoundShuffle { void Report(uint64_t key); void Tick(); }
     namespace ArenaReady
     {
-        constexpr uintptr_t ImageBase=0x140000000, ReadyCheck=0x140eb95b8, PrepareFn=0x140f9a484, WeakAssignFn=0x1419b1394, FieldGlobal=0x149001588;
+        constexpr uintptr_t ImageBase=0x140000000;
+        // Per game build (GameBuildId). Epic 1.005 found offline 2026-11-13 by matching Prepare and the
+        // colosseum setup update instruction by instruction: the territory actor's fields (+0xe0ac/+0xe0b0/
+        // +0xe0b8, +0xddcc) and the registry layout are unchanged; Prepare calls the weak-pointer setter at
+        // +0xbf (old) / +0xbc (Epic).
+        struct Addresses { uintptr_t readyCheck, prepareFn, weakAssignFn, fieldGlobal, prepareCallsWeakAssign; };
+        constexpr Addresses Builds[]={
+            {0x140eb95b8,0x140f9a484,0x1419b1394,0x149001588,0xbf},   // steam-2025-01
+            {0x140bf5253,0x140e5e1c8,0x140834850,0x148f325f8,0xbc},   // epic-1.005
+        };
+        uintptr_t ReadyCheck=0, PrepareFn=0, WeakAssignFn=0, FieldGlobal=0;
         const wchar_t* Package=STR("/Game/Level/Game/Field/1300-JUNOA/BattlePlan/1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild");
         const wchar_t* Partner=STR("/Game/Level/Game/Field/1300-JUNOA/BattlePlan/1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild.1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild:PersistentLevel.UCBattle_TerritoryCmnActor");
         int state=0; // 0 unchecked, 1 enabled, -1 disabled
@@ -1076,8 +1134,15 @@ namespace
             const auto now=std::chrono::steady_clock::now();
             if(state==0){
                 base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
-                // cmp dword [rcx+0xe0ac],-1 opens Ready; Prepare reads +0xe0b0 the same way.
-                const bool ok=Matches(ReadyCheck,{0x83,0xb9,0xac,0xe0,0x00,0x00,0xff}) && Matches(WeakAssignFn,{0x48}) && Matches(PrepareFn,{0x48});
+                // cmp dword [rcx+0xe0ac],-1 opens Ready; Prepare reads +0xe0b0 the same way,
+                // and links the partner through the weak-pointer setter we call.
+                const int build=GameBuild();
+                bool ok=false;
+                if(build>=0){
+                    const auto& a=Builds[build];
+                    ReadyCheck=a.readyCheck; PrepareFn=a.prepareFn; WeakAssignFn=a.weakAssignFn; FieldGlobal=a.fieldGlobal;
+                    ok=Matches(ReadyCheck,{0x83,0xb9,0xac,0xe0,0x00,0x00,0xff}) && Code::CallsTo(PrepareFn+a.prepareCallsWeakAssign,WeakAssignFn);
+                }
                 state=ok?1:-1;
                 Log(ok?"arena_ready_enabled":"arena_ready_disabled_unknown_build");
             }
@@ -1446,6 +1511,7 @@ namespace
         }
         void Tick()
         {
+            if(GameBuild()!=SteamJan2025) return;   // dev diagnostics: old-build addresses only (not ported to 1.005)
             const auto now=std::chrono::steady_clock::now();
             const auto trigger=Dev("junon-stall.on");
             std::error_code ec;
@@ -1565,19 +1631,41 @@ namespace
         // Address in this build and its exact first bytes (rel32 and RIP
         // displacements included: they pin the callees and globals too).
         struct Site { const char* name; uintptr_t va; const char* bytes; };
-        constexpr Site Mgr{"Mgr",0x140a690c0,"48 8B 0D 79 73 83 08 33 C0 48 85 C9 74 07 48 8B 81 90 04 00 00 C3"};
-        constexpr Site Block{"Block",0x140ac3c7c,"48 89 5C 24 08 57 B8 20 00 00 00 E8 D4 C4 69 01 48 2B E0 0F B6 DA 48 8B F9 80 FB 0F 73 2B E8 85"};
-        constexpr Site MapAddKey{"MapAddKey",0x1413e6660,"48 89 54 24 10 53 B8 20 00 00 00 E8 F0 9A D7 00 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 61"};
-        constexpr Site MapFind{"MapFind",0x1412eee58,"40 53 B8 20 00 00 00 E8 FC 12 E7 00 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 6D C9 68 FF 83"};
-        constexpr Site MapClearKey{"MapClearKey",0x141870070,"48 85 D2 74 74 48 89 5C 24 08 48 89 74 24 18 57 B8 20 00 00 00 E8 D6 00 8F 00 48 2B E0 4C 8B C2"};
-        constexpr Site MakeAccessor{"MakeAccessor",0x140be30ac,"40 53 B8 20 00 00 00 E8 A8 D0 57 01 48 2B E0 33 C0 48 8B D9 48 89 41 08 88 41 18 48 89 44 24 30"};
-        constexpr Site AddRow{"AddRow",0x1415c9544,"48 89 5C 24 08 44 88 4C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 D9 B8 F0 00 00 00 E8 F8 6B B9 00 48 2B E0 C5 F8 29 B4 24 E0 00 00 00"};
-        constexpr Site StatusGetter{"StatusResist",0x14140477c,"B8 28 00 00 00 E8 DA B9 D5 00 48 2B E0 48 63 C2 48 8D 15 2D E0 E1 04 48 83 C4 28 48 FF 24 C2 CC"};
-        constexpr Site SpecialGetter{"SpecialResist",0x1414047bc,"B8 28 00 00 00 E8 9A B9 D5 00 48 2B E0 48 63 C2 48 8D 15 CD DF E1 04 48 83 C4 28 48 FF 24 C2 CC"};
-        constexpr Site Update{"Update",0x140f3e2e4,"48 89 5C 24 18 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 C0 FE FF FF B8 40 02 00 00 E8 5A 1E"};
-        constexpr Site RequestDtor{"RequestDtor",0x140be7368,"48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 B8 20 00 00 00 E8 DE 8D 57 01 48 2B E0 33 ED 48"};
-        constexpr Site Query{"Query",0x1410092a8,"44 88 4C 24 20 53 B8 80 00 00 00 E8 A8 6E 15 01 48 2B E0 83 22 00 48 8B DA 41 8A D0 E8 B3 A9 AB"};
-        constexpr const Site* Sites[]={&Mgr,&Block,&MapAddKey,&MapFind,&MapClearKey,&MakeAccessor,&AddRow,&StatusGetter,&SpecialGetter,&Update,&RequestDtor,&Query};
+        // Per game build (GameBuildId), in Sites order. Epic 1.005 found offline 2026-11-13 by instruction
+        // matching and callers (Update: 4 callers agree, RequestDtor: 5); the party block layout (0x88 +
+        // n*0x22e8, 0x2040/0x20b0/0x20c0) and the request fields Update reads are unchanged. Query (a
+        // diagnostic read only) was not found on 1.005: optional there (va 0).
+        constexpr Site SteamSites[]={
+            {"Mgr",0x140a690c0,"48 8B 0D 79 73 83 08 33 C0 48 85 C9 74 07 48 8B 81 90 04 00 00 C3"},
+            {"Block",0x140ac3c7c,"48 89 5C 24 08 57 B8 20 00 00 00 E8 D4 C4 69 01 48 2B E0 0F B6 DA 48 8B F9 80 FB 0F 73 2B E8 85"},
+            {"MapAddKey",0x1413e6660,"48 89 54 24 10 53 B8 20 00 00 00 E8 F0 9A D7 00 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 61"},
+            {"MapFind",0x1412eee58,"40 53 B8 20 00 00 00 E8 FC 12 E7 00 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 6D C9 68 FF 83"},
+            {"MapClearKey",0x141870070,"48 85 D2 74 74 48 89 5C 24 08 48 89 74 24 18 57 B8 20 00 00 00 E8 D6 00 8F 00 48 2B E0 4C 8B C2"},
+            {"MakeAccessor",0x140be30ac,"40 53 B8 20 00 00 00 E8 A8 D0 57 01 48 2B E0 33 C0 48 8B D9 48 89 41 08 88 41 18 48 89 44 24 30"},
+            {"AddRow",0x1415c9544,"48 89 5C 24 08 44 88 4C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 D9 B8 F0 00 00 00 E8 F8 6B B9 00 48 2B E0 C5 F8 29 B4 24 E0 00 00 00"},
+            {"StatusResist",0x14140477c,"B8 28 00 00 00 E8 DA B9 D5 00 48 2B E0 48 63 C2 48 8D 15 2D E0 E1 04 48 83 C4 28 48 FF 24 C2 CC"},
+            {"SpecialResist",0x1414047bc,"B8 28 00 00 00 E8 9A B9 D5 00 48 2B E0 48 63 C2 48 8D 15 CD DF E1 04 48 83 C4 28 48 FF 24 C2 CC"},
+            {"Update",0x140f3e2e4,"48 89 5C 24 18 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 C0 FE FF FF B8 40 02 00 00 E8 5A 1E"},
+            {"RequestDtor",0x140be7368,"48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 B8 20 00 00 00 E8 DE 8D 57 01 48 2B E0 33 ED 48"},
+            {"Query",0x1410092a8,"44 88 4C 24 20 53 B8 80 00 00 00 E8 A8 6E 15 01 48 2B E0 83 22 00 48 8B DA 41 8A D0 E8 B3 A9 AB"},
+        };
+        constexpr Site EpicSites[]={
+            {"Mgr",0x14092deec,"48 8B 0D 6D A6 8A 08 33 C0 48 85 C9 74 07 48 8B 81 90 04 00 00 C3"},
+            {"Block",0x140f72e34,"48 89 5C 24 08 57 B8 20 00 00 00 E8 3C 8D 1F 01 48 2B E0 0F B6 DA 48 8B F9 80 FB 0F 73 2B E8 BD"},
+            {"MapAddKey",0x141278f64,"48 89 54 24 10 53 B8 20 00 00 00 E8 0C 2C EF 00 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 A1"},
+            {"MapFind",0x140c2c694,"40 53 B8 20 00 00 00 E8 E0 F4 53 01 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 75 5F CD FF 83"},
+            {"MapClearKey",0x14181b654,"48 85 D2 74 77 48 89 5C 24 08 48 89 74 24 18 57 B8 20 00 00 00 E8 12 05 95 00 48 2B E0 4C 8B C2"},
+            {"MakeAccessor",0x1407ff32c,"40 53 B8 20 00 00 00 E8 48 C8 96 01 48 2B E0 33 C0 48 8B D9 48 89 41 08 88 41 18 48 89 44 24 30"},
+            {"AddRow",0x14095be04,"48 89 5C 24 08 44 88 4C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 D9 B8 F0 00 00 00 E8 58 FD 80 01 48 2B E0 C5 F8 29 B4 24 E0 00 00 00"},
+            {"StatusResist",0x1409618ac,"B8 28 00 00 00 E8 CA A2 80 01 48 2B E0 48 63 C2 48 8D 15 CD 86 80 05 48 8B 14 C2 48 83 C4 28 48"},
+            {"SpecialResist",0x1409618f4,"B8 28 00 00 00 E8 82 A2 80 01 48 2B E0 48 63 C2 48 8D 15 0D 87 80 05 48 8B 14 C2 48 83 C4 28 48"},
+            {"Update",0x140c2a79c,"48 89 5C 24 18 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 A0 FE FF FF B8 60 02 00 00 E8 C2 13"},
+            {"RequestDtor",0x140dab118,"48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 B8 20 00 00 00 E8 4E 0A 3C 01 48 2B E0 33 ED 48"},
+            {"Query",0,""},
+        };
+        static_assert(std::size(SteamSites)==std::size(EpicSites));
+        Site Mgr,Block,MapAddKey,MapFind,MapClearKey,MakeAccessor,AddRow,StatusGetter,SpecialGetter,Update,RequestDtor,Query;
+        Site* const Sites[]={&Mgr,&Block,&MapAddKey,&MapFind,&MapClearKey,&MakeAccessor,&AddRow,&StatusGetter,&SpecialGetter,&Update,&RequestDtor,&Query};
 
         std::string RequestPath() { return Shared("junon-infusions.req"); }
         std::string AckPath() { return Shared("junon-infusions.ack"); }
@@ -1614,7 +1702,7 @@ namespace
         bool CallAccessor(Accessor* out,uint64_t id){ __try { At<AccessorFn>(MakeAccessor)(out,id); return true; } __except(1) { return false; } }
         bool CallAddRow(void* map,uint64_t key,Accessor* copy){ __try { At<AddRowFn>(AddRow)(map,key,copy,1); return true; } __except(1) { return false; } }
         bool CallResist(const Site& s,Accessor* acc,int32_t index,uint8_t& out){ __try { out=At<ResistFn>(s)(acc,index); return true; } __except(1) { return false; } }
-        bool CallQuery(void* mgr,uint8_t pt,uint8_t type,float& out,bool& found){ __try { out=0; found=At<QueryFn>(Query)(mgr,&out,pt,type); return true; } __except(1) { return false; } }
+        bool CallQuery(void* mgr,uint8_t pt,uint8_t type,float& out,bool& found){ if(!Query.va) return false; __try { out=0; found=At<QueryFn>(Query)(mgr,&out,pt,type); return true; } __except(1) { return false; } }
         // UpdatePlayerParameter with only "re-apply skills" (+0xbf: entries,
         // materia lists, resistances) and "recompute status" (+0xbd).
         bool CallRefresh(uint8_t* block)
@@ -1698,8 +1786,12 @@ namespace
             if(state) return state==1;
             base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             started=std::filesystem::file_time_type::clock::now();
+            const int build=GameBuild();
+            if(build<0){ Disable("unknown_game_build"); return false; }
+            const Site* table=build==Epic1005?EpicSites:SteamSites;
+            for(size_t i=0;i<std::size(Sites);i++) *Sites[i]=table[i];
             for(const Site* s:Sites)
-                if(!Matches(*s)){
+                if(s->va && !Matches(*s)){
                     std::ostringstream o; o<<"signature_mismatch "<<s->name<<" 0x"<<std::hex<<s->va;
                     Disable(o.str());
                     return false;
@@ -2054,6 +2146,7 @@ namespace
         }
         void Start()
         {
+            if(GameBuild()!=SteamJan2025) return;   // dev diagnostics: old-build addresses only (not ported to 1.005)
             std::thread([]{
                 const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
                 lo=base; hi=base+0x7000000;
@@ -2156,6 +2249,7 @@ namespace
         }
         void Start()
         {
+            if(GameBuild()!=SteamJan2025) return;   // dev diagnostics: old-build addresses only (not ported to 1.005)
             std::thread([]{
                 const uintptr_t base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
                 bool installed=false, armed=false; LONG written=0;
@@ -2425,6 +2519,7 @@ namespace
         // Game thread, at a safe point, once a second (FrameWork).
         void Tick()
         {
+            if(GameBuild()!=SteamJan2025) return;   // dev diagnostics: old-build addresses only (not ported to 1.005)
             const auto now=GetTickCount64();
             if(!rooted.empty()) Release(now);
             const auto trigger=Dev("junon-spawnstall.on");

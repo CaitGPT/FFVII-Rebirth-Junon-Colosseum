@@ -34,10 +34,15 @@ Videos: [the mod](https://www.youtube.com/watch?v=a3EVJoSZH5w) and [how we built
 
 ## Requirements
 
-- FINAL FANTASY VII REBIRTH for PC (Steam).
-- [RE-UE4SS for FF7 Rebirth](https://www.nexusmods.com/finalfantasy7rebirth/mods/267) **1.0.2** (UE4SS 3.0.1). The
-  mod includes a small native helper built for that loader. It checks the game code it relies on before acting and
-  switches itself off if that code has changed (after a game update, for example).
+- FINAL FANTASY VII REBIRTH for PC, game version **1.005** (the current version on Steam and the Epic Games Store).
+  We tested 1.1.0 on the Epic Games Store version; the Steam version of 1.005 is not tested yet. Junon Colosseum
+  1.0.0 was built on the January 2025 version.
+- [RE-UE4SS FF7R](https://www.nexusmods.com/finalfantasy7rebirth/mods/267) (UE4SS 3.0.1). On 1.005 it needs a fix to
+  run: the optional 1.005 file on its Files tab, or the two settings changes we tested with
+  (`JunonColosseum-1.1.0-UE4SS-1.005-settings.zip` on the release page; the same files are in
+  [`experiments/junon-foyer/ue4ss-1.005`](experiments/junon-foyer/ue4ss-1.005)).
+- The mod includes a small native helper built for that loader. It checks the game code it relies on before acting
+  and switches itself off if it does not recognise that code: the game runs normally, but courses won't start.
 - A save in **Chapter 12 or later**, past the Roche fight in Chapter 11. The colosseum stays closed in earlier
   chapters, including chapter replays.
 

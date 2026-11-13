@@ -3,6 +3,16 @@
 // header, then Latin-1 or UTF-16 characters), CityHash64 name hashes, the
 // import, export, bundle and graph tables, then the export's data.
 //
+// A UTF-16 name's characters are 2-byte aligned inside the batch: when the
+// length header leaves an odd offset, one padding byte comes before the
+// characters. Names are rare enough that a build can ship none, so a package
+// without a wide name says nothing about whether the rule is followed.
+//
+// The Epic build (1.005) is re-cooked with unversioned properties, which sets
+// PKG_UnversionedProperties in the summary's package flags. That changes the
+// export's header, not this container (see DataTable), so <see cref="Unversioned"/>
+// is read here and used there.
+//
 // Only the name map and the export's size change when a table is edited, so
 // everything else is carried over byte for byte.
 using System.Buffers.Binary;
@@ -13,6 +23,8 @@ namespace TrainingDummy.DataBuilder;
 internal sealed class ZenPackage
 {
     const int SummarySize = 0x40;
+    const int PackageFlagsOffset = 0x10;
+    const uint PkgUnversionedProperties = 0x2000;
     readonly byte[] summary;          // the 0x40-byte summary, offsets rewritten on save
     readonly byte[] hashAlgorithm;    // the 8 bytes before the per-name hashes
     readonly List<ulong> hashes;
@@ -21,11 +33,17 @@ internal sealed class ZenPackage
     public List<string> Names { get; }
     public byte[] Export { get; set; }
 
+    /// <summary>PKG_UnversionedProperties: the export carries no property tags (the Epic 1.005 build).</summary>
+    public bool Unversioned => (BinaryPrimitives.ReadUInt32LittleEndian(summary.AsSpan(PackageFlagsOffset)) & PkgUnversionedProperties) != 0;
+
     ZenPackage(byte[] summary, List<string> names, byte[] hashAlgorithm, List<ulong> hashes, byte[] tables, int exportsInTables, byte[] export)
     {
         this.summary = summary; Names = names; this.hashAlgorithm = hashAlgorithm; this.hashes = hashes;
         this.tables = tables; this.exportsInTables = exportsInTables; Export = export;
     }
+
+    /// <summary>Whether a UTF-16 name may start at <paramref name="offsetInBatch"/>, which the batch pads to when it may not.</summary>
+    static bool IsWideAligned(int offsetInBatch) => (offsetInBatch & 1) == 0;
 
     public static ZenPackage Load(string path) => Parse(File.ReadAllBytes(path), path);
 
@@ -43,6 +61,7 @@ internal sealed class ZenPackage
             var wide = (b[o] & 0x80) != 0;
             var length = ((b[o] & 0x7f) << 8) | b[o + 1];
             o += 2;
+            if (wide && !IsWideAligned(o - namesOff)) o++;
             names.Add(wide ? Encoding.Unicode.GetString(b, o, 2 * length) : Encoding.Latin1.GetString(b, o, length));
             o += wide ? 2 * length : length;
         }
@@ -84,6 +103,7 @@ internal sealed class ZenPackage
             if (length > 0x7fff) throw new InvalidDataException($"name too long: {name[..32]}");
             names.WriteByte((byte)((wide ? 0x80 : 0) | (length >> 8)));
             names.WriteByte((byte)length);
+            if (wide && !IsWideAligned((int)names.Length)) names.WriteByte(0);
             names.Write(bytes);
         }
         var namesSize = (int)names.Length;

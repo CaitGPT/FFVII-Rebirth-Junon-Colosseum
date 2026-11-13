@@ -1,8 +1,15 @@
 // A DataObject table: the frozen UE memory image inside a zen package's export.
 //
-// Export: tagged-property prefix (ending in "None"), a 32-bit frozen size at
-// +0x0c, 16 header bytes, then the frozen image at +0x20, 8 bytes, the name
-// patch table and 4 trailing bytes.
+// Export: a property prefix, a 32-bit frozen size, padding to +0x20, then the
+// frozen image, 8 bytes, the name patch table and 4 trailing bytes.
+//
+// The prefix comes in the two shapes the game ships. A versioned export (the
+// 2024 Steam build) starts with an 8-byte tagged "None" property, putting the
+// frozen size at +0x0c. An unversioned one (the Epic 1.005 build, flagged
+// PKG_UnversionedProperties in the package summary) starts with a 2-byte
+// FUnversionedHeader instead, putting the size at +0x06. Both pad the prefix to
+// 0x20, so the frozen image and everything after it are laid out the same way,
+// and a table is saved back in the format it was read in.
 //
 // Frozen image (offsets from its start; pointers are int64 (relative offset << 1) | 1):
 //   0x00 row keys: TSet<TPair<FName,int32>> = sparse array {ptr, num, max}, allocation
@@ -71,6 +78,9 @@ internal sealed class DataTable
 
     DataTable(ZenPackage package) => Package = package;
 
+    /// <summary>Where the export keeps its frozen size: after an unversioned header, or after a tagged "None".</summary>
+    static int FrozenSizeOffset(ZenPackage package) => package.Unversioned ? 0x06 : 0x0c;
+
     public static int SizeOf(int type) => Sizes.TryGetValue(type, out var s) ? s : throw new InvalidDataException($"unknown property type {type}");
     static int AlignOf(int type) => type == StringType ? 8 : type == NameType ? 4 : SizeOf(type);
     static int AlignUp(int x, int a) => (x + a - 1) / a * a;
@@ -82,7 +92,7 @@ internal sealed class DataTable
         var t = new DataTable(package);
         var b = package.Export;
         int I(int o) => BinaryPrimitives.ReadInt32LittleEndian(b.AsSpan(o));
-        var frozenSize = I(0x0c);
+        var frozenSize = I(FrozenSizeOffset(package));
         const int baseOff = 0x20;
         var end = baseOff + frozenSize;
         if (end + 12 > b.Length) throw new InvalidDataException($"{label}: frozen image runs past the export");
@@ -201,7 +211,7 @@ internal sealed class DataTable
 
         var output = new MemoryStream();
         var head = (byte[])prefix.Clone();
-        BinaryPrimitives.WriteInt32LittleEndian(head.AsSpan(0x0c), frozen.Length);
+        BinaryPrimitives.WriteInt32LittleEndian(head.AsSpan(FrozenSizeOffset(Package)), frozen.Length);
         output.Write(head); output.Write(frozen); output.Write(prePatch);
         var groups = w.Patches.OrderBy(g => g.Key.Index).ThenBy(g => g.Key.Number).ToList();
         void Int(int v) { Span<byte> s = stackalloc byte[4]; BinaryPrimitives.WriteInt32LittleEndian(s, v); output.Write(s); }

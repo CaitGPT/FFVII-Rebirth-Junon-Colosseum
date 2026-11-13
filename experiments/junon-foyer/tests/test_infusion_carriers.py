@@ -39,7 +39,7 @@ def spec_rows(asset):
 def test_every_stat_up_materia_is_a_common_infusion():
     by_label = {b['label']: b for b in buffs()['buffs']}
     for name, (materia, earrings, effect) in STAT_UPS.items():
-        b = by_label[f'{name}: {effect}']
+        b = by_label[f'Equip {name}']   # owner 2026-11-13: the materia's name, no effect text
         assert b['tier'] == 'common' and b['target'] == 'party', name
         if earrings:
             assert b['accessory'] == earrings and 'materia' not in b, name

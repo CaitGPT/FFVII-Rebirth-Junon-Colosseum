@@ -27,6 +27,16 @@ import json
 import re
 
 LABEL_MAX = 48  # characters (not bytes), tier prefix included (the window is narrow)
+# Owner 2026-11-13: an infusion that only counts from the next round says so. Materia carriers
+# reach the fighters through the game's parameter rebuild, which the helper runs between rounds,
+# so they are marked next_round: their option text gets this note and buffwheel.lua never offers
+# them in a course's final round, where they could never be used.
+NEXT_ROUND_NOTE = ' next round'
+
+
+def option_label(b):
+    """The infusion's option text without the tier label."""
+    return b['label'] + (NEXT_ROUND_NOTE if b.get('next_round') else '')
 # Materia carriers (owner 2026-11-11: an infusion for every stat-up materia). The
 # game's materia earrings are Equipment rows with one skill of type 100 naming a
 # materia (SkillEffectName_Array), which the game applies at that materia's
@@ -100,7 +110,9 @@ def validate(design, boss_rounds=()):
             raise ValueError(f"{b['id']}: materia is a Materia row such as M_IND_106")
         if 'materia' in b and b['accessory'] != carrier_for(b['materia']):
             raise ValueError(f"{b['id']}: the carrier for {b['materia']} is {carrier_for(b['materia'])}")
-        label = design['tier_labels'][b['tier']] + b['label']
+        if b.get('next_round') not in (None, True) or (b.get('next_round') and 'accessory' not in b):
+            raise ValueError(f"{b['id']}: next_round is true, and only on an accessory infusion")
+        label = design['tier_labels'][b['tier']] + option_label(b)
         # Latin-1 only (the game's font); printable, so json.dumps never writes a \u escape Lua can't read.
         if not all(ord(c) < 256 and c.isprintable() for c in label):
             raise ValueError(f"{b['id']}: label in printable Latin-1 (the game's font)")
@@ -180,6 +192,7 @@ def lua(design, course_lines=(), boss_rounds=()):
         if b.get('seconds'): extra += f", seconds = {b['seconds']}"
         if b.get('action'): extra += f", action = {s(b['action'])}"
         if b.get('accessory'): extra += f", accessory = {s(b['accessory'])}"
-        lines.append(f"    {{id = {s(b['id'])}, tier = {s(b['tier'])}, label = {s(b['label'])}, target = {s(b['target'])}, statuses = {{{statuses}}}{extra}}},")
+        if b.get('next_round'): extra += ', next_round = true'
+        lines.append(f"    {{id = {s(b['id'])}, tier = {s(b['tier'])}, label = {s(option_label(b))}, target = {s(b['target'])}, statuses = {{{statuses}}}{extra}}},")
     lines += ['  },', *course_lines, '}', '']
     return '\n'.join(lines)

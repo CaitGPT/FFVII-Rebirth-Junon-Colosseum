@@ -20,23 +20,51 @@ internal static class RawContainerPack
     // native store facts: export/bundle counts, load order and imports.
     // HeaderSha binds the facts to the vanilla container header they were read
     // from; OwnedPaths are the only staged paths that may carry the clone.
-    sealed record Map(string Source,ulong SourceId,string TargetLeaf,int Exports,int Bundles,uint LoadOrder,ulong[] Dependencies,string HeaderSha,string[] OwnedPaths);
-    const string PlanHeader="2ADC4DE2D6381D1BB674FB6C29AFD10FF06740ED011E63659DE378824164341B";
+    // Load order and header differ per game build (the counts and imports do not),
+    // so each map lists them per build.
+    sealed record Native(string HeaderSha,uint LoadOrder);
+    sealed record Map(string Source,ulong SourceId,string TargetLeaf,int Exports,int Bundles,ulong[] Dependencies,Dictionary<string,Native> Builds,string[] OwnedPaths);
+    // A game build: the first 10 bytes of its pakchunk4optional .ucas, which our
+    // container's 16-byte prefix repeats (then 6 zero bytes, as before).
+    internal sealed record GameBuild(string Name,string UcasPrefix);
+    static readonly GameBuild[] Builds=
+    [
+        new("steam-2025-01","8C060097A68897A4D300"),   // the January 2025 build our 1.0.0 was made on
+        new("epic-1.005","8C0600977A889778D300"),      // 1.005_2026_0528_2133 (Epic, 2026-11-13)
+    ];
+    const string OldPlan="2ADC4DE2D6381D1BB674FB6C29AFD10FF06740ED011E63659DE378824164341B", EpicPlan="89E2B5FF54288F5D41E860C6759FC182936AA4076547E29CF1D49904DCE8F814";
     static string[] Regions(string leaf)=>["End/Content/Level/Game/Field/1300-JUNOA/BattlePlan/"+leaf+".umap","End/Content/Level/Game/Field/1350-JNONT/BattlePlan/"+leaf+".umap"];
     static readonly Map[] Known=
     [
-        new("/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident",0x24baea373c4fe457UL,"1300-JUNOA_BattlePlan_ModJunonColosseum",32,1,610000,[0x920063448760ef10UL,0x0f56951f8594eb13UL],PlanHeader,Regions("1300-JUNOA_BattlePlan_ModJunonColosseum")),
-        new("/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident_ServerBuild",0xd1f3ed087bf5ced5UL,"1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild",6,1,71801,[],PlanHeader,Regions("1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild")),
+        new("/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident",0x24baea373c4fe457UL,"1300-JUNOA_BattlePlan_ModJunonColosseum",32,1,[0x920063448760ef10UL,0x0f56951f8594eb13UL],
+            new(){["steam-2025-01"]=new(OldPlan,610000),["epic-1.005"]=new(EpicPlan,614107)},Regions("1300-JUNOA_BattlePlan_ModJunonColosseum")),
+        new("/Game/Level/Game/Field/2360-UNDRS/BattlePlan/2360-UNDRS_BattlePlan_Resident_ServerBuild",0xd1f3ed087bf5ced5UL,"1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild",6,1,[],
+            new(){["steam-2025-01"]=new(OldPlan,71801),["epic-1.005"]=new(EpicPlan,72200)},Regions("1300-JUNOA_BattlePlan_ModJunonColosseum_ServerBuild")),
         // The colosseum menu backdrop (TexturePack.cs), from pakchunk3's header.
-        new("/Game/Menu/Billboard/Common/U_Com_GoldSaucerArena_Bg1",0x6005b48ba5b7d1f3UL,"U_Com_JunonArena_Bg1",1,1,262481,[],"6E793C460AFAC90A388F5E461A819293B97E6BBD5609AF936440A3E702235FE7",["End/Content/Menu/Billboard/Common/U_Com_JunonArena_Bg1.uasset"]),
+        new("/Game/Menu/Billboard/Common/U_Com_GoldSaucerArena_Bg1",0x6005b48ba5b7d1f3UL,"U_Com_JunonArena_Bg1",1,1,[],
+            new(){["steam-2025-01"]=new("6E793C460AFAC90A388F5E461A819293B97E6BBD5609AF936440A3E702235FE7",262481),
+                  ["epic-1.005"]=new("46F6172F5B12035882000DB64EB1E2BDE9FAC3B5B5A308197C7314AB22FD2660",264309)},["End/Content/Menu/Billboard/Common/U_Com_JunonArena_Bg1.uasset"]),
     ];
+    // The game build a Paks folder holds, from its pakchunk4optional prefix; an unknown build stops the build.
+    public static GameBuild Detect(string paksDir)
+    {
+        string probe=Path.Combine(paksDir,"pakchunk4optional-WindowsNoEditor.ucas");
+        Require(File.Exists(probe),"Missing "+probe);
+        byte[] head=new byte[10];
+        using(var f=File.OpenRead(probe)) Require(f.Read(head,0,10)==10,"Short "+probe);
+        string hex=Convert.ToHexString(head);
+        return Builds.SingleOrDefault(b=>b.UcasPrefix==hex) ?? throw new InvalidDataException("Unknown game build (pakchunk4optional starts "+hex+"); add it to RawContainerPack.Builds");
+    }
     // Both arena maps in two regions, plus the backdrop texture.
     public const int Registered=5;
 
     // factsPaths: one store-facts file per owned map, separated by ';'.
-    public static void Stage(string stageRoot,string factsPaths,string output,int StagedAssets)
+    public static void Stage(string stageRoot,string factsPaths,string output,int StagedAssets,string paksDir)
     {
         Require(!Directory.Exists(output),"Preserve prior raw container staging");
+        GameBuild build=Detect(paksDir);
+        Console.WriteLine("game build: "+build.Name);
+        Native For(Map m)=>m.Builds.TryGetValue(build.Name,out var n)?n:throw new InvalidDataException("No native store facts for "+m.TargetLeaf+" on "+build.Name);
         Require(Id("/Game/DataObject/Resident/Action")==0x3be4c651882aeeaaUL,"Existing native Action package ID mismatch");
         byte[]? algorithm=null;
         var maps=new List<Map>();
@@ -48,8 +76,8 @@ internal static class RawContainerPack
             Map map=Known.SingleOrDefault(m=>m.Source==source) ?? throw new InvalidDataException("Unknown native source package "+source);
             Require(Id(source)==map.SourceId && f.GetProperty("source_package_id").GetString()==map.SourceId.ToString("x16"),"Native package ID algorithm mismatch");
             Require(f.GetProperty("target_leaf").GetString()==map.TargetLeaf,"Unexpected owned map name");
-            Require(f.GetProperty("source_container_header_sha256").GetString()==map.HeaderSha,"Unexpected native store metadata provenance");
-            Require(f.GetProperty("export_count").GetInt32()==map.Exports && f.GetProperty("export_bundle_count").GetInt32()==map.Bundles && f.GetProperty("load_order").GetUInt32()==map.LoadOrder,"Unexpected native battle-plan metadata");
+            Require(f.GetProperty("source_container_header_sha256").GetString()==For(map).HeaderSha,"Unexpected native store metadata provenance (store facts for another game build?)");
+            Require(f.GetProperty("export_count").GetInt32()==map.Exports && f.GetProperty("export_bundle_count").GetInt32()==map.Bundles && f.GetProperty("load_order").GetUInt32()==For(map).LoadOrder,"Unexpected native battle-plan metadata");
             ulong[] dependencies=f.GetProperty("imported_packages").EnumerateArray().Select(x=>Convert.ToUInt64(x.GetString(),16)).ToArray();
             Require(dependencies.SequenceEqual(map.Dependencies),"Native dependencies changed");
             byte[] a=Convert.FromHexString(f.GetProperty("native_name_hash_algorithm_hex").GetString()!);
@@ -97,7 +125,7 @@ internal static class RawContainerPack
             foreach(var pair in added)
             {
                 var m=pair.Value.Map;int entry=j*32,depStart=depBase+depAt*8;
-                w.Write((ulong)pair.Value.Size);w.Write(m.Exports);w.Write(m.Bundles);w.Write(m.LoadOrder);w.Write(-1);
+                w.Write((ulong)pair.Value.Size);w.Write(m.Exports);w.Write(m.Bundles);w.Write(For(m).LoadOrder);w.Write(-1);
                 w.Write((uint)m.Dependencies.Length);w.Write(m.Dependencies.Length==0?0u:(uint)(depStart-entry-24));
                 depAt+=m.Dependencies.Length;j++;
             }
@@ -116,11 +144,12 @@ internal static class RawContainerPack
         Directory.CreateDirectory(Path.Combine(output,"chunks"));
         foreach(var pair in contents)File.WriteAllBytes(Path.Combine(output,"chunks",pair.Key),pair.Value);
         File.WriteAllText(Path.Combine(output,"manifest.json"),JsonSerializer.Serialize(new {chunk_paths=paths,version="DirectoryIndex",mount_point="../../../"},new JsonSerializerOptions{WriteIndented=true}));
-        Console.WriteLine(JsonSerializer.Serialize(new{chunks=contents.Count,paths=paths.Count,registered_new_packages=added.Count,container_id=containerId.ToString("x16"),native_acceptance="pending"}));
+        Console.WriteLine(JsonSerializer.Serialize(new{chunks=contents.Count,paths=paths.Count,registered_new_packages=added.Count,container_id=containerId.ToString("x16"),game_build=build.Name,native_acceptance="pending"}));
     }
 
-    public static void Prefix(string inputToc,string outputToc,int StagedAssets)
+    public static void Prefix(string inputToc,string outputToc,int StagedAssets,string paksDir)
     {
+        GameBuild build=Detect(paksDir);
         Require(Path.GetFileNameWithoutExtension(inputToc)==Owned && Path.GetFileNameWithoutExtension(outputToc)==Owned,"Unowned container name");
         Require(!File.Exists(outputToc) && !File.Exists(Path.ChangeExtension(outputToc,".ucas")),"Preserve prior prefixed container");
         byte[] toc=File.ReadAllBytes(inputToc),cas=File.ReadAllBytes(Path.ChangeExtension(inputToc,".ucas"));
@@ -134,11 +163,11 @@ internal static class RawContainerPack
             Require(offset+(ulong)length<=(ulong)cas.Length && offset+16<(1UL<<40),"Compressed-block range mismatch");
             ulong shifted=offset+16;for(int j=0;j<5;j++)toc[at+j]=(byte)(shifted>>(j*8));
         }
-        byte[] prefix=Convert.FromHexString("8C060097A68897A4D300000000000000");
+        byte[] prefix=Convert.FromHexString(build.UcasPrefix+"000000000000");
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(outputToc))!);
         using(var output=new FileStream(Path.ChangeExtension(outputToc,".ucas"),FileMode.CreateNew)){output.Write(prefix);output.Write(cas);}
         File.WriteAllBytes(outputToc,toc);
         Require(File.ReadAllBytes(Path.ChangeExtension(outputToc,".ucas")).AsSpan(16).SequenceEqual(cas),"Container payload changed");
-        Console.WriteLine(JsonSerializer.Serialize(new{native_prefix_bytes=16,shifted_physical_blocks=blocks,chunk_payloads_unchanged=true,native_acceptance="pending"}));
+        Console.WriteLine(JsonSerializer.Serialize(new{native_prefix_bytes=16,game_build=build.Name,shifted_physical_blocks=blocks,chunk_payloads_unchanged=true,native_acceptance="pending"}));
     }
 }

@@ -30,9 +30,17 @@ WHAT IT ADDS
 - A Junon-branded course menu and result screen.
 
 REQUIREMENTS
-- FINAL FANTASY VII REBIRTH for PC, Steam version, current patch.
-- RE-UE4SS for FF7 Rebirth 1.0.2 (UE4SS 3.0.1) from Nexus Mods (mod 267),
-  installed so that End\Binaries\Win64\ue4ss\UE4SS.dll exists.
+- FINAL FANTASY VII REBIRTH for PC, game version 1.005 (the current version
+  on Steam and the Epic Games Store). We tested on the Epic Games Store
+  version; the Steam version of 1.005 has not been tested yet. If the mod's
+  helper does not recognise your game's code, it turns itself off instead
+  of guessing: the game runs normally, but courses will not start.
+  Junon Colosseum 1.0.0 was built on the January 2025 version.
+- RE-UE4SS FF7R from Nexus Mods (mod 267), installed so that
+  End\Binaries\Win64\ue4ss\UE4SS.dll exists. On game version 1.005, UE4SS
+  3.0.1 needs a fix to run: either the optional 1.005 file on mod 267's
+  Files tab, or the two UE4SS settings files we tested with
+  (JunonColosseum-{VERSION}-UE4SS-1.005-settings.zip, beside this download).
 - A save in Chapter 12 or later. The colosseum stays closed in earlier
   chapters, including chapter replays.
 

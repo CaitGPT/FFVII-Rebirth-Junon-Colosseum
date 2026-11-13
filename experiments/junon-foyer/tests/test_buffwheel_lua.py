@@ -145,8 +145,13 @@ function add_limit_actions()
     table.insert(data.buffs, {id = 'FullLimit', tier = 'epic', label = 'Full limit gauge at the start of each round', target = 'party', statuses = {}, action = 'limit_full'})
     table.insert(data.buffs, {id = 'LimitOverTime', tier = 'epic', label = 'Limit gauge fills over time', target = 'party', statuses = {}, action = 'limit_over_time'})
 end
--- An option's text without its tier label ("[Rare] ", "[Epic] ").
-function plain(option) return (option:gsub('^%[%a+%] ', '')) end
+-- An option's text without its tier label ("Rare: ", "Epic: ").
+function plain(option)
+    for _, t in pairs(data.tier_labels) do
+        if t ~= '' and option:sub(1, #t) == t then return option:sub(#t + 1) end
+    end
+    return option
+end
 function boon(label) for _, b in ipairs(data.buffs) do if b.label == plain(label) then return b end end end
 -- Pick the option with this label, tier label or not (the draw is random).
 function choose_label(label)
@@ -752,6 +757,26 @@ def test_second_wind_in_a_boost_playtest_rises_once_then_drains_to_the_finisher(
     ''')
 
 
+
+def test_the_boost_finisher_leaves_a_sliver_that_one_hit_ends():
+    """Owner 2026-11-13: a playtest party far below the course level could not land the last 1%.
+    At the floor the finisher also drops the enemy to a sliver (0.1%, never under 5 HP), never 0,
+    which would fail the course."""
+    lua = runtime()
+    lua.execute(ARMS_RACE_FAKES)
+    lua.execute(r'''
+        package.loaded.devtools = {testmode = function() return 'boost', 1 end}
+        tick(false); menu_title = data.courses[1].title
+        tick(true); spawn('EN1'); spawn('EN2'); foes[1].max = 200000; foes[2].max = 2000
+        tick(true, 3); refuse(); tick(true)
+        tick(true, 40)
+        local strips = lines('drain_strip')
+        assert(#strips >= 2, #strips)
+        assert(math.abs(foes[1].hp - 0.1) < 1e-9, foes[1].hp)          -- 0.1% of 200000 = 200 HP
+        assert(math.abs(foes[2].hp - 0.25) < 1e-9, foes[2].hp)         -- 0.1% would be 2 HP: 5 HP instead
+        for _, c in ipairs(calls) do assert(not c:find('%%0$'), c) end  -- never set to 0
+    ''')
+
 ARMS_RACE_FAKES = r"""
     require('paths').dev = 'telemetry/'          -- a development install: log lines are kept
     logged = {}
@@ -791,7 +816,7 @@ ARMS_RACE_FAKES = r"""
     end
     function holds(name, id) return has(name..':'..id..':64') end
     -- Infusions none of which an enemy boon matches (no status from the pool).
-    only('Resist ailments', 'Full ATB at the start of each round', 'Refocus: three ATB segments')
+    only('Resist ailments', 'Full ATB at the start of each round', 'Refocus for the party')
     function next_round() wipe(); tick(true); tick(false, 15) end
 """
 
@@ -942,10 +967,10 @@ def test_special_and_action_infusions():
     lua = runtime()
     lua.execute("""
         add_limit_actions()
-        only('Refocus: three ATB segments', 'Full ATB at the start of each round', 'Full limit gauge at the start of each round')
+        only('Refocus for the party', 'Full ATB at the start of each round', 'Full limit gauge at the start of each round')
         tick(true); spawn('EN1'); tick(true); wipe(); tick(true); tick(false, 15)
         tick(true); spawn('EN2'); tick(true, 3)
-        choose_label('Refocus: three ATB segments'); tick(true)
+        choose_label('Refocus for the party'); tick(true)
         assert(has('PC0000_Cloud~PCVision') and not has('EN2~PCVision'))
         calls = {}; specials = {}           -- it lapses
         tick(true, 4)
@@ -1026,9 +1051,9 @@ def test_tier_labels_show_and_the_pick_maps_back():
         tick(true); spawn('EN1'); tick(true, 3)
         local set = {}
         for _, o in ipairs(window.options) do set[o] = true end
-        assert(set['[Rare] Haste for the party'] and set['Regen for the party'] and set['[Epic] Reraise for the party'],
+        assert(set['Rare: Haste for the party'] and set['Regen for the party'] and set['Epic: Reraise for the party'],
                table.concat(window.options, ' | '))
-        for i, o in ipairs(window.options) do if o == '[Epic] Reraise for the party' then choose(i) end end
+        for i, o in ipairs(window.options) do if o == 'Epic: Reraise for the party' then choose(i) end end
         tick(true)
         assert(has('PC0000_Cloud:BSC_Reraise:64') and not has('BSC_Haste') and not has('BSC_Regeneration'))
     ''')
@@ -1099,7 +1124,7 @@ def test_the_offer_after_a_boss_round_favours_epics():
             local got = {}
             for i = 1, #window.options - 1 do got[i] = boon(window.options[i]).tier end
             tiers[r] = table.concat(got, ',')
-            if r == 4 then for i = 1, 3 do assert(window.options[i]:find('^%[Epic%] '), window.options[i]) end end
+            if r == 4 then for i = 1, 3 do assert(window.options[i]:find('^Epic: '), window.options[i]) end end
             refuse(); tick(true); wipe(); tick(true); tick(false, 15)
         end
         for _, r in ipairs({1, 2, 3, 5}) do assert(tiers[r] == 'common,common,common', r..': '..tiers[r]) end
@@ -1131,8 +1156,8 @@ def test_the_dev_offer_order_bypasses_the_weights():
         package.loaded.devtools = {offer_order = function() return {'Resist', 'Reraise', 'Haste'} end}
         data.tier_weights = {common = 0, rare = 0, epic = 1}
         tick(true); spawn('EN1'); tick(true, 3)
-        assert(window.options[1] == 'Resist ailments' and window.options[2] == '[Epic] Reraise for the party'
-               and window.options[3] == '[Rare] Haste for the party', table.concat(window.options, ' | '))
+        assert(window.options[1] == 'Resist ailments' and window.options[2] == 'Epic: Reraise for the party'
+               and window.options[3] == 'Rare: Haste for the party', table.concat(window.options, ' | '))
     ''')
 
 
@@ -1200,7 +1225,7 @@ def test_an_accessory_pick_goes_to_the_helper_and_leaves_with_the_course():
         tick(false)
         assert(sent():find('^run %S+\nphase idle\n$'), sent())   -- the first tick clears any old request
         local boot = wheel.infusion_run()
-        only('Party equips Genji Gloves', 'Party equips White Cape', 'Gain spells: Fire, Fira, Firaga')
+        only('Party equips Genji Gloves', 'Party equips White Cape', 'Equip Fire next round')
         tick(true)                                           -- course start: a new run, in battle
         local run = wheel.infusion_run()
         assert(run ~= boot and sent() == 'run '..run..'\nphase battle\n', sent())
@@ -1214,7 +1239,7 @@ def test_an_accessory_pick_goes_to_the_helper_and_leaves_with_the_course():
         tick(false, 10)
         tick(true); spawn('EN2'); tick(true, 3)               -- round 2
         assert(sent():find('phase battle', 1, true))
-        choose_label('Gain spells: Fire, Fira, Firaga'); tick(true)
+        choose_label('Equip Fire next round'); tick(true)
         assert(sent_accessories() == 'E_ACC_0211,E_ACC_0253', sent())
         local writes = #infusion_writes
         tick(true, 5)
@@ -1945,4 +1970,37 @@ def test_courses_before_thirteen_and_paused_windows_cost_nothing():
         wipe(); tick(true); tick(false)                           -- the round's battle ends: the loop rests
         loop()
         assert(queued == 2)
+    ''')
+
+def test_next_round_infusions_say_so_and_skip_the_last_round():
+    """Owner 2026-11-13: materia infusions count from the next round (the helper's rebuild runs
+    between rounds), so their text says so and the course's last round never offers them."""
+    lua = runtime()
+    lua.execute('''
+        local marked = 0
+        for _, b in ipairs(data.buffs) do
+            if b.next_round then
+                marked = marked + 1
+                assert(b.accessory and b.label:sub(-11) == ' next round', b.id)
+            else
+                assert(not b.label:find(' next round', 1, true), b.id)
+            end
+        end
+        assert(marked == 28, marked)
+        tick(false)
+        menu_title = "Shin'iri"                          -- course 1: nine rounds
+        only('Equip Prayer next round', 'Haste for the party', 'Regen for the party')
+        tick(true)
+        answer()
+        for r = 1, 9 do
+            spawn('EN'..r); tick(true, 3)
+            if r < 9 then
+                assert(offered('Equip Prayer next round'), r..': '..table.concat(window.options, ' | '))
+            else
+                assert(not offered('Equip Prayer next round'), table.concat(window.options, ' | '))
+                assert(#window.options == 3)            -- Haste, Regen and Refuse
+            end
+            refuse(); tick(true); wipe(); tick(true); tick(false, 15)
+            if r < 9 then tick(true) end
+        end
     ''')

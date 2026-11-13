@@ -47,6 +47,7 @@ local DRAIN_SECONDS, DRAIN_STEP = 5, 3  -- playtest boost only
 -- 14-40 a hit at 1% for 17 minutes). Setting 0% HP instead failed the course
 -- when done in the final round ("Challenge Failed"), so the kill stays real.
 local DRAIN_FINISH = 20
+local FINISH_PERCENT = 0.1  -- playtest boost: the finisher's sliver of HP, in percent (at least 5 HP)
 -- (BSC_Reraise stays on the list as a guard: since 2026-11-11 the mod gives it
 -- to no enemy; see second_wind below.)
 local STRIP = {'BSC_Regeneration', 'BSC_Barrier', 'BSC_MBarrier', 'BSC_Protes', 'BSC_Shell',
@@ -275,12 +276,20 @@ local function draw_one(pool, weights)
     for i, b in ipairs(pool) do if tier == nil or b.tier == tier then choices[#choices+1] = i end end
     return table.remove(pool, choices[math.random(#choices)])
 end
+-- Owner 2026-11-13: infusions marked next_round (materia carriers: the game's
+-- rebuild between rounds brings them in) would be useless in a course's last
+-- round, so they are not offered there.
+local function final_round()
+    local c = course and data.courses[course]
+    return c ~= nil and c.slots ~= nil and round >= #c.slots
+end
 local function draw(n, after_boss)
     local taken, pool = {}, {}
     for _, b in ipairs(picks) do taken[b.id] = true end
     local ready = nil   -- accessory infusions only with the helper's answer
+    local last = final_round()
     for _, b in ipairs(data.buffs) do
-        if not taken[b.id] then
+        if not taken[b.id] and not (last and b.next_round) then
             if b.accessory and ready == nil then ready = native_ready() end
             if not b.accessory or ready then pool[#pool+1] = b end
         end
@@ -718,7 +727,7 @@ local function boss_round(r)
     for c = 1, #lists do if not listed(lists[c]) then return false end end
     return #lists > 0
 end
--- The option text: the tier's label ("[Rare] ", "[Epic] ") and the infusion's.
+-- The option text: the tier's label ("Rare: ", "Epic: ") and the infusion's.
 local function label(b) return ((data.tier_labels or {})[b.tier] or '')..b.label end
 local function open_window(menu, api)
     local after_boss = round > 1 and boss_round(round - 1)
@@ -1392,7 +1401,14 @@ function M.tick(db, battle)
                             for _, id in ipairs({'BSC_DeProtes', 'BSC_DeShell'}) do
                                 pcall(function() api:AddStatusChangeID(e, FName(id), INFINITY, true, nil, false) end)
                             end
-                            log('drain_strip	'..round..'	'..e:GetFName():ToString())
+                            -- Owner 2026-11-13: a playtest party can be far below the course's level, so
+                            -- also drop the enemy to a sliver (the percent is a float): any real hit then
+                            -- kills it. Never 0 and never under 5 HP, which would fail the course.
+                            local max = nil
+                            pcall(function() max = api:GetHPMax(e) end)
+                            local sliver = (type(max) == 'number' and max > 0) and math.max(FINISH_PERCENT, 500 / max) or 1
+                            if sliver < 1 then pcall(function() api:SetHPPercent(e, sliver) end) end
+                            log('drain_strip	'..round..'	'..e:GetFName():ToString()..'	sliver='..string.format('%.3f', sliver))
                         end
                     end
                 end

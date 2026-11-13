@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0: Epic Games Store version, shorter infusion text
+
+- Works with game version 1.005, the current version on Steam and the Epic Games Store: the archive is rebuilt on
+  its tables, and the helper finds its game functions per game version. Tested on the Epic Games Store version; the
+  Steam version of 1.005 is not tested yet. On a version it does not recognise, the helper switches its features off
+  instead of guessing, so courses do not start but the game runs normally (1.0.0 did not switch off).
+- 1.0.0 was built on the January 2025 version of the game, not the current one as its notes said.
+- On 1.005, UE4SS 3.0.1 needs a fix: the optional 1.005 file on RE-UE4SS FF7R's Nexus page, or the two UE4SS
+  settings files we tested with, offered as a separate download.
+- Infusion text is shorter: the tier reads "Rare:" or "Epic:", and materia infusions just name the materia, for
+  example "Equip Fire next round" or "Rare: Equip Time next round". Materia reaches your fighters when the game
+  rebuilds their stats between rounds, so materia infusions are no longer offered in a course's last round.
+
 ## 1.0.0: first public release
 
 The first public release. Everything below is new.
