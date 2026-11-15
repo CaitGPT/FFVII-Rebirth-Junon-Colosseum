@@ -5,6 +5,7 @@ local M={}
 local started=nil
 local settled=0
 local pending_flag='stfMod_JunonColosseum_EntryPending'
+M.PENDING_FLAG=pending_flag -- main.lua preloads the board mesh while this is set
 local discovered_flag='stfMod_JunonColosseum_Discovered'
 local ROOT = paths.telemetry('junon-colosseum-entry.json')
 local function write(state,p)

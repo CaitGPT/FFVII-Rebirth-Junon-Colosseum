@@ -16,6 +16,8 @@
 #include <Unreal/Property/FSoftObjectProperty.hpp>
 #include <Unreal/Property/FStrProperty.hpp>
 #include <Unreal/Property/FStructProperty.hpp>
+#include <DynamicOutput/Output.hpp>
+#include "find_addresses.hpp"
 #include <windows.h>
 #include <tlhelp32.h>
 #include <chrono>
@@ -24,6 +26,7 @@
 #include <filesystem>
 #include <unordered_map>
 #include <cstdint>
+#include <ctime>
 #include <fstream>
 #include <functional>
 #include <vector>
@@ -83,6 +86,76 @@ namespace
         return !path.empty() && std::filesystem::exists(path,ec);
     }
     std::string Shared(const char* name) { return (ModDir()/name).string(); }
+    // Diagnostics a player can see. Dev() paths are empty on a release install, so
+    // until now a helper that switched itself off said nothing at all, and the only
+    // symptom was a missing noticeboard. Say() writes to UE4SS.log and the UE4SS
+    // console, which every install has. Tell() adds one window per run of the game,
+    // for the faults that stop the mod working at all.
+    // Identifies the executable exactly, so a report names the build without relying
+    // on the player knowing their version. Both values come from its PE header.
+    // The read sits in its own function because __try cannot share one with objects.
+    bool ReadBuildStamp(char* out,size_t size) noexcept
+    {
+        const auto* base=reinterpret_cast<const unsigned char*>(GetModuleHandleW(nullptr));
+        if(!base) return false;
+        __try {
+            const auto* dos=reinterpret_cast<const IMAGE_DOS_HEADER*>(base);
+            const auto* nt=reinterpret_cast<const IMAGE_NT_HEADERS64*>(base+dos->e_lfanew);
+            sprintf_s(out,size,"%08lX-%08lX",nt->FileHeader.TimeDateStamp,nt->OptionalHeader.SizeOfImage);
+            return true;
+        } __except(1) { return false; }
+    }
+    std::string BuildStamp()
+    {
+        static const std::string id=[]()->std::string{
+            char text[64]{};
+            return ReadBuildStamp(text,sizeof text) ? std::string(text) : std::string("unreadable");
+        }();
+        return id;
+    }
+    void Say(const std::string& line) noexcept
+    {
+        std::string message="[JunonColosseum] "+line+"\n";
+        printf_s("%s",message.c_str());
+        try {
+            const std::wstring wide(message.begin(),message.end());
+            RC::Output::send(std::wstring_view(wide));
+        } catch(...) {}
+    }
+    void Tell(std::wstring title,std::wstring body) noexcept
+    {
+        static std::atomic<bool> told{false};
+        if(told.exchange(true)) return;
+        // The box owns its thread until it is dismissed, which can outlive an unload,
+        // so pin this module first. Both arguments are literals, so the thread copies
+        // pointers into static storage and touches nothing of ours afterwards.
+        HMODULE self=nullptr;
+        GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_PIN|GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS,
+                           reinterpret_cast<LPCWSTR>(&marker),&self);
+        try {
+            std::thread([title=std::move(title),body=std::move(body)]{
+                MessageBoxW(nullptr,body.c_str(),title.c_str(),MB_OK|MB_ICONWARNING|MB_SETFOREGROUND|MB_TOPMOST);
+            }).detach();
+        } catch(...) {}   // a window is never worth failing the mod for
+    }
+    // Every fault that leaves the mod switched off says the same four things: what
+    // happened, what the player will see, that the game is unharmed, and a code to
+    // quote when reporting it. Only the first fault of a run opens a window.
+    void Fault(const char* code,const std::string& logLine,const std::wstring& cause) noexcept
+    {
+        Say(std::string(code)+" ["+BuildStamp()+"]: "+logLine);
+        const std::wstring wideCode(code,code+std::strlen(code));
+        Tell(L"Junon Colosseum has switched itself off",
+             cause+L"\n\n"
+             L"It has switched its features off rather than act on game code it cannot verify. The "
+             L"noticeboard will not appear and courses will not start. Nothing else about the game is "
+             L"affected, and your saves are not touched.\n\n"
+             L"Please report this on the mod's Nexus Mods page, with the code "+wideCode+
+             L", the build id below, and which store you bought the game from.\n\n"
+             L"Build id: "+std::wstring(BuildStamp().begin(),BuildStamp().end())+L"\n\n"
+             L"This appears once per run of the game. To stop it, remove the JunonColosseum folder "
+             L"from End\\Binaries\\Win64\\ue4ss\\Mods.");
+    }
     // Load one owned level by exact package path. The first call truncates the
     // trace; later calls in the same request append to it.
     bool LoadOwnedLevel(RC::Unreal::UObject* context,const wchar_t* packagePath,const wchar_t* leafName,bool appendTrace)
@@ -190,6 +263,7 @@ namespace
             for(int i=0;i<int(std::size(LoaderTlsBuilds));++i)
                 if(ReadsLoaderSlot(base+LoaderTlsBuilds[i].flushLoading,base+LoaderTlsBuilds[i].slot)){
                     std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_ready "<<LoaderTlsBuilds[i].name<<"\n";
+                    Say(std::string("game version recognised as ")+LoaderTlsBuilds[i].name+"; the mod is on");
                     return i;
                 }
             std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<"game_thread_guard_unverified_unknown_build helper_engine_work_off\n";
@@ -197,12 +271,31 @@ namespace
         }();
         return build;
     }
+    // The TLS slot the async loader keeps only on the game thread. A build in the
+    // table gives it directly; any other build has to be found, which is what lets
+    // this work on a copy of the game we have never measured. Either way the slot
+    // is accepted only if FlushLoading's own code reads it.
     bool OnGameThread()
     {
         static const DWORD* slot=[]()->const DWORD*{
+            const auto* base=reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr));
             const int build=GameBuild();
-            if(build<0) return nullptr;
-            return reinterpret_cast<const DWORD*>(reinterpret_cast<const uint8_t*>(GetModuleHandleW(nullptr))+LoaderTlsBuilds[build].slot);
+            if(build>=0) return reinterpret_cast<const DWORD*>(base+LoaderTlsBuilds[build].slot);
+            const uintptr_t flush=Find::UniqueInText(
+                "48 89 5C 24 08 48 89 6C 24 10 56 57 41 56 B8 40 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 C5 F8 29 74 24 30 8B FA");
+            const uintptr_t found=flush?Find::FunctionOf(flush):0;
+            if(found && ReadsLoaderSlot(base+found,base+Find::Rip(found+0xac,2,6)))
+            {
+                const uintptr_t derived=Find::Rip(found+0xac,2,6);
+                Say("game version not in the table; found the loader's thread slot by pattern instead");
+                return reinterpret_cast<const DWORD*>(base+derived);
+            }
+            Fault("JC-BUILD",
+                  "this game version is not one the mod knows, and the part of the game it needs "
+                  "could not be found in it either.",
+                  L"Junon Colosseum does not recognise this version of FINAL FANTASY VII REBIRTH, and "
+                  L"could not find the part of the game it needs by searching either.");
+            return nullptr;
         }();
         if(!slot) return false;
         const DWORD index=*slot;
@@ -270,19 +363,48 @@ namespace
         uintptr_t Global=0, Vtable=0, IsLoadingPackages=0, Creator=0;
         constexpr int Slot=17;
         int state=0;   // 0 unchecked, 1 verified, -1 unverified
+        // The same four addresses, found rather than looked up, for a build the table
+        // does not have. Everything here is checked again by Verify() before use.
+        void Discover()
+        {
+            const uintptr_t isLoading=Find::UniqueInText(
+                "33 D2 33 C0 F0 0F B1 91 08 02 00 00 75 0C 33 C0 F0 0F B1 91 0C 02 00 00 74 02 B2 01 8A C2 C3");
+            const uintptr_t creatorHit=Find::UniqueInText(
+                "40 53 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 48 83 3D ?? ?? ?? ?? 00 74 ?? E8 ?? ?? ?? ?? 48 8B C8");
+            const uintptr_t creator=creatorHit?Find::FunctionOf(creatorHit):0;
+            if(!isLoading || !creator) return;
+            // GPackageLoader is whatever the creator loads from and stores back to.
+            const uintptr_t loads=Find::Rip(creator+0x55,3,7), stores=Find::Rip(creator+0x67,3,7);
+            if(loads!=stores) return;
+            // The vtable is wherever slot 17 holds IsLoadingPackages. In a loaded image
+            // that entry holds the address the loader relocated it to, not the one in
+            // the file, so it has to be looked for at this run's own base.
+            const auto slots=Find::QwordsEqual(uint64_t(reinterpret_cast<uintptr_t>(Find::Base()))+isLoading);
+            if(slots.size()!=1 || slots[0]<uintptr_t(Slot)*8) return;
+            IsLoadingPackages=Code::ImageBase+isLoading;
+            Creator=Code::ImageBase+creator;
+            Global=Code::ImageBase+loads;
+            Vtable=Code::ImageBase+slots[0]-uintptr_t(Slot)*8;
+            Say("found the package loader by pattern, for a game version not in the table");
+        }
         bool Verify()
         {
             if(state) return state==1;
             uint64_t slot=0;
             const int build=GameBuild();
             if(build>=0){ Global=Builds[build].global; Vtable=Builds[build].vtable; IsLoadingPackages=Builds[build].isLoadingPackages; Creator=Builds[build].creator; }
-            const bool ok=build>=0
+            else Discover();
+            const bool ok=(Global&&Vtable&&IsLoadingPackages&&Creator)
                 && Code::Matches(IsLoadingPackages,"33 D2 33 C0 F0 0F B1 91 08 02 00 00 75 0C 33 C0 F0 0F B1 91 0C 02 00 00 74 02 B2 01 8A C2 C3")
                 && Code::RipTargets(Creator+0x55,"48 8B 0D",7,Global)    // mov rcx,[GPackageLoader]
                 && Code::RipTargets(Creator+0x67,"48 89 15",7,Global)    // mov [GPackageLoader],rdx
                 && Code::Qword(Code::At(Vtable+Slot*8),slot) && slot==Code::At(IsLoadingPackages);
             state=ok?1:-1;
             std::ofstream(Dev("junon-native-identity-events.log"),std::ios::app)<<(ok?"loader_check_ready\n":"loader_check_unverified_unknown_build\n");
+            if(!ok) Fault("JC-LOADER",
+                          "the game's package loader is not where this version of the mod expects it.",
+                          L"Junon Colosseum recognised this version of FINAL FANTASY VII REBIRTH, but the "
+                          L"part of the game it waits on while levels load is not what it expected.");
             return ok;
         }
         // The loader's interface object, once its vtable is the verified one; else 0.
@@ -317,6 +439,37 @@ namespace
         {
             const uintptr_t p=Object();
             return p && ReadCounters(p,queued,inFlight,suspended);
+        }
+        // The Lua side cannot ask the engine this, so it used to guess: a flat
+        // twelve seconds after a load, then FindAllOf over every LevelStreaming
+        // object (1456 of them, ~155 ms a sweep) until nothing was pending. The
+        // sweep ran in the tail of a load, where the game crashed twice at a
+        // shorter wait (2026-11-14, UE4SS access violation), and the guessing is
+        // what kept the colosseum board unusable for 20-30 s after a save load.
+        // So the answer is published beside the mod's own files, where a release
+        // install has it too, every 200 ms. `verified` matters: on a build whose
+        // loader check did not resolve, Busy() always answers false, which must
+        // not be read as "idle". Written to a temporary file and renamed, so a
+        // reader never sees half a line.
+        ULONGLONG publishedAt=0;
+        void Publish(ULONGLONG now,bool busy)
+        {
+            if(publishedAt && now-publishedAt<200) return;
+            publishedAt=now;
+            int32_t queued=0,inFlight=0; uint8_t suspended=0;
+            const bool counters=Counters(queued,inFlight,suspended);
+            const std::string path=Shared("junon-loader.txt"), temp=path+".tmp";
+            {
+                std::ofstream out(temp,std::ios::trunc);
+                if(!out) return;
+                out<<"verified="<<(state==1?1:0)<<" busy="<<(busy?1:0)
+                   <<" queued="<<(counters?queued:-1)<<" inflight="<<(counters?inFlight:-1)
+                   <<" suspended="<<(counters?int(suspended):-1)
+                   <<" at="<<static_cast<long long>(std::time(nullptr))<<"\n";
+            }
+            std::error_code ec;
+            std::filesystem::remove(path,ec);
+            std::filesystem::rename(temp,path,ec);
         }
     }
     // Each request names one level: Junon town's battle navigation (it
@@ -1128,6 +1281,73 @@ namespace
             }
             return 0;
         }
+        // The same four addresses for a build the table does not have, found from the
+        // game's own code. Prepare is located by pattern; the weak-pointer setter is
+        // whichever of its calls lands in the function that shares its tail; the ready
+        // check is the one compare on this field that is not inside Prepare; and the
+        // field global is named by another function a pattern can find.
+        // Everything found here is checked again by the caller before use.
+        uintptr_t Discover()
+        {
+            const uintptr_t prepareHit=Find::UniqueInText(
+                "48 89 5C 24 10 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 4C 8B 81 B0 E0 00 00");
+            const uintptr_t prepare=prepareHit?Find::FunctionOf(prepareHit):0;
+            // The setter's entry differs between builds (one saves an extra register),
+            // so match the tail they share and keep the functions those matches land in.
+            std::vector<uintptr_t> weakCandidates;
+            for(const uintptr_t hit:Find::AllInText("48 89 74 24 10 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0"))
+                if(const uintptr_t fn=Find::FunctionOf(hit)) weakCandidates.push_back(fn);
+            const uintptr_t fieldAnchorHit=Find::UniqueInText(
+                "48 89 5C 24 08 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 48 8B D9 48 85 D2 0F 84");
+            const uintptr_t fieldAnchor=fieldAnchorHit?Find::FunctionOf(fieldAnchorHit):0;
+            if(!prepare || weakCandidates.empty() || !fieldAnchor) return 0;
+            // Of those, the one Prepare actually calls is the setter.
+            uintptr_t weak=0;
+            for(const uintptr_t target:Find::CallsIn(prepare,0x140))
+                for(const uintptr_t candidate:weakCandidates)
+                    if(target==candidate)
+                    {
+                        if(weak && weak!=target) return 0;   // two of them: too ambiguous
+                        weak=target;
+                    }
+            if(!weak) return 0;
+            // Prepare must really call it, and that call's offset is what the check needs.
+            uintptr_t callsAt=0;
+            for(size_t i=0;i+5<=0x140;++i)
+            {
+                if(Find::Base()[prepare+i]!=0xE8) continue;
+                int32_t rel=0;
+                std::memcpy(&rel,Find::Base()+prepare+i+1,4);
+                if(uintptr_t(int64_t(prepare)+int64_t(i)+5+rel)!=weak) continue;
+                if(callsAt) return 0;          // called twice: too ambiguous to pick
+                callsAt=i;
+            }
+            if(!callsAt) return 0;
+            // Two compares on this field: one is inside Prepare, the other opens Ready.
+            uintptr_t ready=0;
+            {
+                const std::vector<int> want=Find::Parse("83 B9 AC E0 00 00 FF");
+                const Find::Region text=Find::Text();
+                const uint8_t* start=Find::Base()+text.rva;
+                int seen=0;
+                for(size_t i=0;i+want.size()<=text.size;++i)
+                {
+                    size_t j=0;
+                    for(;j<want.size();++j) if(start[i+j]!=uint8_t(want[j])) break;
+                    if(j!=want.size()) continue;
+                    const uintptr_t at=text.rva+i;
+                    ++seen;
+                    if(Find::FunctionOf(at)!=prepare){ if(ready) return 0; ready=at; }
+                }
+                if(seen!=2 || !ready) return 0;
+            }
+            ReadyCheck=Code::ImageBase+ready;
+            PrepareFn=Code::ImageBase+prepare;
+            WeakAssignFn=Code::ImageBase+weak;
+            FieldGlobal=Code::ImageBase+Find::Rip(fieldAnchor+0x36,3,7);
+            Say("found the arena by pattern, for a game version not in the table");
+            return callsAt;
+        }
         // Game thread, at a safe point, every 250 ms (FrameWork).
         void Tick()
         {
@@ -1138,13 +1358,23 @@ namespace
                 // and links the partner through the weak-pointer setter we call.
                 const int build=GameBuild();
                 bool ok=false;
+                uintptr_t callsWeakAt=0;
                 if(build>=0){
                     const auto& a=Builds[build];
                     ReadyCheck=a.readyCheck; PrepareFn=a.prepareFn; WeakAssignFn=a.weakAssignFn; FieldGlobal=a.fieldGlobal;
-                    ok=Matches(ReadyCheck,{0x83,0xb9,0xac,0xe0,0x00,0x00,0xff}) && Code::CallsTo(PrepareFn+a.prepareCallsWeakAssign,WeakAssignFn);
+                    callsWeakAt=a.prepareCallsWeakAssign;
                 }
+                else callsWeakAt=Discover();
+                ok=ReadyCheck && PrepareFn && WeakAssignFn && FieldGlobal && callsWeakAt
+                   && Matches(ReadyCheck,{0x83,0xb9,0xac,0xe0,0x00,0x00,0xff})
+                   && Code::CallsTo(PrepareFn+callsWeakAt,WeakAssignFn);
                 state=ok?1:-1;
                 Log(ok?"arena_ready_enabled":"arena_ready_disabled_unknown_build");
+                if(!ok) Fault("JC-ARENA",
+                              "the arena's own readiness check is not where this version of the mod "
+                              "expects it.",
+                              L"Junon Colosseum recognised this version of FINAL FANTASY VII REBIRTH, but "
+                              L"the part of the game that reports the arena ready is not what it expected.");
             }
             if(state!=1) return;
             uintptr_t g=0,r=0,data=0; int num=0;
@@ -1781,17 +2011,127 @@ namespace
             const auto back=n.ToString();
             return back.size()==wide.size() && _wcsicmp(back.c_str(),wide.c_str())==0 ? raw : 0;
         }
+        // One resist getter: the only thunk whose table holds exactly `length` stubs,
+        // each bounds-checking the structure field at `field` with its own index.
+        bool FindResist(Site& out,const char* name,uint32_t field,uint32_t length)
+        {
+            uintptr_t found=0;
+            for(const uintptr_t thunk:Find::AllInText("B8 28 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 48 63 C2 48 8D 15"))
+            {
+                // These thunks are leaves with no unwind information, so .pdata cannot
+                // confirm them; the pattern starts at the first byte, which is the entry.
+                const uintptr_t entry=Find::FunctionOf(thunk);
+                if(entry && entry!=thunk) continue;
+                const uintptr_t table=Find::Rip(thunk+16,3,7);
+                uint32_t counted=0;
+                for(;;counted++)
+                {
+                    uint64_t target=0;
+                    if(!Code::Qword(Code::At(Code::ImageBase+table+counted*8),target)) break;
+                    // A jump table in a loaded image holds addresses the loader relocated,
+                    // so they count from this run's base rather than the preferred one.
+                    const uintptr_t runBase=reinterpret_cast<uintptr_t>(Find::Base());
+                    if(uintptr_t(target)<runBase) break;
+                    const uintptr_t stub=uintptr_t(target)-runBase;
+                    uint8_t head[11]{};
+                    bool read=true;
+                    for(int i=0;i<11 && read;i++) read=Code::Byte(Code::At(Code::ImageBase+stub)+i,head[i]);
+                    if(!read) break;
+                    // mov rax|rcx,[rcx+8] ; cmp dword [reg+field], index
+                    if(head[0]!=0x48 || head[1]!=0x8B || head[3]!=0x08 || head[4]!=0x83) break;
+                    uint32_t at=0; std::memcpy(&at,head+6,4);
+                    if(at!=field || head[10]!=uint8_t(counted)) break;
+                }
+                if(counted!=length) continue;
+                if(found){ Disable(std::string("ambiguous ")+name); return false; }
+                found=thunk;
+            }
+            if(!found){ Disable(std::string("not_found ")+name); return false; }
+            out=Site{name,Code::ImageBase+found,nullptr};
+            return true;
+        }
+        // The same twelve addresses for a build the table does not have. Each pattern
+        // was generated from one of the builds we measured and then required to match
+        // exactly once in the other, at the address that build's table already names,
+        // so every one of them has survived a recompilation of the game. Finding a
+        // site this way is itself the byte check: there is no stored signature for a
+        // build nobody has seen, and anything ambiguous is refused rather than guessed.
+        bool Discover()
+        {
+            struct ByPattern { Site* site; const char* name; const char* pattern; };
+            const ByPattern wanted[]={
+                {&Mgr,"Mgr","48 8B 0D ?? ?? ?? ?? 33 C0 48 85 C9 74 ?? 48 8B 81 90 04 00 00"},
+                {&Block,"Block","48 89 5C 24 08 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 0F B6 DA 48 8B F9 80 FB 0F"},
+                {&MapAddKey,"MapAddKey","48 89 54 24 10 53 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 4C 8B C2 48 8B D9"},
+                {&MapFind,"MapFind","40 53 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 4C 8B C2 48 8B D9 48 8D 54 24 30 E8 ?? ?? ?? ?? 83 38 FF"},
+                {&MapClearKey,"MapClearKey","48 85 D2 74 ?? 48 89 5C 24 08 48 89 74 24 18 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 4C 8B C2"},
+                {&AddRow,"AddRow","48 89 5C 24 08 44 88 4C 24 20 55 56 57 41 54 41 55 41 56 41 57 48 8D 6C 24 D9 B8 F0 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 C5 F8 29 B4 24 E0 00 00 00"},
+                {&RequestDtor,"RequestDtor","48 89 5C 24 08 48 89 6C 24 10 48 89 74 24 18 57 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 33 ED 48 8B D9 39 69 08"},
+                {&Update,"Update","48 89 5C 24 18 55 56 57 41 54 41 55 41 56 41 57 48 8D AC 24 ?? FE FF FF B8 ?? 02 00 00 E8 ?? ?? ?? 01 48 2B E0 C5 F8 29 B4 24 ?? 02 00 00 48 8B 05 ?? ?? ?? ?? 48 33 C4 48 89 85 ?? 01 00 00 48 8B F1"},
+            };
+            for(const auto& w:wanted)
+            {
+                const uintptr_t hit=Find::UniqueInText(w.pattern);
+                // Each pattern starts at its function's first byte. Small leaf functions
+                // carry no unwind information, so .pdata cannot confirm them; the match
+                // itself is the entry in that case.
+                const uintptr_t known=hit?Find::FunctionOf(hit):0;
+                const uintptr_t entry=known?known:hit;
+                if(!entry){ Disable(std::string("not_found ")+w.name); return false; }
+                *w.site=Site{w.name,Code::ImageBase+entry,nullptr};
+            }
+
+            // MakeAccessor cannot be found by its own code: the game holds several
+            // accessor makers whose sixty bytes are identical apart from the vtable
+            // each installs, and four or five of them are called from Update. What
+            // tells it apart is what Update does with the result - every row it adds
+            // is built by this one. So among Update's calls to a maker, take the one
+            // that is the last maker called before each AddRow, and require every
+            // AddRow to agree. The game has no RTTI to ask instead.
+            static const char* const accessorPrefix=
+                "40 53 B8 20 00 00 00 E8 ?? ?? ?? ?? 48 2B E0 33 C0 48 8B D9 48 89 41 08 88 41 18 48 89 44 24 30";
+            uintptr_t updateBegin=0,updateEnd=0;
+            if(!Find::FunctionExtent(Update.va-Code::ImageBase,updateBegin,updateEnd))
+            { Disable("no_extent Update"); return false; }
+            const uintptr_t addRow=AddRow.va-Code::ImageBase;
+            uintptr_t accessor=0,lastMaker=0; int rows=0;
+            for(const auto& call:Find::CallSitesIn(updateBegin,updateEnd-updateBegin))
+            {
+                if(Find::MatchesAt(call.second,accessorPrefix)){ lastMaker=call.second; continue; }
+                if(call.second!=addRow) continue;
+                ++rows;
+                if(!lastMaker){ Disable("no_maker_before_AddRow"); return false; }
+                if(accessor && accessor!=lastMaker){ Disable("ambiguous MakeAccessor"); return false; }
+                accessor=lastMaker;
+            }
+            if(!rows || !accessor){ Disable("not_found MakeAccessor"); return false; }
+            MakeAccessor=Site{"MakeAccessor",Code::ImageBase+accessor,nullptr};
+
+            // The two resist getters are jump-table thunks of identical shape, so they
+            // are told apart by what their tables are for, not by where they sit. Every
+            // entry is a stub that bounds-checks one list and carries its own index, so
+            // a table is as long as the run 0,1,2,... it holds: the status list has
+            // sixteen entries and checks +0xa8, the special list has three and +0xb8.
+            if(!FindResist(StatusGetter,"StatusResist",0xa8,16)) return false;
+            if(!FindResist(SpecialGetter,"SpecialResist",0xb8,3)) return false;
+
+            Query=Site{"Query",0,nullptr};   // a diagnostic read; absent on 1.005 too
+            Say("found the infusion code by pattern, for a game version not in the table");
+            return true;
+        }
         bool Init()
         {
             if(state) return state==1;
             base=reinterpret_cast<uintptr_t>(GetModuleHandleW(nullptr));
             started=std::filesystem::file_time_type::clock::now();
             const int build=GameBuild();
-            if(build<0){ Disable("unknown_game_build"); return false; }
-            const Site* table=build==Epic1005?EpicSites:SteamSites;
-            for(size_t i=0;i<std::size(Sites);i++) *Sites[i]=table[i];
+            if(build<0){ if(!Discover()) return false; }
+            else {
+                const Site* table=build==Epic1005?EpicSites:SteamSites;
+                for(size_t i=0;i<std::size(Sites);i++) *Sites[i]=table[i];
+            }
             for(const Site* s:Sites)
-                if(s->va && !Matches(*s)){
+                if(s->va && s->bytes && !Matches(*s)){
                     std::ostringstream o; o<<"signature_mismatch "<<s->name<<" 0x"<<std::hex<<s->va;
                     Disable(o.str());
                     return false;
@@ -2686,6 +3026,7 @@ namespace
             static ULONGLONG nextExpiry=0;
             if(Queue::any.load(std::memory_order_acquire) && now>=nextExpiry){ nextExpiry=now+100; ExpireQueued(); }
             const bool loading=Loader::Busy();
+            Loader::Publish(now,loading);   // what the Lua waits on
             bool worked=false;
             if(kind && Queue::any.load(std::memory_order_acquire) && ServeOneQueued(kind,function,loading)){ worked=true; FrameWork::stats.served++; }
             if(!worked)

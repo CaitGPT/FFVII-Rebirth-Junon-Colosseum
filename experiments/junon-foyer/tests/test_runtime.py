@@ -15,6 +15,7 @@ def test_runtime_switches_saves_without_touching_vanilla_flags():
         access_key = 'stfMod_JunonColosseum_AccessEnabled'
         access_stored = false
         guard_stored, exit_stored, discovered, item_count = false, false, true, 1
+        entry_pending, preloads = false, 0
         needs_stored=false
         loaded, visited, cleared, stored = false, false, false, false
         battle, battle_queries, hidden = false, 0, 0
@@ -28,9 +29,11 @@ def test_runtime_switches_saves_without_touching_vanilla_flags():
             GetPlayer=function() if loaded then return pawn end end
         } end
         package.preload.gate = function() return gate_module end
-        package.preload.foyer = function() return {tick=function() end, hide_for_battle=function() hidden=hidden+1 end} end
+        package.preload.foyer = function() return {tick=function() end, hide_for_battle=function() hidden=hidden+1 end,
+            preload_mesh=function() preloads=preloads+1 end} end
         package.preload.invitation = function() return {tick=function() end} end
-        package.preload.flow = function() return {tick=function() end} end
+        package.preload.flow = function() return {tick=function() end,
+            PENDING_FLAG='stfMod_JunonColosseum_EntryPending'} end
         package.preload.buffwheel = function() return {tick=function() end} end
         package.preload.devtools = function() return {tick=function() end} end
         package.preload.branding = function() return {tick=function() end, register=function() end} end
@@ -45,6 +48,7 @@ def test_runtime_switches_saves_without_touching_vanilla_flags():
                 if key == 'stfMod_JunonColosseum_GuardEnabled' then return guard_stored end
                 if key == 'stfMod_JunonColosseum_ExitEnabled' then return exit_stored end
                 if key == 'stfMod_JunonColosseum_NeedsInvitation' then return needs_stored end
+                if key == 'stfMod_JunonColosseum_EntryPending' then return entry_pending end
                 if key == 'stfCmnChapter12_Visited' then return visited end
                 assert(key == 'stfComn_Release_ChapterSelect')
                 return cleared
@@ -104,6 +108,19 @@ def test_runtime_switches_saves_without_touching_vanilla_flags():
     tick()
     assert json.loads(lua.globals().receipt)['invitation_needed'] is False
     assert lua.globals().guard_stored is True
+    # The board mesh is asked for at the guards, while the entry is pending.
+    assert lua.globals().preloads == 0
+    lua.execute('entry_pending=true')
+    tick()
+    assert lua.globals().preloads == 1
+    lua.execute('entry_pending=false')
+    tick()
+    assert lua.globals().preloads == 1
+    lua.execute('entry_pending=true; progress=2140')  # not Junon yet: nothing to preload
+    tick()
+    assert lua.globals().preloads == 1
+    lua.execute('entry_pending=false; progress=12000')
+    tick()
     before = len(lua.globals().writes)
     lua.execute('loaded=false; battle=true')
     tick()

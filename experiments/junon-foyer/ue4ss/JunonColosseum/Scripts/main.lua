@@ -126,6 +126,11 @@ local function tick()
     if after ~= desired or access~=policy.access_enabled or guard~=policy.guard_enabled or exit~=policy.exit_enabled or needs~=policy.grant_invitation then halted=true end
     if not halted then
         invitation.tick(db,pawn,policy)
+        -- Entry requested at the guards: start loading the board mesh now,
+        -- rather than after the foyer's own levels have settled.
+        if policy.chapter12_plus and db:IsStoryFlag(FName(flow.PENDING_FLAG))==true then
+            pcall(foyer.preload_mesh,pawn)
+        end
         foyer.tick(db,pawn,policy)
     end
 end

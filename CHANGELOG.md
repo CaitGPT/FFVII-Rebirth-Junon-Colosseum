@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.2.0: game versions we have not seen, and a noticeboard that is there when you arrive
+
+- **Game versions we have not seen.** The mod's helper needs to find certain code in the game. It used to carry
+  the addresses of that code for each game version we had looked at, and switch itself off on any other version,
+  so courses did not start. It now finds that code in the game itself, by what the instructions are rather than
+  where they sit, for everything the colosseum uses: the guards' entry, loading the arena's levels, the arena
+  itself and the Mako infusions. A game version that is not in its table can now work. We can only test the two
+  versions we have, so this is not a promise, but it is no longer a refusal.
+- **It says why it stopped.** If the helper does switch itself off, it now says so in a window in the game, with a
+  code to quote, and writes the same line to UE4SS.log. Before, the only sign was a noticeboard that never came.
+- **The noticeboard is there when you arrive.** It used to wait for the arena's levels, which took 20 to 30 seconds
+  after loading a save in the foyer. It now appears as you arrive, and the colosseum menu opens a second or two
+  later. The mod also waits on the game's own loader rather than on a timer, which is both quicker and safer.
+
 ## 1.1.0: Epic Games Store version, shorter infusion text
 
 - Works with game version 1.005, the current version on Steam and the Epic Games Store: the archive is rebuilt on

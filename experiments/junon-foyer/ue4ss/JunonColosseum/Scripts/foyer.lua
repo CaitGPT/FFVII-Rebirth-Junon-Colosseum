@@ -464,17 +464,28 @@ local function remove_old_lever()
     -- No match is unknown, not proof that the lever disappeared.
     lever_removed=lever_matched>=2 and matched==0
 end
-local function spawn(pawn)
+local function spawn_display(pawn)
     local world=pawn:GetWorld()
     if not valid(world) then error('No field world') end
     if not valid(display) then
         display=world:SpawnActor(StaticFindObject('/Script/Engine.StaticMeshActor'),board_pos,{Pitch=0,Yaw=board_yaw,Roll=0})
         if not valid(display) then error('Board display spawn failed') end
+        -- Hidden until the whole board is placed: an actor spawns visible, so
+        -- without this the empty one is on screen for the frames before its
+        -- mesh is assigned. The caller unhides it once spawn() returns, which
+        -- is after the mesh and the interaction point are both in place.
+        display:SetActorHiddenInGame(true)
         display:SetActorEnableCollision(false)
         local component=display.StaticMeshComponent
         component:SetMobility(2);component:SetSimulatePhysics(false);component:SetCollisionEnabled(0)
         if not component:SetStaticMesh(mesh) then error('Board mesh assignment failed') end
     end
+end
+-- The Check point, which opens the colosseum menu: this one does wait for the
+-- arena levels, since a course cannot start without them.
+local function spawn_point(pawn)
+    local world=pawn:GetWorld()
+    if not valid(world) then error('No field world') end
     if not valid(point) then
         local gameplay=StaticFindObject('/Script/Engine.Default__GameplayStatics')
         local transform={Rotation={X=0,Y=0,Z=0.5,W=0.8660254038},Translation=point_pos(),Scale3D={X=1,Y=1,Z=1}}
@@ -605,18 +616,27 @@ function M.tick(db,pawn,policy)
             if valid(point) then point:SetActorHiddenInGame(true) end
             write(battle and 'battle_hidden' or 'outside_foyer');return
         end
-        if not ready then write('waiting_for_owned_battle_plan',battle_plan.error());return end
+        -- The board needs only its own mesh, so it goes up while the arena levels
+        -- are still loading (they can take 20 s after a load, which is how long
+        -- the board used to be missing). Asking for the mesh here, before they
+        -- are ready, is safe: the helper serves the load at a safe point and
+        -- waits for the engine's loader itself.
+        if not valid(mesh) then request_mesh(pawn)
+        elseif mesh_marker then check_queued_mesh() end -- found otherwise meanwhile: still tidy the kept marker
+        if not valid(mesh) then
+            write(ready and 'waiting_for_native_quest_board_mesh' or 'waiting_for_mesh_and_owned_battle_plan')
+            return
+        end
+        spawn_display(pawn)
+        display:SetActorHiddenInGame(false)
+        if not ready then write('board_shown_waiting_for_owned_battle_plan',battle_plan.error());return end
         -- FindAllOf costs ~100 ms: look again at most every 5 s.
         if fit_state:sub(1,6)~='failed' and os.time()>=(next_fit or 0) then
             next_fit=os.time()+5
             local okf,errf=pcall(fit_spawn_points)
             if not okf then fit_state='failed: '..tostring(errf) end
         end
-        if not valid(mesh) then request_mesh(pawn)
-        elseif mesh_marker then check_queued_mesh() end -- found otherwise meanwhile: still tidy the kept marker
-        if not valid(mesh) then write('waiting_for_native_quest_board_mesh');return end
-        spawn(pawn)
-        display:SetActorHiddenInGame(false)
+        spawn_point(pawn)
         if valid(point) then point:SetActorHiddenInGame(false) end
         remove_old_lever()
         write(valid(point) and 'native_identity_registered_smoke_test' or 'visual_only_interaction_quarantined')
@@ -626,6 +646,23 @@ function M.tick(db,pawn,policy)
         end
     end)
     if not ok then halted=true;pcall(remove);write('runtime_error',err) end
+end
+-- The board mesh is a global asset, so it does not need the foyer: asking for
+-- it when the guards let us in (main.lua, while the entry is pending) means it
+-- is loaded and rooted before the foyer world even opens. Inside the foyer the
+-- request waits for the arena levels to settle first, which is most of the
+-- delay before the board appears.
+function M.preload_mesh(pawn)
+    if halted or not valid(pawn) then return end
+    pcall(function()
+        collect()
+        if valid(mesh) then return end
+        request_mesh(pawn)
+        -- Best effort only. Outside the foyer a marker or a world can be
+        -- unavailable for reasons that do not apply once inside, so anything
+        -- short of loaded or queued leaves the in-foyer request as it was.
+        if mesh_request~='loaded' and mesh_request~='queued' then mesh_request='not_requested' end
+    end)
 end
 -- Between rounds there is often no field pawn (no foyer.tick then). While a
 -- course is active, check our arena levels anyway and, if one is missing, run

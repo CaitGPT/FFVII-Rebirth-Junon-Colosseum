@@ -548,3 +548,74 @@ def test_between_rounds_a_deleted_level_is_requested_again_without_a_pawn():
     plan.update(None, True, False, g.world)                                       # the game's world
     assert len(tags(g)) == asked + 1
     assert plan.update(None, True, True, g.world)[0] is False                      # never in battle
+
+
+def loader_fixture(line, clock=1000):
+    """The streaming fixture plus the helper's published loader state."""
+    lua, plan = fixture()
+    plan.SETTLE = 12          # the floor the published state is meant to replace
+    plan.QUIET = 6
+    lua.execute(f"""
+        clock = {clock}; os.time = function() return clock end
+        loader_line = {'nil' if line is None else repr(line).replace("'", '"')}
+        package.preload.paths = function() return {{shared=function(n) return 'mod/'..n end}} end
+        io.open = function(path)
+            if path == 'mod/junon-loader.txt' and loader_line then
+                return {{read=function() return loader_line end, close=function() end}}
+            end
+        end
+    """)
+    return lua, plan
+
+
+def test_nothing_is_requested_while_the_package_loader_is_working():
+    """The engine's own answer, in place of a flat wait and a sweep over every
+    streaming level (that sweep would trip this fixture's FindAllOf assert)."""
+    lua, plan = loader_fixture("verified=1 busy=1 queued=3 inflight=2 suspended=0 at=1000")
+    g = lua.globals()
+    for c in (1000, 1005, 1030, 1100):
+        lua.execute(f'clock = {c}; loader_line = "verified=1 busy=1 queued=3 inflight=2 suspended=0 at={c}"')
+        assert plan.update(g.pawn, True, False) == (False, 'waiting_for_package_loader')
+        assert tags(g) == []
+
+
+def test_the_first_level_goes_in_once_the_loader_has_been_quiet():
+    lua, plan = loader_fixture("verified=1 busy=1 queued=1 inflight=0 suspended=0 at=1000")
+    g = lua.globals()
+    assert plan.update(g.pawn, True, False) == (False, 'waiting_for_package_loader')
+    lua.execute('clock = 1001; loader_line = "verified=1 busy=0 queued=0 inflight=0 suspended=0 at=1001"')
+    assert plan.update(g.pawn, True, False) == (False, 'package_loader_settling')
+    lua.execute('clock = 1002; loader_line = "verified=1 busy=0 queued=0 inflight=0 suspended=0 at=1002"')
+    assert plan.update(g.pawn, True, False) == (False, 'package_loader_settling')
+    lua.execute('clock = 1003; loader_line = "verified=1 busy=0 queued=0 inflight=0 suspended=0 at=1003"')
+    plan.update(g.pawn, True, False)
+    assert tags(g) == [ORDER[0]]          # three seconds in, where the floor alone wanted twelve
+
+
+def test_the_loader_going_busy_again_restarts_the_quiet_count():
+    lua, plan = loader_fixture("verified=1 busy=0 queued=0 inflight=0 suspended=0 at=1000")
+    g = lua.globals()
+    plan.update(g.pawn, True, False)
+    lua.execute('clock = 1001; loader_line = "verified=1 busy=1 queued=4 inflight=1 suspended=0 at=1001"')
+    assert plan.update(g.pawn, True, False) == (False, 'waiting_for_package_loader')
+    lua.execute('clock = 1002; loader_line = "verified=1 busy=0 queued=0 inflight=0 suspended=0 at=1002"')
+    assert plan.update(g.pawn, True, False) == (False, 'package_loader_settling')
+    assert tags(g) == []
+
+
+def test_an_unusable_answer_falls_back_to_the_floor_and_the_sweep():
+    """An older helper writes no file; an unrecognised build writes verified=0;
+    a helper that has stopped leaves a stale one. None of them may be read as idle."""
+    for line in (None,
+                 "verified=0 busy=0 queued=-1 inflight=-1 suspended=-1 at=1000",
+                 "verified=1 busy=0 queued=0 inflight=0 suspended=0 at=900",
+                 "verified=1 busy=0 quet"):
+        lua, plan = loader_fixture(line)
+        plan.QUIET = 0        # leave the floor as the only wait, to read it plainly
+        g = lua.globals()
+        assert plan.update(g.pawn, True, False)[1].startswith('settling_after_load')
+        lua.execute('clock = 1011')
+        assert plan.update(g.pawn, True, False)[1].startswith('settling_after_load')
+        lua.execute('clock = 1012')
+        plan.update(g.pawn, True, False)
+        assert tags(g) == [ORDER[0]]      # the twelve-second floor, exactly as before

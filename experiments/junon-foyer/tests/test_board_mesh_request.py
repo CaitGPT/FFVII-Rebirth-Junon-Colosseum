@@ -88,11 +88,15 @@ io.open = function() return {write=function(_, s) receipt = s end, close=functio
 os.remove = function() end
 os.rename = function() end
 package.preload.battle_plan = function() return {
-    update=function() return true, 'loaded_visible' end,
+    update=function()
+        if plan_ready == false then return false, 'settling_after_load' end
+        return true, 'loaded_visible'
+    end,
     error=function() return '' end, package=function() return 'plan' end} end
 foyer = foyer_chunk()
 db = {GetItemNumBP=function() return 1 end}
 function run_tick() foyer.tick(db, pawn, {board_enabled=true}) end
+function run_preload() foyer.preload_mesh(pawn) end
 '''
 
 
@@ -186,6 +190,80 @@ def test_unreadable_bounds_fall_back_to_the_fixed_offset():
 def test_implausible_bounds_are_ignored():
     receipt, _, _, at = run(helper_loads=True, mesh_streamed=True, bounds=(-121000.0, 32274.0, 6300.0))
     assert receipt['point_source'] == 'fixed_offset'
+
+
+def test_the_board_goes_up_before_the_arena_levels_are_loaded():
+    """The board needs only its mesh. The Check point waits for the levels,
+    because a course cannot start without them."""
+    lua = lupa.LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(PATHS_STUB)
+    lua.globals().foyer_chunk = lua.eval('load')((SCRIPTS / 'foyer.lua').read_text())
+    lua.execute('plan_ready = false')
+    lua.execute(HARNESS, True, False, None)
+    g = lua.globals()
+    g.run_tick()
+    receipt = json.loads(g.receipt)
+    assert receipt['state'] == 'board_shown_waiting_for_owned_battle_plan'
+    assert receipt['display_spawned'] is True and receipt['point_spawned'] is False
+    assert receipt['mesh_request'] == 'loaded' and g.spawned_points == 0
+    lua.execute('plan_ready = true')
+    g.run_tick()
+    g.run_tick()  # the first spawn also writes a one-off field capture
+    receipt = json.loads(g.receipt)
+    assert receipt['state'] == 'native_identity_registered_smoke_test'
+    assert receipt['point_spawned'] is True and g.spawned_points == 1
+    assert g.markers == 1  # the mesh was asked for once, before the levels
+
+
+def test_the_mesh_is_preloaded_at_the_guards_and_the_board_appears_at_once():
+    """A preload needs no foyer: it loads and roots the mesh, and the first tick
+    inside then spawns the board without asking for anything."""
+    lua = lupa.LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(PATHS_STUB)
+    lua.globals().foyer_chunk = lua.eval('load')((SCRIPTS / 'foyer.lua').read_text())
+    lua.execute(HARNESS, True, False, None)
+    g = lua.globals()
+    g.run_preload()
+    assert g.markers == 1 and g.spawned_points == 0  # the mesh only, no board yet
+    g.run_tick()
+    g.run_tick()  # the first spawn also writes a one-off field capture
+    receipt = json.loads(g.receipt)
+    assert g.markers == 1  # not asked again
+    assert receipt['mesh_request'] == 'loaded' and receipt['mesh_cached'] is True
+    assert receipt['state'] == 'native_identity_registered_smoke_test' and g.spawned_points == 1
+
+
+def test_a_refused_preload_leaves_the_in_foyer_request_alone():
+    """Outside the foyer a refusal can mean the world, not the helper, so it must
+    not consume the one request the board itself depends on."""
+    lua = lupa.LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(PATHS_STUB)
+    lua.globals().foyer_chunk = lua.eval('load')((SCRIPTS / 'foyer.lua').read_text())
+    lua.execute(HARNESS, False, False, None)   # an older helper: no answer
+    g = lua.globals()
+    g.run_preload()
+    assert g.markers == 1 and json.loads(g.receipt or '{}') == {}  # a preload writes nothing
+    g.run_tick()
+    assert g.markers == 2  # asked again inside the foyer, exactly as before
+    assert json.loads(g.receipt)['mesh_request'] == 'refused'
+
+
+def test_a_queued_preload_is_not_asked_again_inside_the_foyer():
+    lua = lupa.LuaRuntime(unpack_returned_tuples=True)
+    lua.execute(PATHS_STUB)
+    lua.globals().foyer_chunk = lua.eval('load')((SCRIPTS / 'foyer.lua').read_text())
+    lua.execute('queue_mode = true')
+    lua.execute(HARNESS, True, False, None)
+    g = lua.globals()
+    g.run_preload()
+    g.run_preload()
+    assert g.markers == 1
+    lua.execute("mesh_loaded = true; queued_marker.name = 'ModJunonBoardMeshLoaded_' .. queued_marker.original")
+    g.run_tick()
+    g.run_tick()
+    receipt = json.loads(g.receipt)
+    assert g.markers == 1 and receipt['mesh_request'] == 'loaded'
+    assert receipt['state'] == 'native_identity_registered_smoke_test'
 
 
 def test_a_queued_mesh_load_the_helper_deferred_is_asked_again():

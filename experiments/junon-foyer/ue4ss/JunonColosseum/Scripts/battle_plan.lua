@@ -149,6 +149,11 @@ end
 -- crashed the game in its async loader, on a worker thread (EXCEPTION_ACCESS_VIOLATION
 -- writing 0x39 at ff7rebirth_.exe+0x872ceb), on about one load in five into the
 -- foyer. So a new world waits SETTLE seconds before the first request.
+-- Tried at 5 s on 2026-11-14 and put back: two of three loads into the foyer
+-- crashed (EXCEPTION_ACCESS_VIOLATION in UE4SS.dll, the signature of issue
+-- #220), both while this file was scanning streaming levels about 5 s into the
+-- new world, where the floor used to keep it quiet. The board's own delay is
+-- dealt with in foyer.lua instead: it no longer waits for these levels.
 M.SETTLE=12
 local settle_until=0
 -- 8 s alone was not enough (crash on the fourth level, 2026-11-10 13:19): the save's
@@ -161,6 +166,35 @@ local settle_until=0
 M.QUIET=6
 M.STUCK=20
 M.MAX_SETTLE=60
+-- Since 2026-11-14 the helper publishes what the engine's package loader is
+-- doing (junon-loader.txt beside the mod's files, rewritten every 200 ms).
+-- That is the thing SETTLE and the quiet sweep were guessing at, so when the
+-- answer is there the wait is simply: nothing requested while the loader is
+-- working, and LOADER_IDLE seconds of quiet once it stops. An older helper
+-- writes no file and an unrecognised build writes verified=0; in both cases
+-- loader_idle() returns nil and the floor and the sweep above are used exactly
+-- as before.
+M.LOADER_IDLE=2
+M.LOADER_STALE=5
+M.loader_state=nil
+local loader_idle_since=nil
+local loader_paths=nil
+local function loader_idle()
+    if loader_paths==nil then
+        local ok,module=pcall(require,'paths')
+        loader_paths=(ok and type(module)=='table' and module) or false
+    end
+    if not loader_paths or not loader_paths.shared then return nil end
+    local file=io.open(loader_paths.shared('junon-loader.txt'),'rb')
+    if not file then return nil end
+    local line=file:read('*a') or ''
+    file:close()
+    local at=tonumber(line:match('at=(%-?%d+)') or '')
+    if not at or not line:match('verified=1') then M.loader_state=nil;return nil end
+    if math.abs(os.time()-at)>M.LOADER_STALE then M.loader_state='stale';return nil end
+    M.loader_state=line:gsub('[\r\n]',' ')
+    return line:match('busy=1')==nil
+end
 local quiet_since,next_quiet_check,last_pending,settle_started=nil,0,nil,0
 -- One scan: FindAllOf('LevelStreaming') includes its subclasses (live: 1456 = 1261
 -- Dynamic + 195 AlwaysLoaded), and each scan costs about 155 ms of game thread.
@@ -248,7 +282,7 @@ function M.update(pawn,wanted,battle,world)
         forget_queued()
         streams,active,failed,err,state,world_id,borrowed={}, {}, false,'','not_requested',id,{}
         stale,waiting_since,retried,fresh={}, {}, {}, {}
-        settle_until=os.time()+M.SETTLE
+        settle_until=os.time()+M.SETTLE;loader_idle_since=nil
         quiet_since,next_quiet_check,last_pending,settle_started,stable_since=nil,0,nil,os.time(),nil
     end
     if not wanted then
@@ -269,12 +303,25 @@ function M.update(pawn,wanted,battle,world)
             forget_queued()
             streams,active,state,borrowed={}, {}, 'not_requested',{}
             waiting_since,retried,fresh={}, {}, {}
-            settle_until=os.time()+M.SETTLE
+            settle_until=os.time()+M.SETTLE;loader_idle_since=nil
             quiet_since,next_quiet_check,last_pending,settle_started,stable_since=nil,0,nil,os.time(),nil
             break
         end
     end
-    if streams[1]==nil and (os.time()<settle_until or (M.QUIET>0 and not world_quiet())) then return false,'settling_after_load '..tostring(M.pending or '') end
+    if streams[1]==nil then
+        local idle=loader_idle()
+        if idle==nil then
+            if os.time()<settle_until or (M.QUIET>0 and not world_quiet()) then
+                return false,'settling_after_load '..tostring(M.pending or '')
+            end
+        elseif not idle then
+            loader_idle_since=nil
+            return false,'waiting_for_package_loader'
+        else
+            loader_idle_since=loader_idle_since or os.time()
+            if os.time()-loader_idle_since<M.LOADER_IDLE then return false,'package_loader_settling' end
+        end
+    end
     for i,level in ipairs(LEVELS) do
         if streams[i]==nil then
             local ok,result,why
