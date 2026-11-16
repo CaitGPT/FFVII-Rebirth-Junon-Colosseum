@@ -32,15 +32,20 @@ WHAT IT ADDS
 REQUIREMENTS
 - FINAL FANTASY VII REBIRTH for PC, game version 1.005 (the current version
   on Steam and the Epic Games Store). We tested on the Epic Games Store
-  version; the Steam version of 1.005 has not been tested yet. If the mod's
+  version; a player reports it works on the Steam version. If the mod's
   helper does not recognise your game's code, it turns itself off instead
   of guessing: the game runs normally, but courses will not start.
   Junon Colosseum 1.0.0 was built on the January 2025 version.
 - RE-UE4SS FF7R from Nexus Mods (mod 267), installed so that
   End\Binaries\Win64\ue4ss\UE4SS.dll exists. On game version 1.005, UE4SS
-  3.0.1 needs a fix to run: either the optional 1.005 file on mod 267's
-  Files tab, or the two UE4SS settings files we tested with
-  (JunonColosseum-{VERSION}-UE4SS-1.005-settings.zip, beside this download).
+  3.0.1 needs a fix to run: our UE4SS 1.005 Fix (Nexus Mods, mod 2521), or
+  the two UE4SS settings files we tested with
+  (JunonColosseum-1.1.0-UE4SS-1.005-settings.zip, beside this download).
+  If you use the optional 1.005 file on mod 267's Files tab instead, open
+  End\Binaries\Win64\ue4ss\VTableLayout.ini and, in the [UObject] section,
+  move the line unk_FF7R_1005_ExtraVirtual to directly below FinishDestroy.
+  Without that change the noticeboard has no Check point, and the mod says
+  so in a window (code JC-UE4SS).
 - A save in Chapter 12 or later. The colosseum stays closed in earlier
   chapters, including chapter replays.
 

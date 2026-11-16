@@ -501,7 +501,30 @@ namespace
     {
         using namespace RC::Unreal;
         auto flags=ERenameFlags(REN_ForceNoResetLoaders | REN_NonTransactional | REN_DontCreateRedirectors);
-        return object->Rename(name.c_str(),nullptr,flags);
+        // UE4SS calls Rename through the slot VTableLayout.ini gives it. The 1.005
+        // UE4SS build on RE-UE4SS FF7R's Files tab puts 1.005's extra UObject virtual
+        // just before ProcessEvent instead of before Serialize, so Rename lands one
+        // slot early: the call returns, the name never changes, and every request
+        // looked refused (Steam player and Epic repro, 2026-11-15). Trust the name,
+        // not the return value, and say what to change. Only "succeeded, but the
+        // name is unchanged" is that fault (both live cases returned true); an
+        // honest false, such as a name clash, stays a plain refusal.
+        const bool returned=object->Rename(name.c_str(),nullptr,flags);
+        const bool renamed=returned && object->GetName()==name;
+        static std::atomic<bool> told{false};
+        if(returned && !renamed && !told.exchange(true))
+            Fault("JC-UE4SS",
+                  "UE4SS's Rename did not rename the object; VTableLayout.ini puts 1.005's extra UObject "
+                  "entry in the wrong place (move unk_FF7R_1005_ExtraVirtual to just below FinishDestroy).",
+                  L"Your UE4SS settings call the wrong engine function for one thing this mod needs. This "
+                  L"happens with the 1.005 UE4SS build from RE-UE4SS FF7R's Files tab, whose VTableLayout.ini "
+                  L"puts version 1.005's extra engine function in a different place. Most mods never use the "
+                  L"functions that affects; this one does.\n\n"
+                  L"To fix it, close the game, open End\\Binaries\\Win64\\ue4ss\\VTableLayout.ini in a text "
+                  L"editor, and in the [UObject] section move the line unk_FF7R_1005_ExtraVirtual to directly "
+                  L"below the line FinishDestroy. Or use our UE4SS 1.005 Fix (Nexus Mods, Rebirth mod 2521) "
+                  L"with the stock UE4SS instead.");
+        return renamed;
     }
     // A request marker: a StaticMeshActor whose name starts with prefix and
     // that carries exactly one tag (returned).

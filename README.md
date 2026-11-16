@@ -35,12 +35,16 @@ Videos: [the mod](https://www.youtube.com/watch?v=a3EVJoSZH5w) and [how we built
 ## Requirements
 
 - FINAL FANTASY VII REBIRTH for PC, game version **1.005** (the current version on Steam and the Epic Games Store).
-  We tested 1.1.0 on the Epic Games Store version; the Steam version of 1.005 is not tested yet. Junon Colosseum
+  We tested on the Epic Games Store version; a player reports it works on the Steam version. Junon Colosseum
   1.0.0 was built on the January 2025 version.
 - [RE-UE4SS FF7R](https://www.nexusmods.com/finalfantasy7rebirth/mods/267) (UE4SS 3.0.1). On 1.005 it needs a fix to
-  run: the optional 1.005 file on its Files tab, or the two settings changes we tested with
-  (`JunonColosseum-1.1.0-UE4SS-1.005-settings.zip` on the release page; the same files are in
-  [`experiments/junon-foyer/ue4ss-1.005`](experiments/junon-foyer/ue4ss-1.005)).
+  run: our [UE4SS 1.005 Fix](https://www.nexusmods.com/finalfantasy7rebirth/mods/2521), or the two settings changes
+  we tested with (`JunonColosseum-1.1.0-UE4SS-1.005-settings.zip` on the release page; the same files are in
+  [`experiments/junon-foyer/ue4ss-1.005`](experiments/junon-foyer/ue4ss-1.005)). If you use the optional 1.005 file
+  on RE-UE4SS FF7R's Files tab instead, move the line `unk_FF7R_1005_ExtraVirtual` in `ue4ss\VTableLayout.ini`'s
+  `[UObject]` section to directly below `FinishDestroy`. That file puts 1.005's extra engine function in a different
+  place, which leaves the function the helper uses to answer its requests one slot out, so the noticeboard gets no
+  Check point; since 1.2.1 the helper says so (code JC-UE4SS).
 - The mod includes a small native helper built for that loader. It checks the game code it relies on before acting
   and switches itself off if it does not recognise that code: the game runs normally, but courses won't start.
 - A save in **Chapter 12 or later**, past the Roche fight in Chapter 11. The colosseum stays closed in earlier

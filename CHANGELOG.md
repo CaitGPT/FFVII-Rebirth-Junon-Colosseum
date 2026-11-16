@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.1: a clear message for the other 1.005 UE4SS settings
+
+- With the 1.005 UE4SS build from RE-UE4SS FF7R's Files tab, the noticeboard appeared but had no Check point, so
+  courses could not start. That build's `VTableLayout.ini` puts version 1.005's extra engine function in a different
+  place from where we found it. Most mods never use the functions that affects, but one of them is how the mod's
+  helper answers its requests to load the arena. The helper now notices when that happens and says what to change,
+  in a window in the game and in UE4SS.log (code JC-UE4SS): in `VTableLayout.ini`'s `[UObject]` section, move the
+  line `unk_FF7R_1005_ExtraVirtual` to directly below `FinishDestroy`, or use our
+  [UE4SS 1.005 Fix](https://www.nexusmods.com/finalfantasy7rebirth/mods/2521) with the stock UE4SS. A player on the
+  Steam version of 1.005 reports the mod works after that change; we reproduced the fault and the fix on the Epic
+  Games Store version.
+
 ## 1.2.0: game versions we have not seen, and a noticeboard that is there when you arrive
 
 - **Game versions we have not seen.** The mod's helper needs to find certain code in the game. It used to carry
