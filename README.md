@@ -187,6 +187,10 @@ offline: `python -m pip install pytest lupa`, then `python -m pytest -q tests` i
 - CityHash (Google, MIT), in our data-table builder
 - The Rebirth modding community
 
+## Requests
+
+We take requests: changes to this mod, or ideas for new Rebirth mods. Open an issue here, or post on the [Nexus page](https://www.nexusmods.com/finalfantasy7rebirth/mods/2511?tab=posts).
+
 ## Licence
 
 The source code is MIT licensed ([LICENSE](LICENSE)). The repository contains no game files. The build reads the
